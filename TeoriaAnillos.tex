@@ -4,6 +4,7 @@
 \usepackage[spanish]{babel}  
 \usepackage{indentfirst} %%%%%%%%%%%%%%%%Crear un indent al principio
 \usepackage[latin1]{inputenc}%%%%%%%%%%%%ñ y acentos
+\usepackage{makeidx}
 \usepackage{amstext}%%%%%%%%
 \usepackage{amsfonts}%%%%%%%
 \usepackage{amssymb}%%%%%%%% AMSLaTeX
@@ -92,6 +93,7 @@
 \DeclareMathOperator{\Aut}{Aut} %%%% Automorfismos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\makeindex
 
 %%%%%%%%%%%%%%%%%
 \title{Teoría de Anillos}
@@ -4555,7 +4557,16 @@ pertenece a ese ideal.
 
 \end{itemize}
 
+\newpage
 
+\printindex
+
+\nocite{*}
+
+\newpage
+
+\bibliographystyle{plain}
+\bibliography{Anillos.bib}
 
 \end{document}
 
