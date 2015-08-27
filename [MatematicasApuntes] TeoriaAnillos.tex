@@ -1,0 +1,4562 @@
+\documentclass[a4paper, 12pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%Paquetes
+\usepackage[spanish]{babel}  
+\usepackage{indentfirst} %%%%%%%%%%%%%%%%Crear un indent al principio
+\usepackage[latin1]{inputenc}%%%%%%%%%%%%ñ y acentos
+\usepackage{amstext}%%%%%%%%
+\usepackage{amsfonts}%%%%%%%
+\usepackage{amssymb}%%%%%%%% AMSLaTeX
+\usepackage{amscd}%%%%%%%%%%
+\usepackage{amsmath}%%%%%%%%
+\usepackage{enumerate}%%%%%%%%%%%%%%%%Mejoras del entorno enumerate
+\usepackage[all]{xy}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage[mathcal]{eucal}%%%%%%%Caligrafica matematica
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{tcolorbox}
+\usepackage{setspace}
+\onehalfspacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%Teoremas
+\newtheorem{teo}{Teorema}[section]%%%%%%%%% Teorema
+\newtheorem{defi}{Definición}[section]%%%%%%%% Definicion
+\newtheorem{lema}[teo]{Lema}%%%%%%%%%%%%% Lema
+\newtheorem{propo}[teo]{Proposición}%%%%%%%% Proposicion
+\newtheorem{cor}[teo]{Corolario}%%%%%%%%%%%Corolario
+\newtheorem{pro1}{}[section]%%%%%%%%%Problema
+\newenvironment{pro}{\begin{pro1} \rm\footnotesize} {\end{pro1}}
+\newtheorem{*pro1}[pro1]{* Problema}%%%%%%%%%%Problema complicado
+\newenvironment{*pro}{\begin{*pro1} \rm} {\end{*pro1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%Comandos
+\newcommand{\dem}{\noindent\textbf{Demostración. }\vspace{0.3 cm}}%%Demostracion
+\newcommand{\R}{\mathbb{R}}%%%%%%%%%%%%Numeros reales
+\newcommand{\F}{\mathbb{F}}%%%%%%%%%%%%Cuerpo
+\newcommand{\C}{\mathbb{C}}%%%%%%%%%%%%Numeros complejos
+\newcommand{\Q}{\mathbb{Q}}%%%%%%%%%%%%Numeros racionales
+\newcommand{\N}{\mathbb{N}}%%%%%%%%%%%%Numeros naturales
+\newcommand{\Z}{\mathbb{Z}}%%%%%%%%%%%%Numeros enteros
+\newcommand{\g}{\mathfrak{g}}%%%%%%%%%%%%Algebra de Lie del grupo G
+\newcommand{\V}{\mathcal{V}}%%%%%%%%%%%%Variedad
+\newcommand{\W}{\mathcal{W}}%%%%%%%%%%%%Variedad
+\newcommand{\h}{\mathcal{H}}%%%%%%%%%%%%Algebra de Lie del grupo H
+\newcommand{\fin}{ $\Box $ \vspace{0.4 cm}}
+\newcommand{\p}{\mathfrak{p}}%%%%%%%% Ideal primo
+\newcommand{\m}{\mathfrak{m}}%%%%%%%% Ideal maximal
+\newcommand{\limind}{\lim_{\longrightarrow} } 
+\newcommand{\gp}{\mathcal{G'}}%%%%%%%%%%%Algebra del grupo G'
+\newcommand{\lto}{\longrightarrow}%%%%%%Simplificacion de la flecha larga
+\newcommand{\wa}{\omega_2} %%%%%%%%%%%forma simplectica
+\newcommand{\Wa}{\Omega_2} %%%%%%%%%% forma simplectica lineal
+\newcommand{\lag}{\lambda_g}%%%%%%%%%%%%Traslacion a la izquierda
+\newcommand{\rg}{\rho_g}%%%%%%%%%%%%%%%%Traslacion a la derecha
+\newcommand{\Gr}{\boldsymbol{G}}%%%%%%%%%%Recubridor universal
+\newcommand{\norma}[1]{\: \parallel #1 \!\parallel\! }%%%Norma de un vector
+\newcommand{\abs}[1]{\left|\, #1 \right|}  %%%Valor absoluto 
+\newcommand{\Pro}{\mathbb{P}}%%%%%%Espacio proyectivo
+\newcommand{\Problemas}{\begin{center}{\Huge Problemas}\end{center}}
+\newcommand{\Observacion}{\vspace{0.5 cm} {\bf Observación}\vspace{0.2cm}}
+\renewcommand{\to}{\lto}
+\newcommand{\escalar}[2]{\left\langle\, #1,#2\, \right\rangle}  %%%Producto escalar 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%Operadores
+\DeclareMathOperator{\End}{End}%%%%%%%%%%Endomorfismo
+\DeclareMathOperator{\Ad}{Ad}%%%%%%%%%%Adjunta
+\DeclareMathOperator{\grad}{grad}%%%%%%%%%%Graciente
+\DeclareMathOperator{\Dif}{Dif}%%%%%%%%%%Diferenciales
+\DeclareMathOperator{\sop}{sop}%%%%%%%%%Soporte
+\DeclareMathOperator{\distancia}{d}%%%%%%%%Distancia
+\DeclareMathOperator{\sen}{sen}%%%%%%%%%%Seno español
+\DeclareMathOperator{\Der}{Der}%%%%%%%%%%Derivaciones
+\DeclareMathOperator{\rang}{rang}%%%%%%%%Rango
+\DeclareMathOperator{\Hom}{Hom}%%%%%%Homomorfismos
+\DeclareMathOperator{\Ann}{Ann}%%%%%%%Anulador
+\DeclareMathOperator{\Img}{Im} %%%%Parte imaginaria
+\DeclareMathOperator{\rad}{rad}%%%%%%%%Radical
+\DeclareMathOperator{\Ker}{Ker}%%%%%%%Nucleo
+\DeclareMathOperator{\Id}{Id}%%%%%%% Identidad
+\DeclareMathOperator{\GL}{GL}%%%%%%%%%Grupo lineal
+\DeclareMathOperator{\Apli}{Apli}%%%%%%Aplicaciones
+\DeclareMathOperator{\Bil}{Bil}%%%%%Bilineales
+\DeclareMathOperator{\Spec}{Spec}%%%%Espectro
+\DeclareMathOperator{\Ob}{Ob}  %%% Objetos de una categoría
+\DeclareMathOperator{\Aut}{Aut} %%%% Automorfismos
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%
+\title{Teoría de Anillos}
+\author{José Luis Tábara}
+\date{jltabara@gmail.com}
+%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]
+
+\vspace{-1cm}
+\maketitle
+
+\end{tcolorbox}
+
+\thispagestyle{empty}
+
+\tableofcontents
+
+\newpage
+
+
+
+
+\section{Definiciones básicas}
+
+\setcounter{page}{1}
+\thispagestyle{empty}
+
+
+
+
+
+\begin{defi}
+
+Un {\sf anillo} \index{anillo} $A$ es un conjunto dotado de dos operaciones, llamadas {\sf suma} \index{suma} $(+)$ y {\sf producto} \index{producto} $(\cdot)$ que cumplen:
+
+\begin{itemize} 
+
+\item  $(A,+)$ es un grupo abeliano.
+
+\item  El producto es asociativo: $a \cdot (b \cdot c)= (a\cdot b)\cdot c$ para todo $a,b,c$ de~$A$.
+
+
+\item  El producto es distributivo respecto a la suma
+$$
+(a+b) \cdot c=a \cdot c + b \cdot c \quad \text{y } \quad a \cdot (b+c) = a \cdot b +a \cdot c
+$$ 
+\end{itemize}
+
+\end{defi}
+
+
+En principio un anillo debería ser denotado por $(A,+,\cdot)$ para hacer clara referencia a las operaciones.  Sin embargo nosotros seguiremos el convenio habitual y lo denotaremos simplemente por $A$.
+
+Si el producto es conmutativo, el anillo se llama {\sf conmutativo}.\index{anillo!conmutativo}  En el caso en que la operación producto tenga elemento neutro, el anillo se dirá que es un {\sf anillo con unidad}. \index{anillo!con unidad}  La unidad del anillo se denotará siempre por $1$ y cumple
+$$
+a \cdot 1 = 1 \cdot a = a
+$$
+
+El elemento neutro para la suma se denota por $0$ y el opuesto de $a$ para esta operación es $-a$.  También es costumbre denotar el producto por la yuxtaposición y suprimir el punto.  Así $ab$ significa el producto de $a$ por $b$ en el orden indicado. 
+
+ 
+En todo grupo abeliano $(G,+)$ se puede introducir una estructura de anillo definiendo $ab=0$ para todos los elementos de $G$.  Decimos en este caso que es un {\sf anillo trivial}. \index{anillo!trivial}  Nosotros siempre supondremos que los anillos no son triviales.
+En el caso en que el grupo este formado por solo un elemento diremos que el anillo es el {\sf anillo cero} \index{anillo!cero} y se suele denotar por $0$.  Este es el único anillo trivial que consideraremos.
+
+
+
+\begin{propo}\label{propo:cero}
+
+Dado un anillo $A$, se cumple:
+
+\begin{itemize}
+
+\item  $(a-b)c= ac - bc \quad \text{ y } \quad a(b-c) = ab -ac$
+
+\item $0a=a0=0$
+
+\item  $(-a)b= a(-b) = -(ab)$
+
+\item $(-a)(-b)= ab$
+
+\item $(-1)a=-a$
+
+\end{itemize}
+
+\end{propo}
+
+
+
+\dem
+
+Demostraremos la primera afirmación y dejamos el resto para el lector, que debe utilizar razonamientos similares. Aplicando los axiomas 
+$$
+(a-b)c+bc=((a-b)+b)c=ac
+$$
+ Sumamos a cada miembro $-bc$ y conseguimos pasar $bc$ al otro lado de la igualdad con el signo contrario.  \fin
+
+\begin{cor}
+
+Un anillo $A$ con más de un elemento no es trivial si $1\neq 0$.
+
+\end{cor}
+
+Si $n$ es un entero positivo  $na$ es la suma de $n$ veces el elemento $a$
+ $$
+na = \stackrel{n)}{a+ \dots+a}
+$$
+  Si $n$ es negativo entonces definimos 
+  $$
+na = \stackrel{-n)}{-a- \dots-a}
+$$
+
+\begin{propo}
+
+Si $m,n \in \Z$ y $a,b \in A$ se cumple:
+
+\begin{itemize}
+
+\item $(m+n)\:a=ma+na$.
+
+\item $(mn)\: a=m(na)=n(ma)$.
+
+\item $m(a+b)=ma+mb$.
+
+\item $1a=a$.
+
+\end{itemize}
+
+\end{propo}
+
+\dem
+
+Al lector. \fin
+
+\noindent{\bf Observación.}  Estas propiedades demuestran que todo anillo tiene una estructura natural de {\sf módulo} \index{módulo} sobre anillo de los enteros. \fin
+
+\bigskip
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item $\Z$ con la suma  y el producto habitual es un anillo conmutativo y con unidad.  Asimismo $\Q,\R, \C$ son anillos.
+
+\item Si $n$ es un número natural el conjunto $n\Z$ de los múltiplos de $n$ es un anillo conmutativo sin elemento unidad.
+
+\item  Sea $A$ un anillo y $X$ un conjunto cualquiera.  Consideramos el conjunto $\Apli (X,A)$ que está constituido por las aplicaciones $f:X \rightarrow A$.  Dadas dos funciones $f$ y $g$ de $X$ en $A$ definimos su suma y su producto por las fórmulas:
+\begin{eqnarray}\nonumber
+(f+g)(x)&=&f(x)+g(x) \\ \nonumber
+(f\cdot g) (x) &=& f(x) \cdot g(x) \nonumber
+\end{eqnarray}
+
+Con estas operaciones, $\Apli (X,A)$ es un anillo.  Si $A$ es conmutativo, también lo es este anillo, y si $A$ tiene unidad, la función que a todo elemento de $X$ le hace corresponder la unidad de $A$ es el elemento neutro de $\Apli (X,A)$.
+
+\item  Si $A$ es un anillo, el conjunto $M_2(A)$ de las matrices $2 \times 2$ con elementos en $A$ es un anillo con las operaciones matriciales:
+
+$$
+\begin{array}{ccc}
+\begin{pmatrix}
+a_1 & a_2 \\
+a_3 & a_4
+\end{pmatrix}
++ 
+\begin{pmatrix}
+b_1 & b_2 \\
+b_3 & b_4
+
+\end{pmatrix}
+&
+=
+
+&
+\begin{pmatrix}
+a_1+b_1 & a_2+b_2 \\
+a_3+b_3 &a_4 +b_4
+
+\end{pmatrix}
+\\
+& & \\
+\begin{pmatrix}
+a_1 & a_2 \\
+a_3 & a_4
+\end{pmatrix}
+\cdot 
+\begin{pmatrix}
+b_1 & b_2 \\
+b_3 & b_4
+
+\end{pmatrix}
+&=&
+\begin{pmatrix}
+a_1b_1+a_2b_3 & a_1b_2+a_2b_4 \\
+a_3b_1+a_4b_3 & a_3b_2+a_4b_4
+\end{pmatrix}
+\end{array}
+$$
+
+Si $A$ tiene unidad, este anillo tiene unidad, siendo ésta la matriz identidad
+$$
+\Id = 
+\begin{pmatrix}
+1 & 0 \\
+0 & 1
+\end{pmatrix}
+$$
+
+Pero aunque el anillo sea conmutativo, las matrices no forman un anillo conmutativo.  Puede comprobar el lector que las matrices
+$$
+\begin{pmatrix}
+0 & 0 \\
+a & 0
+\end{pmatrix}
+\quad \text{y }\quad 
+\begin{pmatrix}
+0 & b \\
+0 & 0
+\end{pmatrix}
+$$
+no conmutan en general, siendo $a$ y $b$ elementos del anillo $A$. Este ejemplo se puede generalizar para matrices cuadradas de orden $n$.
+
+\item Si $G$ es un grupo abeliano, el conjunto de sus endomorfismos es un anillo.  La suma, es la suma como aplicaciones y el producto la composición de aplicaciones.  La unidad es el endomorfismo identidad y en general el anillo no será conmutativo.
+
+\item  Si $E$ es un espacio vectorial, el conjunto de las aplicaciones lineales de $E$ en $E$ es un anillo, que denotamos $\End (E)$.
+
+\item  Si $A$ y $B$ son anillos, introducimos en el producto cartesiano $A \times B$ las operaciones:
+\begin{eqnarray*}
+(a,b)+(a',b') & = &(a+a',b+b') \\
+(a,b)\cdot (a',b') & = & (aa',bb')
+\end{eqnarray*}
+$A \times B$ es un anillo, llamado {\sf producto directo} \index{producto directo de anillos} de los anillos $A$ y $B$.
+
+\item  Sea $\Z(i)$ el conjunto de números complejos cuya parte real e imaginaria son números enteros:
+$$
+\Z(i)=\{a+ib \text{ con } a,b \in \Z \}
+$$
+Si en $\Z(i)$ consideramos las operaciones habituales como números complejos, tendremos un anillo conmutativo y con unidad denominado anillo de los {\sf enteros de Gauss}. \index{enteros de Gauss}
+
+\item  Si $X$ es un espacio topólogico, el conjunto $C(X,\R)$ de las funciones continuas de $X$ en $\R$ es un anillo con la suma y el producto funcional.  Para probarlo debemos recordar que la suma y el producto de dos funciones continuas es continua.
+
+
+
+\end{itemize}
+
+En general y salvo que se diga lo contrario, siempre supondremos que los anillos son conmutativos y tienen unidad.
+
+\begin{defi}
+
+Sea $A$ un anillo con unidad.  Decimos que un elemento \mbox{$a \in A$} es una {\sf unidad} \index{unidad} si existe otro elemento $b$ tal que $ab=ba=1$.  El conjunto de unidades de $A$ se denota $U(A)$.
+
+\end{defi}
+
+Si el anillo es conmutativo, basta imponer solo la condición $ab=1$.  El elemento $b$, que se demuestra fácilmente que es único (problema \ref{pro:inverso}), se denota por $a^{-1}$ y se dice que es el {\sf inverso} \index{inverso de un elemento} de $a$.   Como sabemos por la proposición \ref{propo:cero}   el cero nunca es invertible.
+
+\begin{propo}
+
+Las unidades de un anillo forman un grupo respecto a la multiplicación.
+
+\end{propo}
+
+\dem
+
+$1 \in U(A)$ de modo evidente. Si $a$ y $b$ son invertibles, su producto también admite inverso.  El inverso de $ab$ es $b^{-1}a^{-1}$. 
+Si $a$ es invertible, $a^{-1}$ también lo es, siendo su inverso el mismo $a$. \fin
+
+\bigskip
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item  Las unidades de $\Z$ son  $\{1,-1\}$.
+
+\item  En $\Q, \R, \C$ cualquier número no nulo es invertible.
+
+\item Las unidades de $\Z(i)$ son $\{1,-1,i,-i\}$.
+
+\item  Si 
+$M=\left(\begin{smallmatrix}
+a & b \\
+c & d
+\end{smallmatrix}\right)$
+es una matriz con coeficientes en $A$, definimos su determinante como el elemento de $A$
+$$
+\det(M)=ad-bc
+$$
+  Se demuestra, siguiendo el mismo esquema que en álgebra lineal, que la matriz $M$ es invertible si y solo si su determinante es una unidad de~$A$.
+
+\item  Las unidades de $C(X,\R)$ son las funciones que no son nunca nulas.  Esto es así debido a que $1/f$ es continua si $f$ nunca es nula.
+
+\end{itemize}
+
+Entre los anillos, existen unos muy especiales.  Son aquellos donde además del concepto de multiplicación, existe un concepto de división.
+Denotamos por $A^*$ al conjunto $A-\{0\}$ de los elementos  no nulos de $A$.
+
+\begin{defi}
+
+Un anillo $A$ donde todo elemento de $A^*$ es una unidad, se  llama {\sf anillo con división}. \index{anillo!con división}  Si  el anillo con división es conmutativo se denomina {\sf cuerpo}. \index{cuerpo}
+
+\end{defi}
+
+Hemos tenido que eliminar el $0$ de nuestra definición, puesto que nunca puede ser invertible, debido a que $ a \cdot 0=0$ para todo elemento $a$.
+
+\bigskip
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item $\Q, \R, \C$ son cuerpos.
+
+\item $\Q(i)$ es un cuerpo.  Esta formado por los números complejos cuya parte real e imaginaria son fracciones.
+
+\item  Sea $\Q(\sqrt{2})$ el conjunto de números reales que se pueden escribir en la forma $a+b\sqrt{2}$ donde $a$ y $b$ son racionales.  Este anillo es un cuerpo.  Lo puede probar el lector directamente, o remitirse al problema \ref{pro:raizdedos} para una demostración más elegante.
+
+\end{itemize}
+
+\begin{defi}
+
+Un elemento $a \in A$  es un {\sf divisor de cero} \index{divisor de cero} si existe otro elemento $b$ de tal modo $ab=0$.
+
+\end{defi}
+
+En propiedad, si el anillo no es conmutativo deberían diferenciarse divisores de cero por la derecha y por la izquierda.
+
+\begin{defi}
+
+Un anillo sin divisores de cero se denomina {\sf anillo íntegro}. \index{anillo!íntegro}
+
+\end{defi}
+
+En un anillo íntegro se pueden simplificar factores.  Si \mbox{$ab=ac$} y $a\neq 0$ entonces $b=c$.  Para demostralo escribimos $ab-ac=0$ y sacamos factor común,  $a(b-c)=0$ y como $a\neq 0$ concluimos que $b-c=0$.  Decimos que en un anillo se cumple la {\sf ley de cancelación} \index{ley de cancelación} si se pueden simplificar factores.
+
+\bigskip
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item  Todo cuerpo es un anillo íntegro.
+
+\item  $\Z$ es íntegro.
+
+\item  En general todo anillo que esté contenido en $\C$ es íntegro.
+
+\item  $M_2(A)$ no es íntegro.  Por ejemplo 
+$$
+\begin{pmatrix}
+0 & 0 \\
+0 & 1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+1 & 0 \\
+0 & 0
+\end{pmatrix}
+= 
+\begin{pmatrix}
+0 & 0 \\
+0& 0
+\end{pmatrix}
+$$
+
+\item  El producto directo de dos anillos no nulos nunca es íntegro.
+
+\item  El anillo $C(\R,\R)$ no es íntegro.  Sea $f$ una función que se anula para $x \geq 0$ y $g$ una función que se anula para $x \leq 0$.  Su producto se anula en todo $\R$.
+
+\end{itemize}
+
+\begin{propo}
+
+Todo anillo  íntegro y finito es un anillo con división.
+
+\end{propo}
+
+
+
+\dem
+
+Sea $A$ íntegro y finito.  Consideremos un elemento cualquiera $a \in A$. Tenemos la aplicación
+$$
+\begin{array}{cccc}
+\lambda_a& :A& \lto& A \\
+&b & \lto & ab
+\end{array}
+$$
+La ley de cancelación prueba que $\lambda_a$ es inyectiva.  Como el conjunto es finito, también es epiyectiva.  Así $1$ pertenece a la imagen de $\lambda_a$ y entonces existe un elemento $b$ tal que $ab=1$. \fin
+
+Existe un resultado, llamado \index{Teorema!de Wedderburn}{\sf teorema de Wedderburn}, que afirma incluso más:  Todo anillo con división con un número finito de elementos es necesariamente conmutativo.  Por lo tanto todo anillo íntegro y finito es un cuerpo.  Este teorema no lo demostraremos en estas notas.
+
+
+\begin{defi}
+
+Si $A$ es un anillo, un subconjunto $B$ es un {\sf subanillo} \index{subanillo} si con las operaciones inducidas $B$ posee estructura de anillo.  Si $1 \in B$ diremos que $B$ es un {\sf subanillo con unidad}. \index{subanillo!con unidad}
+
+\end{defi}
+
+Naturalmente todo subanillo es un anillo con las operaciones inducidas.
+
+\begin{propo}\label{propo:subanillo}
+
+Un subconjunto $B \subset A$ es un subanillo si y solo si $a,b \in B$ implica que $a-b \in B$ y $ab \in B$.
+
+\end{propo}
+
+\dem
+
+Si $a-b \in B$ entonces $B$ es un subgrupo aditivo.  Si $ab$ también pertenece, la operación producto es cerrada y cumple las propiedades asociativa y distributiva,  puesto que se cumplen para todos los elementos de $A$. \fin
+
+Los subanillos pueden contener o no a la unidad.  También puede ocurrir que un subanillo de un anillo no conmutativo, sea conmutativo.
+
+\bigskip
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+
+\item  En todo anillo $A$, el conjunto $A$ y el $0$ son subanillos,  llamados {\sf subanillos triviales}.  \index{subanillo!trivial}  Los demás subanillos se llaman {\sf propios}. \index{subanillo!propio}
+
+\item  $\Z $ es subanillo de $\Q$, de $\R$ y de $\C$.
+
+\item  Si $X$ es un espacio topológico, el conjunto $C(X,\R)$ de aplicaciones continuas es un subanillo del conjunto $\Apli (X,\R)$ de todas las funciones de $X$ en $\R$.
+
+\item  Los múltiplos $n\Z$ de un entero $n$ forman un subanillo sin unidad de~$\Z$.
+
+\item  Sea $A$ un anillo, posiblemente no conmutativo.  Llamamos {\sf centro} \index{centro de un anillo} de $A$ y denotamos por $\mathrm{Centro}(A)$ al conjunto de elementos de $A$ que conmutan con todos los elementos del anillo:
+$$
+\mathrm{Centro} (A) =\{a \in A \text{ tales que } ar=ra \text{ para todo } r \in A\}
+$$
+El centro de un anillo es un subanillo. Además siempre es conmutativo.
+
+\end{itemize}
+
+\begin{propo}
+
+La intersección de subanillos es un subanillo.
+
+\end{propo}
+
+\dem
+
+Sea $B_i$ donde $ i \in I$ una colección, posiblemente infinita, de subanillos de~$A$.   Si $a, b \in \bigcap_{\: i \in I} B_i$ entonces $a$ y $b$ pertenecen a $B_i$ para todo $i$. Como los conjuntos dados son subanillos tenemos que $a-b \in B_i$ y $ab \in B_i$ para todo~$i$.  Tanto la suma como el producto de elementos de la intersección siguen perteneciendo a la intersección.  Concluimos que $\bigcap_{\: i \in I} B_i$ es un subanillo.  Si todos los subanillos tienen unidad, su intersección también.
+\fin
+
+\begin{defi}
+
+Sea $S$ un subconjunto de $A$.  A la intersección de todos los subanillos que contienen a $S$ se le llama {\sf subanillo generado} \index{subanillo!generado por $S$} por el subconjunto~$S$.
+
+\end{defi}
+
+Para el estudio de los subanillos generados nos remitimos al capítulo \ref{cha:polinomios}  que trata sobre polinomios.
+
+\bigskip
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item $\Z$ es un subanillo de $\Q$, de $\R$ y de $\C$.
+
+\item  El conjunto $n\Z$ de los múltiplos de $n$ es un subanillo de $ \Z$ que no tiene unidad.
+
+\item La intersección de los subanillos $2\Z$ y $3\Z$ es precisamente $6\Z$, pues un número es múltiplo de $2$ y de $3$ precisamente cuando es múltiplo de $6$. En general $n\Z\cap m\Z= d \Z$, siendo $d$ el mínimo común múltiplo de $n$ y $m$.
+
+\item En el conjunto de matrices cuadradas de orden $n$ y con elementos en un anillo $A$, el conjunto de las matrices diagonales es un subanillo.  Del mismo modo, el conjunto de matrices triangulares superiores es otro subanillo.
+
+\item El menor subanillo de $\C$ que contiene tanto a $\Z$ como a $i$ es justamente el anillo $\Z(i)$.
+
+\item Los subanillos de $\Z$ son precisamente los conjuntos de la forma $n\Z$.  Sabemos por teoría de grupos que estos son los únicos subgrupos y es fácil comprobar que también son subanillos.
+
+\end{itemize}
+
+
+
+\begin{defi}
+
+Sean $A$ y $A'$ dos anillos.  Una aplicación $\varphi : A \rightarrow A'$
+es un {\sf morfismo de anillos} \index{morfismo!de anillos} si cumple:
+
+\begin{itemize}
+
+\item $\varphi(a+b) = \varphi (a) + \varphi (b)$
+
+\item $\varphi (ab) = \varphi (a) \cdot \varphi (b)$
+
+\end{itemize}
+
+Si además se cumple:
+
+\begin{itemize}
+
+\item $\varphi(1) =1$
+
+\end{itemize}
+diremos que es un {\sf morfismo de anillos con unidad}. \index{morfismo! de anillos con unidad}  
+
+\end{defi}
+
+De ahora en adelante cuando utilicemos la palabra {\sf morfismo}, \index{morfismo} entenderemos que es un morfismo de anillos con unidad.
+
+Como un morfismo es también morfismo de grupos se cumple $\varphi (0)=0$ y $\varphi (-a) = -\varphi(a)$.  Además $\varphi$ será inyectivo si y solo si su núcleo es nulo.
+
+\begin{propo}
+
+La composición de morfismos es morfismo.  Si $\varphi: A \rightarrow A'$ es un morfismo biyectivo, entonces  $\varphi^{-1}:A' \rightarrow A$ es también morfismo.
+
+\end{propo}
+
+\dem
+
+Sean $\varphi :A \rightarrow A'$ y $\varphi :A' \rightarrow A''$ morfismos.  Entonces 
+\begin{equation}\nonumber
+\begin{split}
+(\varphi'\varphi)(a+b)=\varphi'(\varphi(a+b))= \varphi'(\varphi(a)+\varphi(b))= \\ \nonumber
+\varphi'(\varphi(a))+\varphi'(\varphi(b))=(\varphi'\varphi)(a)+(\varphi'\varphi)(b)
+\end{split}
+\end{equation}
+Análogamente con las otras propiedades.
+
+Para demostrar la segunda afirmación utilizamos que $\varphi$ es un morfismo de grupos biyectivo y por lo tanto $\varphi^{-1}$ es morfismo de grupos.  Del mismo modo se prueba que conserva el producto y la unidad. \fin
+
+
+
+
+
+
+\begin{defi}
+
+Un {\sf isomorfismo} \index{isomorfismo} $\varphi:A\rightarrow A'$ es un morfismo biyectivo.  Si $A=A'$ los isomorfismos se denominan {\sf automorfismos} \index{automorfismo} del anillo $A$.  Dos anillos entre los que exista un isomorfismo, se dirá que son {\sf isomorfos}. \index{anillo!isomorfo} El conjunto de todos los automorfismos del anillo se denotará $\Aut(A)$.
+
+\end{defi}
+
+
+\begin{cor}
+
+El conjunto de automorfismos de un anillo forma un grupo respecto a la composición.
+
+
+\end{cor}
+
+
+
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item  Sea $B$ un subanillo de $A$.  La {\sf inyección canónica} \index{inyección canónica} $i:B \rightarrow A$ es morfismo.
+
+\item  Sea $X$ un conjunto y $x \in X$ un punto determinado de $X$.  A cada aplicación $f:X\rightarrow \R$ le hacemos corresponder el número real $f(x)$.  Tenemos así construido una aplicación $\varphi_x$ de $\Apli (X,\R)$ en $\R$. Resulta que $\varphi_x$ es un morfismo.
+
+\item  Consideremos el anillo de los enteros de Gauss $\Z(i)$.  La conjugación compleja 
+$$
+\begin{array}{cccc}
+\varphi &:\Z(i) &\lto &\Z(i)\\
+    &   a+ib & \lto &a-ib
+\end{array}
+$$
+ es un morfismo.
+ 
+ \item Un morfismo de anillos con unidad $ \varphi: A \rightarrow A'$ transforma elementos invertibles de un anillo en elementos invertibles del conjunto imagen (problema \ref{pro:unidades}).  De esta manera se induce un morfismo de grupos $\varphi:U(A) \rightarrow U(A')$ entre las unidades de los anillos.
+
+\item  Si $A$ es un anillo arbitrario, existe un único morfismo de $\Z$ en $A$.  Dicho morfismo se llama {\sf característica} \index{morfismo!característica} y se representa por \mbox{$ch:\Z \rightarrow A$}. Naturalmente debe de cumplir:
+$$
+ch(1)=1 \Rightarrow ch(n)=n\cdot1
+$$
+lo que prueba su unicidad.
+
+Como $ch$ es morfismo, en particular es morfismo de grupos.  Su núcleo será de la forma $n\Z$ donde $n$ es un número natural.  Al natural definido por la fórmula
+$$
+\Ker (ch)=n\Z
+$$
+se le denomina {\sf característica del anillo $A$}. \index{característica de un anillo}  Si $ch$ es inyectivo decimos que la característica del anillo es {\sf nula}. \index{característica!nula}
+
+\item  Sea $A=C(\R,\R)$ y sea $f$ una función.  La aplicación
+$$
+\begin{array}{cccc}
+\phi_f &  :A& \lto& A \\
+              &g & \lto & g f
+\end{array}
+$$
+es un morfismo de anillos.
+
+\end{itemize}
+
+\begin{propo}
+
+Sea $\varphi : A \lto A'$ un morfismo de anillos. Si $B \subset A$ es subanillo, entonces $\varphi (B)$ es subanillo.  Si $B' \subset A'$ es subanillo, $\varphi^{-1}(B')$ es subanillo.
+
+\end{propo}
+
+\dem
+
+Tenemos que $\varphi(a-b) = \varphi (a) - \varphi (b)$ y $\varphi(ab) =\varphi(a)\: \varphi(b)$ puesto que $\varphi$ es morfismo.  Si tanto $a$ como $b$ son elementos del subanillo $B$, concluimos por la proposición \ref{propo:subanillo} que $\varphi(B)$ es subanillo.  La  demostración del otro resultado es análoga. \fin
+
+
+\centerline{\sc Problemas}
+
+
+
+\begin{pro}
+
+Verificar si son anillos o no lo son los conjuntos que a continuación se indican.  Las operaciones son las habituales.  Indicar si son conmutativos y si tienen unidad.
+
+\begin{itemize}
+
+\item  Los enteros pares $2\Z$.
+
+\item  Los racionales positivos $\Q^+$.
+
+\item  El conjunto $\Z(\sqrt{-5})$ formado por los números complejos de la forma $a+b \sqrt{-5}$ donde $a$ y $b$ son números enteros.
+
+\item  El conjunto $C^\infty(\R,\R)$ de las funciones infinitamente diferenciables.
+
+\item El conjunto $\mathcal{P}(X)$ de las {\sf partes de un conjunto} \index{partes de un conjunto} $X$ donde la suma es la diferencia simétrica y el producto la intersección.  Recordemos que la diferencia simétrica de dos subconjuntos es $A\bigtriangleup B=(A-B)\cup (B-A)$.
+
+\end{itemize}
+
+\end{pro}
+
+
+\begin{pro}
+
+Definimos en $\Z$ una nueva suma y una nueva multiplicación  por las fórmulas
+$$
+a*b=a+b+1 \quad \quad \quad a \circ b = a+b+ab
+$$
+Demostrar que $\Z$ es un anillo con esas nuevas operaciones.
+
+\end{pro}
+
+
+\begin{pro}\label{pro:inverso}
+
+Demostrar la unicidad del elemento neutro para la multiplicación. Demostrar la unicidad del elemento inverso.
+
+\end{pro}
+
+\begin{pro} \index{ley distributiva} Utilizando inducción demostrar:
+
+\begin{itemize}
+
+\item $x (y_1+ \dots +y_n) = xy_1+ \dots + xy_n$
+
+\item La expresión anterior  puede escribirse
+$$
+x\bigg(\sum_{i=1}^{n} y_i\bigg) = \sum_{i=1}^n xy_i
+$$
+
+\end{itemize}
+Volviendo a utilizar inducción probar la ley distributiva para un número  arbitrario de sumandos.
+
+$$
+\bigg(\sum_{i=1}^nx_i\bigg)\bigg(\sum_{j=1}^m y_j\bigg) = \sum_{i=1}^n\sum_{j=1}^m  x_iy_j
+$$
+
+\end{pro}
+
+
+
+
+\begin{pro}
+
+Demostrar que en un anillo se cumplen las propiedades de las potencias ($n$ y $m$ son enteros positivos):
+$$
+(a^n)^m=a^{nm}, \quad a^na^m=a^{n+m},\quad (ab)^n= a^nb^n \text{ si } a, b \text{ conmutan }
+$$
+Si los elementos del anillos son invertibles probar las propiedades en el caso general ($n$ y $m$ enteros no necesariamente positivos).
+
+\end{pro}
+
+
+
+
+\begin{pro}
+
+Sea $p$ un número primo prefijado de antemano. Sea $A$ el subconjunto de $\Q$ formado por las fracciones que en su forma irreducible no tienen a $p$ como factor del denominador
+$$
+A=\{\frac{m}{n} \text{ tales que } p \text{ no divide a } n\}
+$$
+Probar que $A$ es un anillo.
+
+\end{pro}
+
+
+\begin{pro} Introduciremos en $\R^4$ una estructura de anillo.  La suma de dos elementos se realiza componente a componente. Para la multiplicación escribimos los elementos en la forma $a+bi+cj+dk$ y definimos
+$$
+(a+bi+cj+dk)(a'+b'i+c'j+d'k) =
+$$
+$$
+(aa'-bb'-cc'-dd')+(ab'+b'a+cd'-dc')i+
+$$
+$$
+(ac'+ca'+db'-bd')j+(ad'+da'+bc'-cb')k
+$$
+Esta multiplicación se puede realizar aplicando la bilinealidad del producto y teniendo en cuenta
+la siguientes propiedades:
+$$
+i^1=j^2=k^2=-1,  ij=k, jk=i,  ki=j,  ji=-ij,  kj=-jk,  ik=-ki
+$$
+
+\begin{itemize}
+
+\item  $\R^4$ junto con esta suma y este producto es un anillo no conmutativo y con unidad.  Este anillo se denota por $\mathbb{H}$ y sus elementos se llaman  \index{cuaterniones}{\sf cuaterniones}.
+
+\item Los cuaterniones tienen un subanillo isomorfo a $\R$ y otro subanillo isomorfo a~$\C$.
+
+\item  El subconjunto $\{1,-1,i,-i,j,-j,k,-k\}$ junto con el producto forma un grupo finito,  llamado {\sf grupo cuaternión}.  \index{grupo cuaternión}
+
+\item El {\sf conjugado} \index{conjugado de un cuaternión} del cuaternión $q=a+bi+cj+dk$ es 
+$\overline{q} = a -bi-cj-dk$. Operando obtenemos $q \overline{q}= a^2+b^2+c^2+d^2$.  Dicho número real
+ se llama {\sf norma} \index{norma de un  cuaternión} del cuaternión $q$ y es nula si y solo si 
+el cuaternión es nulo.
+
+\item Si $q \neq 0$ entonces es invertible y su inverso viene dado por la fórmula
+$$
+q^{-1}=\frac{1}{a^2+b^2+c^2+d^2}\:\overline{q}
+$$
+
+\item Se cumple la fórmula $\overline{q_1 \cdot q_2}=\overline{q_2} \cdot \overline{q_1}$ análoga a la propiedad
+que cumplen los números complejos.
+
+
+\end{itemize}
+
+\end{pro}
+
+
+
+\begin{pro} Sea $\xi $ la raiz $p$-ésima de la unidad ($\xi=e^{\frac{2\pi i}{p}}$). El conjunto de números complejos que se pueden expresar en la forma
+$$
+a_0+a_1\xi +a_2\xi^2 + \dots + a_{p-1}\xi^{p-1}
+$$ 
+es un anillo, denominado $\Z(\xi)$.  Este anillo se denomina {\sf anillo de  Kummer}. \index{anillo!de Kummer} Comprobar que es el  menor subanillo de $\C$ que contiene a los enteros y a $\xi$.
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Encontrar todos los subanillos de $\Z_{20}$. Encontrar los divisores de cero y las unidades de $\Z_{20}$.
+
+\end{pro}
+
+
+\begin{pro}
+
+Sea $A$ un anillo de tal modo que todo elemento de $A$ cumpla $a^2=a$.  Demostrar que $A$ es conmutativo. (Los elementos cuyo cuadrado coincide con ellos mismos se denominan {\sf idempotentes}) \index{elemento!idempotente}
+
+\end{pro}
+
+\begin{pro} \label{pro:binomio} Probar que en todo anillo conmutativo es válida la fórmula del {\sf binomio de Newton}. \index{binomio de Newton}
+
+$$
+(a+b)^n = \sum_{k=0}^n  \binom{n}{k} a^kb^{n-k}
+$$
+ En el caso no conmutativo también es cierta si los dos elementos del binomio conmutan.
+
+\end{pro}
+
+\begin{pro}
+
+Probar que el producto de un divisor de cero y otro elemento es un divisor de cero (suponer $A$ conmutativo).
+
+¿Si el producto de dos elementos es un divisor de  cero, entonces alguno de los dos es un divisor de cero?
+
+\end{pro}
+
+\begin{pro}
+
+Probar que un anillo $A$ es íntegro si y solo si $A^*$ es cerrado por la operación de multiplicación. Probar que un anillo es íntegro si y solo si se satisface en él la ley de cancelación.
+
+\end{pro}
+
+\begin{pro}
+
+Un elemento $a \in A$ es {\sf nilpotente} \index{nilpotente} si $a^n= 0$ para cierto número natural. Si $a$ es nilpotente, entonces $1-a$ y $1+a$ son invertibles.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $a$ un elemento idempotente ($a^2=a$).  El conjunto 
+$$
+S = \{ara \text{ tal que } r \in A\}
+$$
+es un subanillo.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $\varphi : A \rightarrow A$ un morfismo.  Los puntos fijos del morfismo
+$$
+S = \{a \in A \text{ tales que } \varphi (a) = a\}
+$$
+forman un subanillo.
+
+\end{pro}
+
+\begin{pro}
+
+Demostrar que el conjunto de matrices reales de la forma
+$$
+\begin{pmatrix}
+a & b \\
+-b & a
+\end{pmatrix}
+$$
+forman un anillo isomorfo al cuerpo de los números complejos.
+
+\end{pro}
+
+
+
+\begin{pro}\label{pro:unidades}
+
+Sea $\varphi : A \rightarrow A'$ un morfismo de anillos.  Demostrar que si $a$ es invertible, entonces $\varphi (a^{-1})={\varphi(a)}^{-1}$.
+
+\end{pro}
+
+
+\begin{pro}
+
+Sea $a$ invertible.  La aplicación $\varphi_a$ definida como $\varphi_a(x) = axa^{-1}$ es un endomorfismo de anillos.  Este endomorfismo  se llama {\sf endomorfismo interior}. \index{endomorfismo interior}
+
+\end{pro}
+
+
+\begin{pro}\label{pro:caracteristica} En este ejercicio haremos un estudio de la {\sf caraterística} \index{característica} en el caso en el que el anillo no posea unidad.
+
+\begin{itemize}
+
+\item  Si en un anillo $A$ existe un número natural $n$ que cumple $na=0$ para todos los elementos del anillo, al menor de esos números se le denomina característica del anillo $A$.  Si no existe el natural antes mencionado decimos que la característica es nula.
+
+\item  En un anillo íntegro la característica es siempre o nula o un número primo.
+
+\item  En un anillo íntegro todos los elementos no nulos tienen el mismo orden considerados como elementos del grupo aditivo $(A,+)$.
+
+\item  Un anillo tiene característica no nula si existe un natural $n$ y un elemento $a$ que cumplan $na=0$.
+
+\item  En el caso en el que el anillo tenga unidad demostrar que las dos definiciones dadas de caraterística coinciden.
+
+\end{itemize}
+
+\end{pro}
+
+
+\begin{pro}\label{pro:fracciones}
+
+En un cuerpo $k$ denotamos $a/b$ al elemento $ab^{-1}$.  Demostrar las propiedades de las operaciones con  fracciones.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $A$ un anillo sin unidad.  Definimos en $A\times \Z$ las operaciones
+$$
+(a,n) + (b,m) = (a+b,m+n)
+$$
+$$
+(a,n)\cdot (b,m) = (ab+ma+nb,mn)
+$$
+\begin{itemize}
+
+\item  $A \times \Z$ es un anillo con unidad y la aplicación
+$$
+\begin{array}{cccc}
+\varphi & :A & \lto & A \times \Z \\
+       &  a &  \lto & (a,1)
+\end{array}
+$$
+es un morfismo de anillos inyectivo.
+
+\item Si $A$ tiene característica $n$, se puede introducir, con las mismas operaciones, una estructura de anillo en $A \times \Z_n$.  Este anillo que hemos construido tiene también característica $n$.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro} Un {\sf anillo de Boole} \index{anillo!de Boole} es un anillo con unidad donde todo elemento es idempotente ($a^2=a$).
+
+\begin{itemize}
+
+\item $\Z_2$ es un anillo de Boole.
+
+\item Las partes $\mathcal{P}(X)$ de un conjunto $X$ es un anillo de Boole.
+
+\item $\Apli (X,\Z_2)$ es un anillo de Boole.
+
+\item Todo anillo de Boole es conmutativo.
+
+\item En todo anillo de Boole se cumple $2a=a+a=0$ para todo elemento del anillo.  
+Por lo tanto un anillo de Boole tiene característica $2$.
+
+\item Si un anillo de Boole es íntegro, entonces necesariamente es isomorfo a $\Z_2$.
+
+\item La imagen de un anillo de Boole es un anillo de Boole.  Si $\varphi: A\rightarrow B$ es un morfismo
+de anillos y $A$ es de Boole, entonces su imagen también es un anillo de Boole.
+
+\item  El {\sf teorema de representación de Stone} \index{teorema!de Stone}
+afirma que para todo anillo de Boole $A$, existe un conjunto $X$ de tal forma que $A$
+es isomorfo a un subanillo de $\mathcal{P}(X)$. Para la demostración
+consúltese \cite{atiint}.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Consideramos el anillo de las matrices de orden dos y coeficientes complejos.  En dicho anillo consideramos el subconjunto $H$ de las matrices de la forma
+$$
+\begin{pmatrix}
+a+ib & c-id \\
+-c+id & a-ib
+\end{pmatrix}
+$$
+Demostrar que $H$ es isomorfo al anillo de cuaterniones.
+
+\end{pro}
+
+\begin{pro} Sea $A$ un anillo y $M_2(A)$ el anillo de las matrices cuadradas de orden 2.
+Dada 
+$$
+M =
+\left( \begin{matrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{matrix}\right)
+$$
+ la adjunta de su traspuesta es 
+$$
+N= \left(\begin{matrix}
+a_{22} & -a_{21} \\
+-a_{12} & a_{11}
+\end{matrix}\right)
+$$
+
+\begin{itemize}
+
+\item  Demostrar que $MN=NM = \det (M) \Id $.
+
+\item  Demostrar la fórmula $\det(MM')= \det (M) \det(M')$.
+
+\item  Si $\det (M) $ es  una unidad, entonces $M$ es invertible.  Calcular la inversa de $M$.
+
+\item  Si $M$ es invertible, entonces $\det (M)$ es una unidad.
+
+\end{itemize}
+
+\end{pro}
+
+
+\begin{pro}
+
+Demostrar que $U(A \times B) =U(A) \times U(B)$.
+
+\end{pro}
+
+
+
+
+
+\begin{pro}
+
+Encontrar divisores de cero en el anillo de partes de un conjunto.
+
+\end{pro}
+
+
+
+
+
+
+
+\begin{pro}
+
+Sea $k$ un cuerpo y $E$ un espacio vectorial de dimensión $n$ sobre $k$.  Consideramos los anillos $M_n(k) $ y $\End (E)$.  Demostrar que si damos una base de $E$, tenemos un isomorfismo de anillos de $M_n(k)$ en $\End(E)$.  Ver si el recíproco es cierto.
+
+\end{pro}
+
+
+\begin{pro}
+
+Sea $X$ un conjunto arbitrario.  Consideremos el anillo $\mathcal{P}(X)$ de las partes de $X$ y el anillo $\Apli (X, \Z_2)$.  A cada subconjunto $U \subset X$ le asociamos la función $\varphi_U: X \rightarrow \Z_2$ definida como 
+$$
+\varphi_U= \left \{ 
+\begin{array}{l}
+1 \text{ si } x \in U \\
+0 \text{ si } x \not \in U
+\end{array}
+\right.
+$$
+$\varphi_U$ es la {\sf función característica} \index{función!característica} del subconjunto $U$.
+
+\begin{itemize}
+
+\item  Demostrar que la función
+$$
+\begin{array}{ccc}
+\mathcal{P}(X): & \lto & \Apli (X, \Z_2) \\
+U     &    \lto   &  \varphi_U
+\end{array}
+$$
+es un isomorfismo de anillos.
+
+\end{itemize}
+
+\end{pro}
+
+
+\newpage
+%%%%%%%%%%%%% Segundo capitulo
+%%%%%%%%%%%%% Ideales
+
+
+\section{Ideales}
+
+Sabemos por teoría de grupos que no a todo subgrupo $G'$ de un grupo $G$ se le puede asociar el grupo cociente $G/G'$. Es necesario que el subgrupo sea normal para que la construcción no dependa de los representantes tomados.  Del mismo modo, no es posible hacer cociente con cualquier subanillo.  Ello nos conduce a la introducción de los ideales.
+
+\begin{defi}
+
+
+
+Un  {\sf ideal} \index{ideal}  es un subconjunto $I \subset A$ que cumple:
+
+\begin{itemize}
+
+\item  $I$ es un subgrupo aditivo.
+
+\item  Si $a \in I$ y $r \in A \Rightarrow ra$ y $ar$ son elementos de $I$.
+
+\end{itemize}
+
+\end{defi}
+
+Si el anillo es conmutativo, solamente es necesario comprobar que $ra \in I$. Todo ideal es la vez un subanillo (en general sin unidad).  Sin embargo no todos los subanillos tienen que ser ideales.
+
+Si el anillo no es conmutativo es necesario dar otra definición.
+
+\begin{defi}
+
+Un subconjunto $I \subset A$ es un {\sf ideal por la derecha} \index{ideal!por la derecha} si:
+
+\begin{itemize}
+
+\item  $I$ es un subgrupo aditivo.
+
+\item  Para todo $r \in A$ y todo $a \in I$ se tiene $ar \in I$.
+
+\end{itemize}
+
+\end{defi}
+
+Análogamente se define el concepto de ideal por la izquierda.  Debido a esta definición, en algunas ocasiones se llama {\sf ideales biláteros} \index{ideal!bilátero} a los ideales de los anillos no conmutativos.  Sin embargo supondremos, salvo mención explícita de lo contrario, que todos los anillos son conmutativos. 
+
+El cero y el total son ideales.  Estos ideales se llaman {\sf ideales triviales} \index{ideal!trivial} del anillo $A$.  Los ideales que  no son ni el nulo ni el total se denominan {\sf propios}. \index{ideal!propio}
+
+Si una unidad $a$ pertenece a un ideal $I$ dicho ideal es el total pues concluimos que $1 \in I$ multiplicando por el inverso y por lo tanto $r \in I$ sea cual sea $r \in A$. Así ningún ideal propio de $A$ contiene unidades.
+
+\bigskip
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item Los subconjuntos de la forma $n\Z$ son ideales de $\Z$ como se comprueba fácilmente.  Además estos son los únicos ideales, pues como sabemos todo ideal debe ser subgrupo aditivo y no existen en $\Z$ más subgrupos que los mencionados.
+
+\item  Sea $A$ un anillo conmutativo.  Sea $a \in A$ un elemento cualquiera no nulo.  Los múltiplos de $a$  son de la forma $ra$ con $r\in A$.  El conjunto de todos los múltiplos de $a$ se denota por $(a)$ y es un ideal.  Se dice que es el {\sf ideal principal} \index{ideal!principal} generado por el  elemento $a$.
+
+\item  Los cuerpos solo tienen ideales triviales pues todo elemento no nulo es invertible.  Recíprocamente, si un anillo solo tiene ideales triviales para cada elemento $a$ el ideal principal $(a)$ es el total y por lo tanto existe un elemento $b$ que cumple $ba=1$.
+
+\item  Dada una función $f:\R \rightarrow \R$ su {\sf soporte} \index{soporte de una función} es el cierre del conjunto de puntos donde no es nula.  Decimos que una función se anula en el infinito si su soporte es un conjunto acotado.
+Dado el anillo $A=C(\R,\R)$ sea $I$ el conjunto de todas las funciones que se anulan en el infinito.  $I$ es un ideal pues es un subgrupo y el producto de una función que se anula en el infinito por cualquier otra función, siempre se anula en el infinito.
+
+\item El conjunto $I \subset C(\R,\R)$ formado por las funciones que se anulan para $x=0$ forman un ideal.
+
+\item  Sean $A$ y $B$ dos anillos.  Sea $I_A \subset A$ y $I_B \subset B$ ideales.  El subconjunto $I_A \times I_B$  es un ideal del producto directo $A \times B$. El recíproco también es cierto (pruébese).
+
+\end{itemize}
+
+La importancia de los ideales radica en que sirven para definir anillos cocientes.  Con más precisión, tenemos el siguiente
+
+\begin{teo}
+
+Sea $I$ un ideal de $A$.  En el grupo cociente $A/I$ se puede introducir una estructura única de anillo que hace que la proyección canónica sea un morfismo de anillos.  Si $A$ tiene unidad también la tendrá $A/I$.
+
+\end{teo}
+
+\dem
+
+Sabemos que en $A/I$ se puede introducir una estructura de grupo abeliano con las condiciones pedidas.  Para que la proyección canónica $\pi : A \rightarrow A/I$ sea morfismo de anillos, la única definición posible de producto en $A/I$ es 
+$$
+\pi(a) \cdot \pi (b)= \pi(ab)
+$$
+Si $I$ es un ideal esta definición no depende de los representantes elegidos.  En efecto si 
+$$
+\pi(a) = \pi (a') \Rightarrow a=a'+r, \text{ con } r \in I
+$$
+$$
+\pi(b) = \pi (b') \Rightarrow b=b'+s, \text{ con } s \in I
+$$
+De esto concluimos que $ab = a'b'+a's+rb'+rs$.  Entonces $\pi(ab) = \pi (a'b')$ puesto que $a's+rb'+rs \in I$. \fin
+
+\begin{defi}
+
+El anillo $A/I$ que acabamos de construir se llama {\sf anillo cociente} \index{anillo!cociente} de $A$ módulo $I$.
+
+\end{defi}
+
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item Si el ideal $I$ es el total el anillo cociente es el anillo trivial $0$.  Si el ideal $I$ es el ideal nulo, entonces el anillo y su cociente son isomorfos.  Debido a esto, los ideales triviales carecen de interés.
+
+\item Consideremos el ideal $n\Z$ de $\Z$.  El anillo cociente se denota en este caso por $\Z_n$.  El estudio clásico de las {\sf congruencias} \index{congruencia} es el estudio de este anillo.
+
+\item  Si $n$ no es primo el anillo $\Z_n$ no es íntegro.  Sea $n=n_1n_2$ una descomposición en producto de factores.  Entonces $0=\pi (n) = \pi (n_1) \: \pi (n_2)$.
+Con mayor generalidad podemos afirmar que $\Z_n$ es íntegro si y solo si $n$ es primo.
+
+\end{itemize}
+
+\begin{propo}
+
+Sea $A$ un anillo.  La intersección de ideales de $A$ es de nuevo un ideal de $A$.
+
+\end{propo}
+
+\dem
+
+Sea $I_j$ una colección de ideales de $A$.  Su intersección es un subgrupo.  Además si $r \in A$ y $a \in \bigcap I_j$ tenemos que $ra \in I_j$ para todo $j$.  Así $ra \in \bigcap I_j$ y concluimos que es un ideal.  \fin
+
+\begin{defi}
+
+Sea $S$ un subconjunto de $A$.  A la intersección de todos los ideales que contienen a $S$ se le denomina {\sf ideal generado} \index{ideal!generado} por el subconjunto~$S$.  En virtud de la proposición anterior este ideal existe y es único.
+
+\end{defi}
+
+\begin{propo}
+
+Sea $S \subset A$ un subconjunto posiblemente infinito.  El conjunto de todas las combinaciones lineales de elementos de $S$ con coeficientes en $A$ es el ideal generado por $S$.
+
+\end{propo}
+
+\dem
+
+Sea $\left\langle S\right \rangle=\{ \sum a_js_j \text{ con } a_j \in A \text{ y } s_j \in S \}$.  La suma debe ser finita. Este conjunto es un subgrupo aditivo de $A$.  Si multiplicamos un elemento de $\left\langle S\right \rangle$ por un elemento cualquiera $r$ del anillo  obtenemos $r(\sum a_j s_j)=\sum(ra_j)s_j$.  Así hemos probado que $\left\langle S\right \rangle$ es un ideal.  Además todo ideal que  contenga a $S$ debe contener a las combinaciones lineales de elementos de $S$.  De este modo $\left\langle S\right \rangle$ es el menor ideal que contiene a $S$.  \fin
+
+En el caso en que el conjunto $S$ este formado solo por un elemento $a$, el ideal generado se denota por $(a)$ y se dice que es un ideal   principal.
+
+\begin{defi}
+
+Un ideal $I$ es  {\sf finito-generado} \index{ideal!finito-generado} si existe un conjunto finito $S$ tal que $\left\langle S\right \rangle=I$. Un ideal $I$ es {\sf principal} \index{ideal!principal} si existe un elemento $a$, no necesariamente único, tal que $(a)=I$.
+
+\end{defi}
+
+Supongamos que dos elementos del anillo $A$ generan el mismo ideal principal, $(a)=(b)$.  Si el anillo es íntegro, debe de existir un elemento invertible $u$ tal que $a=bu$.  
+
+
+\begin{defi}
+
+Sea $I$ y $J$ dos ideales.  Llamamos {\sf ideal suma} \index{ideal!suma} y denotamos por $I+J$ al ideal generado por el conjunto $I \cup J$.  De modo análogo se define la suma de un número finito o infinito de ideales.
+
+Llamamos {\sf producto} \index{ideal!producto} de dos ideales, al ideal $IJ$ generado por todos los elementos de la forma $ab$ con $a \in I$ y $b \in J$.  En particular esto nos permite definir las potencias de un ideal.
+
+Decimos que dos ideales son {\sf primos entre si} \index{ideales primos entre si} cuando $I+J=A$.
+
+\end{defi}
+
+Dado un anillo $A$, sea $\Sigma$ (o $\Sigma_A$ si existe peligro de confusión) el conjunto de los ideales de $A$. En este conjunto la inclusión establece una relación de orden.  Dados dos ideales $I$ y$J$ el menor ideal que los contiene es precisamente $I+J$.  En el conjunto ordenado, la suma de ideales es el {\sf supremo} \index{supremo} de dos o en  general de un número arbitrario de ideales.  
+
+El mayor elemento contenido en $I$ y en $J$ es $I \cap J$.  Este es el {\sf ínfimo} \index{infimo@ínfimo} de los dos ideales en cuestión.  Análogamente se procede con un número finito o infinito de ideales.
+
+Dos ideales son primos entre sí, cuando su supremo es el conjunto total. Resumiendo todas estas consideraciones tenemos el 
+
+\begin{teo}
+
+Dado un anillo $A$, el conjunto $\Sigma$ de sus ideales es un {\sf retículo} \index{retículo} cuyo {\sf primer elemento} \index{primer elemento} es el ideal cero, su {\sf último elemento}, \index{ultimo elemento@último elemento} el conjunto $A$.  El {\sf supremo} \index{supremo} de una familia de ideales es la suma de dichos ideales, y el {\sf ínfimo} \index{infimo@ínfimo} es la intersección de los ideales.
+
+\end{teo}
+
+
+Veamos ahora como se comportan los ideales bajo la acción de los morfismos.
+
+
+%%%%%%%%%%%%%
+%%%%%%%%%%%%  Ejemplos
+
+
+\begin{teo}
+
+Sea $\varphi : A \lto A'$ un morfismo de anillos
+
+\begin{itemize}
+
+\item Si $I' \subset A'$ es un ideal, $\varphi^{-1} (I')$ es un ideal de $A$. En particular el núcleo $\Ker (\varphi) = \varphi^{-1}(0)$ es un ideal.
+
+\item Si $I \subset A$ es un ideal, $\varphi(I)$ es un subanillo, aunque en general no será un ideal. Si $\varphi$ es epiyectivo si es un ideal.  En particular $\Img(\varphi)$ es un subanillo.
+
+\end{itemize}
+
+\end{teo}
+
+\dem
+
+$i)$ $\varphi^{-1}(I')$ es un subgrupo aditivo.  Sea $a \in \varphi^{-1}(I')$ y $r \in A$.  Entonces $\varphi(ra) =\varphi(r)\varphi(a) \in I'$ puesto que $I'$ es ideal.  Concluimos que $ra \in \varphi^{-1}(I')$ lo que demuestra que $\varphi^{-1}$ es un ideal.
+
+$ii)$  Si $a'$ y $b'$ pertenecen a $\varphi(I)$, entonces existen $a,b$, no necesariamente únicos, tal que $\varphi(a)=a'$ y $\varphi(b)=b'$.  Entonces $a'b'=\varphi(a)\varphi(b)=\varphi(ab) \in\varphi(I)$ lo que prueba que es subanillo.
+
+Si $\varphi$ es epiyectivo y $r' \in A'$, existe $r \in A$ tal que $\varphi(r)=r'$.  El mismo argumento demuestra que en el caso epiyectivo la imagen de un ideal es un ideal.  \fin
+
+\begin{teo}\index{teorema!de correspondencia}
+
+Sea $\pi :A \rightarrow A/I$ la proyección canó\-nica.  Existe una correspondencia biunívoca entre ideales de $A/I$ e ideales de $A$ que contienen a $I$.
+
+\end{teo}
+
+\dem
+
+Sea $J$ un ideal del cociente.  Entonces $\pi^{-1}(J)$ es un ideal de $A$ que contiene a $I$.  Del mismo modo $\pi(\pi^{-1}(J))=J$ es un ideal por ser la proyección canónica epiyectiva.  Esto prueba que la correspondencia es biunívoca. \fin
+
+\begin{teo}[Factorización canónica]\index{teorema!de factorización}
+
+Sea $\varphi :A \rightarrow A'$ un morfismo.  Entonces existe un isomorfismo de anillos de $A/\Ker (\varphi)$ en $\Img(\varphi)$.
+
+\end{teo}
+
+\dem
+
+Sabemos por teoría de grupos que existe un isomorfismo de grupos entre los anillos mencionados.  Solo falta comprobar que ese isomorfismo respeta la multiplicación y  que conserva la unidad.  Pero esto se demuestra exactamente igual que en el caso de grupos abelianos. \fin
+
+\begin{cor}
+
+Si $A$ tiene característica $n$, entonces $A$ tiene un subanillo isomorfo a $Z_n$.  Si el anillo es íntegro la característica debe ser necesariamente prima.
+
+\end{cor}
+
+
+\dem
+
+Sea $ch: \Z \lto A$ el morfismo característica.  Si $n$ es la característica de $A$ entonces $\Z_n \sim \Img(ch)$.
+
+Sabemos que $\Z_n$ es íntegro si y solo si $n$ es primo.  Como $A$ es íntegro, necesariamente todos sus subanillos son íntegros.  \fin
+
+
+\begin{teo}[2º teorema de isomorfismo] \index{teorema!2º de isomorfismo}
+
+Sean $I$ y $J$ ideales de $A$ con $J\subset I$.  Entonces se tiene un isomorfismo entre los anillos
+$$
+(A/J)/(I/J) \sim A/I
+$$
+
+\end{teo}
+
+\dem
+
+Si $\pi_J(a)$ denota la clase de equivalencia módulo $J$ del elemento $a$ definimos una aplicación
+$$
+\begin{array}{ccc}
+A/J & \lto & A/I \\
+\pi_J(a) & \lto & \pi_I(a)
+\end{array}
+$$
+
+Dicha aplicación no depende del representante y por lo tanto esta bien definida.  Es morfismo de anillos epiyectivo y su núcleo esta formado por los elementos $\pi_J(a)$ tales que $a \in I$.  De este modo su núcleo es $I/J$ y concluimos aplicando el teorema de factorización canónica. \fin
+
+\begin{teo}[$3^{er}$ teorema de isomorfismo]\index{teorema!$3^{er}$ de isomorfismo}
+
+Si $I,J$ son ideales de $A$ entonces se tienen un isomorfismo
+$$
+ (I+J)/J \sim  I/(I \cap J)
+$$
+
+\end{teo}
+
+
+\dem
+
+Defínase la aplicación
+$$
+\begin{array}{ccc}
+I+J & \lto & I/(I\cap J) \\
+a & \lto & \pi_{I \cap J} (a)
+\end{array}
+$$
+Comprobar que no depende de los representantes y que es morfismo.  Su núcleo es $J$. \fin 
+
+
+\centerline{\sc Problemas}
+
+
+
+\begin{pro} Sea $A$ conmutativo y con unidad. Un elemento $a$ es {\sf nilpotente} \index{elemento!nilpotente} si existe $n \in \N$ tal que $a^n=0$.  Probar que el conjunto de elementos nilpotentes de $A$ forman un ideal.
+
+\end{pro}
+
+
+\begin{pro}
+
+En un anillo $A$ los ideales cumplen las siguientes propiedades:
+
+\begin{itemize}
+
+\item $(I+J)+K=I+(J+K)$
+
+\item $I+J=J+I$
+
+\item $I+0=I$
+
+\item $I+A=A$
+
+\item $(I \cdot J)\cdot K=I\cdot (J\cdot K)$
+
+\item $I\cdot J=J\cdot I$
+
+\item $I \cdot 0=0$
+
+\item $I \cdot A= I$
+
+\item $I \cdot J \subset I \cap J$
+
+\item $(I+J)\cdot K= I \cdot K + J \cdot K$
+
+\end{itemize}
+
+\end{pro}
+
+
+
+
+\begin{pro} Sea $A$ un anillo y $a$ un elemento.  El conjunto 
+$$
+\mathrm{Ann}(a) =\{r \in A \text{ tales que } ra=0\}
+$$
+ forman un ideal,  llamado {\sf anulador} \index{anulador de una elemento} del elemento $a$.
+
+\end{pro}
+
+\begin{pro}
+
+Demostrar que el conjunto de matrices de la forma
+$$
+\begin{pmatrix}
+0 & a \\
+0 & b
+\end{pmatrix}
+$$ 
+donde $a,b$ son números reales es un ideal por la izquierda del anillo del $M_2(\R)$.  Demostrar que no es ideal por la derecha.
+
+\end{pro}
+
+\begin{pro}
+
+Si $\varphi : A \lto A'$ es morfismo de anillos y $A$ es un cuerpo, entonces $\varphi$ es nulo o inyectivo.
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Sea $A$ un anillo y $S$ un subgrupo de $A$.  Definimos en $A$ la relación de equivalencia $ a \sim b \Leftrightarrow a-b \in S$.  Demostrar que el conjunto cociente se puede dotar de una estructura de anillo, que haga que la proyección canónica sea morfismo, si y solo si $S$ es un ideal.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $A$ un anillo e $I$ un ideal bilátero.
+$$
+C(I)=\{r \in A \text{ tales que } (ra-ar) \in I \text{ para todo } a \in A\}
+$$
+Demostrar que $C(I)$ es un subanillo.
+
+\end{pro}
+
+\begin{pro}
+
+El conjunto $I=\{ a+2bi \text{ con } a, b \in \Z\}$ es un ideal de los enteros de Gauss.
+
+\end{pro}
+
+\begin{pro}
+
+Demostrar la ley distributiva para ideales.
+$$
+I(J+K)=IJ+IK
+$$
+Demostrar que $IJ \subset I \cap J$ para todo par de ideales.   Generalizar los resultados para un número arbitrario de ideales, incluso un número infinito.
+
+\end{pro}
+
+
+\begin{pro}
+
+Sea $\varphi :A \lto B$ un morfismo epiyectivo.
+
+\begin{itemize}
+
+\item $ \varphi (I+J)= \varphi (I) + \varphi(J)$
+
+\item $ \varphi (I\cdot J)= \varphi (I) \cdot \varphi(J)$
+
+\item $\varphi (I \cap J) \subset \varphi(I) \cap \varphi (J)$
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro} Sea $A$ un anillo no conmutativo.  Llamamos {\sf conmutador} \index{conmutador} de $a$ y $b$ al elemento $[a,b]=ab-ba$.  Sea $[A,A]$ el ideal bilatero generado por el subconjunto de todos los conmutadores.
+
+\begin{itemize}
+
+\item $A$ es conmutativo $\Leftrightarrow  [A,A]=0$.
+
+\item $A/I$ es conmutativo $\Leftrightarrow  [A,A] \subset I$.
+
+\end{itemize}
+
+\end{pro}
+
+
+\begin{pro}
+
+Sea $A = C(\R, \R)$, e $I$ el ideal de las funciones que se anulan en el infinito.  Demostrar, por contradicción, que $I$ no es finito generado.
+
+\end{pro}
+
+
+\begin{pro}
+
+Sea $\varphi : A \rightarrow B$ un morfismo de anillos e $I \subset \ker (\varphi)$ un ideal.  Entonces existe un único morfismo de anillos
+$$
+\varphi^* : A \lto B
+$$
+que hace conmutativo el diagrama
+
+$$
+\xymatrix{
+A \ar[d]^\pi \ar[r]^\varphi& B\\
+A/I\ar[ru]_{\varphi^*}& 
+}
+$$
+
+\end{pro}
+
+%%%%%%%%%%%%% Capitulo tres
+%%%%%%%%%%%%% maximal
+
+\newpage
+
+
+
+\section{Ideales maximales y primos}
+
+\begin{defi}
+
+Un ideal $\m \in A$ es {\sf maximal} \index{ideal!maximal} si los únicos ideales que lo contienen son el mismo y el total.
+
+\end{defi}
+
+Si consideramos el conjunto $\Sigma$ de todos los ideales distintos del total de $A$ ordenados por inclusión, los ideales maximales son los elementos maximales de este conjunto ordenado.
+Aplicando el {\sf lema de Zorn} \index{lema!de Zorn} veremos que todo anillo posee ideales maximales.
+
+\begin{teo}
+
+Todo anillo $A$ posee ideales maximales.
+
+\end{teo}
+
+\dem
+
+Sea $I_j$ una cadena de ideales de $\Sigma$.  Dados dos ideales de la cadena $I_\alpha$ e $I_\beta$ debe cumplirse $ I_\alpha \subset I_\beta$ o $ I_\beta \subset I_\alpha$.
+
+Sea $\m = \cup I_j$.  Este conjunto es un ideal.  Veamos por ejemplo que es subgrupo.  Si $a, b \in \cup I_j$, entonces $a \in I_\alpha$ y $b \in I_\beta$.  Podemos suponer $I_\alpha \subset I_\beta$.  Por lo tanto $a-b \in I_\beta$ puesto que $I_\beta$ es subgrupo aditivo.  Así $a-b \in \cup I_j$.
+
+Por el lema de Zorn, existen  en $\Sigma$ elementos maximales.  Queda probada la existencia de ideales maximales. \fin
+
+\begin{cor}
+
+Todo ideal $I$ distinto del total está contenido en un ideal maximal.
+
+\end{cor}
+
+\dem
+
+Sea $\pi : A \rightarrow A/I$ la proyección canónica.  En $A/I$ existen ideales maximales  Sea $\m'$ un ideal maximal de $A/I$.  Entonces $\pi^{-1}(\m')$ es maximal y contiene a $I$ aplicando el teorema de correspondencia.  \fin
+
+\begin{cor}
+
+Todo elemento $a$ no invertible está contenido en un ideal maximal.
+
+\end{cor}
+
+\dem
+
+$(a)$ no es el ideal total puesto que $a$ no es invertible.  Este ideal está contenido en ideal maximal y por lo tanto $a$ también.  \fin
+
+Existe otra definición distinta de ideal maximal, que en muchos aspectos es más operativa.  El siguiente teorema prueba que ambas definiciones son equivalentes.
+
+\begin{teo}
+
+Un ideal $\m \subset A$ es maximal $\Leftrightarrow $ $A/\m$ es un cuerpo.
+
+\end{teo}
+
+\dem
+
+Recordemos que un cuerpo es un anillo que solo tiene ideales triviales.  
+
+Aplicando el teorema de correspondencia tenemos que 
+$$
+\{\text{Ideales que contienen a } \m\}= \{\text{Ideales de } A/\m\}
+$$
+  Si $\m$ es maximal, existen dos ideales que contienen a $\m$ y por lo tanto el cociente tiene dos ideales.  Esto implica que el cociente es un cuerpo.
+
+Si $A/\m$ es cuerpo, vemos que solo hay dos ideales que contienen a $\m$, que es entonces maximal. \fin
+
+\begin{cor}
+
+Sea $\varphi: A: \rightarrow A'$ un morfismo epiyectivo de anillos.  Si $A'$ es un cuerpo, el núcleo es un ideal maximal.
+
+\end{cor}
+
+\dem
+
+Sabemos que $A/\Ker(\varphi)$ es isomorfo a $A'$ aplicando el teorema de factorización canónica.  \fin
+
+\bigskip
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item Si $p$ es un número primo, entonces $p\Z$ es maximal.  Para probarlo, analizamos su cociente.  Como $\Z_p$ es íntegro y finito, es cuerpo.
+
+\item  Sea $\phi_x: C(\R,\R) \rightarrow \R$ el morfismo ``tomar valores en $x$''.  Si $\m_x$ es el núcleo , tenemos por el teorema de factorización que $C(\R,\R)/\m_x \sim \R$ que es cuerpo.  Entonces $\m_x$ es maximal.
+
+\item  Sea $\varphi : A \rightarrow A'$ un morfismo epiyectivo.  Si $\m' \subset A'$ es maximal $\Rightarrow $ $\varphi^{-1}(\m')$ es maximal en $A$.  Esto es debido a que la operación $\varphi^{-1}$ conserva el orden.
+
+Si $\varphi$ no es epiyectivo este resultado es falso.  Sea $i:\Z \rightarrow \R$ la inclusión natural.  La antiimagen del cero, que es maximal en $\R$, no es maximal en~$\Z$.
+
+\item  Un anillo $A$ es un cuerpo si y solo si $0$ es un ideal maximal.
+
+\end{itemize}
+
+Como generalización del concepto de número primo, se puede introducir el concepto de ideal primo.  La idea es que cuando el ideal sea principal, el concepto coincida con la idea de número primo.  Recordemos que un número es primo si cuando divide a un producto, divide a alguno de los factores.
+
+\begin{defi}
+
+Un ideal $\p \subset A$ es {\sf primo} \index{ideal!primo} si $ab \in \p \Rightarrow a \in A$ o $ b \in A$.
+
+\end{defi}
+
+Existe otra definición de ideal primo que se obtiene directamente de esta.  Un ideal $\p$ es primo si $a,b \not \in \p$ implica que $ab \not \in \p$. De esta forma el complementario de un ideal primo es cerrado por la operación de multiplicación.
+
+Sin embargo la caracterización más importante de los ideales primos viene dada por el siguiente
+
+
+\begin{teo}
+
+Un ideal $\p \subset A$ es primo $\Leftrightarrow $ $A/\p$ es un anillo íntegro.
+
+\end{teo}
+
+\dem
+
+$\Rightarrow) $  Si $\pi(a)\:\pi(b) =0$ entonces $\pi(ab)=0$.  Tenemos que o bien $a$ o bien $b$ pertencen a $\p$. Entonces $\pi(a)$ es nulo o bien lo es $\pi(b)$.  Así el anillo no tiene divisores de cero.
+
+$\Leftarrow) $  Si existieran $a,b$ tales que $ab \in \p$ y ni $a$ ni $b$ están en $\p$, tendríamos que $\pi(a)\:\pi(b)=0$ y dos dos elementos no serían nulos, lo que contradice la hipótesis de que $A/ \p$ es íntegro.  \fin
+
+
+\begin{cor}
+
+Todo ideal maximal es primo.
+
+\end{cor}
+
+\dem  
+
+Todo cuerpo es un anillo íntegro.  \fin
+
+\begin{cor}
+
+Sea $\varphi: A \rightarrow A'$ un morfismo de anillos.  Si $A'$ es íntegro, el núcleo es un ideal primo.
+
+\end{cor}
+
+\dem
+
+El teorema de factorización canónica nos dice que $A/\Ker(\varphi)$ es isomorfo a $\text{Im} (\varphi)$.  Como la imagen es un subanillo de un anillo íntegro, necesariamente es íntegra.  \fin
+
+
+\begin{propo}\label{propo:primo}
+
+Sea $\p \subset A$ e $I,J$ dos ideales tales que $IJ \subset \p$.  Entonces $I \subset \p$ o $J \subset \p$.
+
+\end{propo}
+
+\dem
+
+Supongamos que $I \not\subset \p$.  Entonces existe $a \in I$ que no pertenece a $\p$.  Dado un elemento cualquiera $b \in J$ tenemos que $ab \in IJ \subset \p$.  Como $a$ no está en $\p$, necesariamente $b \in \p$ para todo elemento $b \in J$.  Deducimos entonces que $J \subset \p$. \fin
+
+\begin{propo}
+
+Sea $\varphi: A \rightarrow A'$ un morfismo de anillos.  Si $\p'$ es primo $\Rightarrow $ $\varphi^{-1}(\p')$ es un ideal primo de $A$.
+
+\end{propo}
+
+\dem
+
+Si $ab \in \varphi^{-1}(\p') \Rightarrow \varphi(a) \varphi(b) \in \p'$.  Ocurre que como $\p'$ es primo o bien un elemento u otro están en $\p'$.  Supongamos que está $\varphi (a)$.  Entonces $ a \in \varphi^{-1}(\p')$ lo que demuestra que dicho ideal es primo. \fin
+
+\bigskip
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item Si $p$ es un número primo, $p \Z$ es maximal, luego $p\Z$ es  primo.  Además $0$ es primo por ser $\Z$ íntegro.
+
+\item  La característica de un anillo íntegro siempre es prima o nula.  Si $A$ tiene caracteristica $n$, entonces $\Z_n$ es un subanillo de $A$, que debe ser íntegro pues $A$ lo es.  Aplicando el teorema $n$ es primo.
+
+\item  Un anillo es íntegro si y solo si $0$ es un ideal primo.
+
+\end{itemize}
+
+\begin{lema}
+
+Sea $A$ un anillo conmutativo.  El conjunto $\mathfrak{r}$ de todos los elementos nilpotentes de $A$ es un ideal.  $A/\mathfrak{r}$ no tiene elementos nilpotentes.
+
+\end{lema}
+
+\dem
+
+Sea $a \in A$ y $r \in \mathfrak{r}$.  Entonces $ar$ es nilpotente puesto que $(ar)^n = a^nr^n$.
+
+Si $r$ y $s$ son nilpotentes, entonces existen $m$ y $n$ tales que $r^m=0=s^n$.  Aplicando la fórmula del binomio (problema \ref{pro:binomio}) sabemos que $(r+s)^{m+n}$ es una suma de productos de distintas potencias de $r$ y de $s$.  En cada sumando hay alguna potencia nula, por lo que $r+s$ es nilpotente.  Asimismo $r-s$ es nilpotente.  Por lo tanto $\mathfrak{r}$ es un ideal.
+
+Si $\pi(a) \in A/\mathfrak{r}$ es nilpotente, entonces $(\pi(a))^n=0$ para cierto $n$.  Pero $\pi(a)^n=\pi(a^n)=0$.  Así $a^n$ es nilpotente y existe $m$ tal que $(a^n)^m=a^{nm}=0$, lo que demuestra que $a$ es nilpotente y por lo tanto $\pi(a) =0$.  \fin
+
+\begin{defi}
+
+El ideal $\mathfrak{r}$ se denomina {\sf nilradical} \index{nilradical} de $A$ o simplemente {\sf radical}. \index{radical}
+El anillo cociente $A/\mathfrak{r}$ se llama {\sf anillo reducido} \index{anillo!reducido} y se denota $A_{red}$.
+
+\end{defi}
+
+Existe otra definición de nilradical.  El teorema que sigue prueba que son equivalentes.
+
+\begin{teo}
+
+El nilradical de $A$ es la intersección de todos los ideales primos de $A$.
+
+\end{teo}
+
+\dem
+
+Sea $\mathfrak{r}'$ la intersección de todos los ideales primos de $A$.  Si $a$ es nilpotente, tenemos que $a^n=0 \in \p$ para cualquier ideal primo $\p$.  Entonces $a$ o $a^{n-1}$ están en $\p$.  Razonando por inducción, concluimos que $a$ está en $\p$.  Por lo tanto $a$ está en la intersección de todos los primos.  Esto demuestra la inclusión $\mathfrak{r} \subset \mathfrak{r}'$.
+
+Sea ahora $a$ no nilpotente.  Consideramos el conjunto $\Sigma$ de todos los ideales $I$ de $A$ que no contienen a ninguna potencia de $a$.  Como $a$ no es nilpotente, el conjunto $\Sigma$ no es vacio puesto que $0 \in \Sigma$.  Aplicando el lema de Zorn, $\Sigma$ posee elementos maximales.  Sea $\m$ un elemento maximal.  Probaremos que $\m$ es primo.
+
+Si $x,y \not \in \m$, los ideales $\m+(x)$ y $\m+(y)$ contienen a $\m$ en sentido estricto.  Como $\m$ es maximal, estos ideales no están en $\Sigma$ y contienen a alguna potencia de $a$.
+$$
+a^n \in \m+(x) \quad \quad \quad a^m \in \m +(y)
+$$  
+De este modo $a^{m+n} \in \m +(xy)$.  De esto  se sigue que $xy$ no pueden estar en $\m$, pues de lo contrario $\m+(xy) = \m$.  Queda así demostrado que $\m$ es un ideal primo y que los elementos no nilpotentes no pueden estar en $\mathfrak{r}'$.  Se concluye que $\mathfrak{r}' \subset \mathfrak{r}$, inclusión que demuestra el teorema. \fin
+
+\begin{cor}
+
+Existe una biyección entre los ideales primos de $A$ y de $A_{red}$
+
+\end{cor}
+
+\dem
+
+Utilizar el teorema de correspondencia y el hecho de que la antiimagen de un ideal primo es otro ideal primo.  \fin
+
+\begin{defi}
+
+Sea $I \subset A$ un ideal.  El {\sf radical de $I$}, \index{radical de un ideal} $\rad (I)$ es la intersección de todos los ideales primos que contienen a $I$. En particular $\mathfrak{r}= \rad(0)$.
+
+\end{defi}
+
+
+
+\begin{propo}
+
+El radical de $I$ es el conjunto de elementos de $A$ que tienen alguna potencia en $I$.
+
+\end{propo}
+
+\dem
+
+Pasando a los cocientes, módulo el ideal $I$, el radical de $I$ se transforma en el nilradical, y los elementos de $A$ con alguna potencia en $I$ se transforman en elementos nilpotentes. \fin
+
+\begin{cor}
+
+El radical de $I$ es la antiimagen por la proyección canónica del nilradical de $a/I$.
+
+\end{cor}
+
+
+%%%%%%%%%%%%% Capitulo cuatro
+%%%%%%%%%%%%% polinomios
+
+\newpage
+
+\section{Polinomios} \label{cha:polinomios}
+
+De todos los anillos que existen, los anillos de polinomios son probablemente uno de los más importantes. Hasta finales del siglo XIX se puede decir que el álgebra es el estudio de los polinomios.  Actualmente el álgebra comprende más ámbitos.  Sin embargo en álgebra conmutativa y en geometría algebraica los polinomios, en una y en varias variables, son fundamentales.
+
+Construiremos dichos anillos.  Supondremos conocido el manejo elemental de polinomios con coeficientes en $\R$.  Muchos de los resultados dados en esta sección son la generalización y formalización de resultados conocidos para polinomios con coeficientes reales.
+
+\begin{defi}
+
+Un {\sf polinomio} \index{polinomio} de una variable sobre el anillo $A$ es un aplicación casi nula
+$$
+p : \N \lto A
+$$
+El conjunto de todos los polinomios sobre $A$ se denota $A(x)$.
+
+\end{defi}
+
+En nuestra definición suponemos que $0 \in \N$.  La imagen del número $n$ se suele denotar por $a_n$.  Así el polinomio será una sucesión
+$$
+(a_0, a_1, a_2, \dots )
+$$
+de elementos de $A$.  Los elementos $a_i$ son  todos nulos salvo un número finito de ellos.   El mayor de los naturales $n$ tales que $a_n\neq 0$ se llama {\sf grado del polinomio} \index{grado de un polinomio} y se denota $grado(p)$.  Por la misma definición de polinomios, todo polinomio debe tener grado finito.
+
+Introduciremos en $A(x)$ las operaciones de suma y producto de polinomios.  El lector debe verificar que dichas operaciones introducen en $A(x)$ una estructura de anillo.  Deberá tener en cuenta  que estas comprobaciones pueden llegar a ser tediosas.
+
+Si 
+$$
+p :\N \lto A \quad \quad q:\N \lto A
+$$
+son dos polinomios, su suma es la aplicación
+$$
+\begin{array}{cccl}
+p+q &:\N & \lto & A \\
+    & n &  \lto & (p+q)(n)= p(n)+q(n)
+\end{array}
+$$
+Esta aplicación es casi nula y su grado siempre es menor que el mayor de los grados de  $p$ y de $q$.
+
+El producto se define como
+$$
+\begin{array}{cccl}
+p\cdot q &:\N & \lto & A \\
+    & n &  \lto &\displaystyle (p \cdot q)(n)= \sum_{i+j=n}p(i)q(j)
+\end{array}
+$$
+De nuevo la aplicación es casi nula, pues su grado siempre es menor que la suma  de los grados de los dos factores.
+
+\begin{teo}
+
+El conjunto $A(x)$ con las operaciones introducidas es un anillo.
+
+\end{teo}
+
+Si el anillo $A$ es conmutativo, también es conmutativo el anillo $A$.  Si $A$ tiene unidad, entonces $A(x)$ también, siendo esta el polinomio
+$$
+(1,0,0, \dots)
+$$
+
+A todo elemento de $a \in A$ le podemos hacer corresponder un polinomio
+$$
+(a,0,0, \dots)
+$$
+
+Tenemos definida así una aplicación de $A$ en $A(x)$ que es un morfismo de anillos inyectivo.  De este modo todo anillo se puede considerar como un subanillo de su anillo de polinomios.
+
+En el caso en que $A$ tenga unidad, existe una notación standard para los polinomios.  Para introducirla definimos el polinomio
+$$
+x =  \left\{ \begin{array}{l}
+	1 \text{ si } i =1  \\
+	0 \text{ si } i \neq 1
+	\end{array} \right.
+$$
+
+Utilizando la definición de producto y aplicando un argumento inductivo tenemos que
+$$
+x^m =  \left\{ \begin{array}{l}
+	1 \text{ si } i = m  \\
+	0 \text{ si } i \neq m
+	\end{array} \right.
+$$
+
+Con esta notación el polinomio
+$$
+(a_0, a_1, a_2, \dots)
+$$ 
+se escribe
+$$
+a_0+a_1x+a_2x^2 + \dots = \sum a_ix^i
+$$
+
+La suma es finita puesto que casi todos los $a_i$ son nulos.  Los elementos $a_i$ se denominan {\sf coeficientes}. \index{coeficientes} La letra $x$ se denomina {\sf variable}. \index{variable}  Debemos tener cuidado pues en matemática elemental $x$ es simplemente una letra.  Sin embargo para nosotros será un polinomio.
+
+El anillo de polinomios en dos variables $A(x,y)$ se define como $(A(x))(y)$.  De modo inductivo se definen los anillos de polinomios en varias variables.
+
+\begin{propo}
+
+Si $A$ es íntegro $A(x)$ es íntegro.  En general $A(x_1, \dots,x_n)$ es íntegro.
+
+\end{propo}
+
+
+\dem
+
+Si $p= a_nx^n+ \dots + a_0$ y $q= b_mx^m + \dots +b_0$,
+el producto de $p$ y $q$ tiene como coeficiente de grado $n+m$ al producto $a_nb_m$ que no es nulo.  \fin
+
+ \begin{teo}[Propiedad universal]
+
+Dados dos anillos   sea \mbox{$\varphi : A \rightarrow B$} un morfimo de anillos.  Para cada elemento $b \in B$ existe un único morfismo de anillos
+$$
+\varphi^*_b : A(x) \lto B
+$$
+que cumple $\varphi^*_b(x) =b$ y $\varphi^*_b(a)=\varphi(a)$ para todo elemento $a \in A$.
+
+\end{teo}
+
+\dem
+
+Si $\varphi^*$ cumple estas propiedades, la única definición posible para $\varphi^*$ es
+$$
+\textstyle{\varphi^*_b (\sum a_ix^i)= \sum\varphi(a_i)b^i}
+$$
+Veamos que con esta definición obtenemos un morfismo de anillos.
+
+Que conserva la unidad y la suma es claro.  Para  ver que conserva la multiplicación debemos fijarnos en que el producto de polinomios, si entendemos que ``$x$'' es un elemento de $A$, no es nada más que la aplicación de la propiedad distributiva.
+
+Es más.  La definición de  multiplicación dada  en el  anillo de polinomios es la precisa para que las aplicaciones $\varphi^*_b$ sean morfismos.  \fin
+
+
+Para el estudio de la propiedad universal de los anillos de polinomios en varias variables, vease el problema \ref{pro:variasvariables}
+
+\begin{cor}
+
+Si $\varphi:A \rightarrow B$ es un morfismo de anillos, existe un morfismo $\varphi^* :A(x) \rightarrow B(x)$ que extiende a $\varphi$ y que respeta la variable $x$.
+
+\end{cor}
+
+\dem
+
+Si $\varphi: A \rightarrow B$ es un morfismo de anillos, podemos construir otro morfismo de anillos de $A$ en $B(x)$ sin más que componer con la inclusión canónica de $B$ en su anillo de polinomios.  \fin
+
+Si $\phi$ es cualquier otro morfismo de anillos tenemos que $(\varphi \phi)^* = \varphi^* \phi^*$.  Así, si dos anillos son isomorfos, podemos construir un isomorfismo natural entre sus anillos de polinomios.
+
+\begin{cor}
+
+Sea $A \subset B$ un subanillo.  Si $b \in B-A$, el mínimo subanillo de $B$ que contiene a $A$ y a $b$ es la imagen de $i^*_b$.  Este subanillo se denota $A(b)$.
+
+\end{cor}
+
+\dem
+
+Sea $i :A \rightarrow B$ la inyección canónica.  La imagen de $i^*_b$ es un subanillo que contiene a $A$ y a $b$.  Además si otro subanillo contiene a esos dos elementos, debe de contener a todos los polinomios con coeficientes en $A$ y de variable~$b$. 
+
+Si $I_b$ denota el núcleo de $i^*_b$, tenemos que $A(x)/I_b=A(b)$. \fin
+
+
+\begin{defi}
+
+Sea $A \subset B$.  Un elemento $b \in B$ es {\sf algebraico} \index{algebraico} sobre $A$ si $\Ker (i^*_b)$ es no nulo.  Es {\sf transcendente} si el núcleo si es nulo. El  polinomio que genera dicho ideal es el {\sf  polinomio mínimo} \index{polinomio!mínimo} de $b$. 
+
+\end{defi}
+
+\bigskip 
+
+ \noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item  $\sqrt{2}$ es algebraico sobre $\Z$ pues $x^2-2$ está en el núcleo del morfismo.
+
+\item La unidad imaginaria $i$, es algebraica sobre $\Z$ pues $x^2+1$ lo anula.
+
+\item $e$ y $\pi$ son transcendentes sobre $\Z$.  La demostración de este hecho es complicada y no la podemos ofrecer aquí.
+
+\end{itemize}
+
+
+Otro resultado deducido de la propiedad universal es
+
+
+
+\begin{propo}
+
+Si $b \in A$, la aplicación
+$$
+\begin{array}{cccc}
+\varphi_b & : A(x) & \lto & A \\
+          & \sum a_ix^i& \lto& \sum a_ib^i
+\end{array}
+$$
+que consiste en ``sustituir'' la indeterminada $x$ por $b$ es un morfismo de anillos.
+
+\end{propo}
+
+
+
+
+
+Para denotar que en un polinomio $p$ se ha sustituido $x$ por un elemento $a$ del anillo, introducimos la notación $p(a)$.  Naturalmente $p(a) \in A$.  Si $B$ es un anillo que contiene a $A$ como subanillo, tiene sentido para todos los polinomios $p \in A(x)$ sustituir la $x$ por un elemento de $b \in B$.  En este caso $p(b) \in B$.
+
+
+Cada polinomio $p \in A(x)$ define una función
+$$
+\begin{array}{cccc}
+  p     &  :A &  \lto &   A\\
+         & a  & \lto &  p(a)
+\end{array}
+$$
+sin embargo debemos tener cuidado con esta construcción, pues a diferencia de lo que ocurre con los polinomios de coeficientes reales, existen anillos donde distintos polinomios inducen la misma función.
+
+\begin{defi}
+
+Sea $p \in A(x)$.  El elemento $a \in A $ es una raíz de $p$ si $p(a)=0$.  Si $A \subset B$, un elemento $b \in B$ es una raíz si $p(b)=0$.
+
+\end{defi}
+
+\begin{teo}[División euclídea]
+
+Sea $k$ un cuerpo y $p$ y $q$ dos polinomios donde $grado (p)\geq grado(q)$.  Existen polinomios $c$ y $r$, que además son únicos, que cumplen
+$$
+p=qc+r \text{ donde } r=0 \text{ ó } grado(r) <grado(q)
+$$
+El polinomio $c$ se llama {\sf cociente}. \index{cociente} El polinomio $r$es el  {\sf resto}. \index{resto}
+
+\end{teo}
+
+\dem
+
+La demostración y el algoritmo para hallar el cociente y el resto que se emplea para polinomios reales, es válido en el caso general.  \fin
+
+\begin{cor}
+
+Si $k$ es cuerpo y $p \in k(x)$, el resto de la división de $p$ entre $(x-a)$ es $f(a)$.
+
+\end{cor}
+
+\dem
+
+$f = c(x-a)+ r$ donde $r$ es de grado cero o es nulo.  Sustituyendo $a$ en esta expresión se acaba.  \fin
+
+\begin{cor}
+
+Sea $k$ un cuerpo.  Un elemento $a$ es raíz de $p$ si y solo si $(x-a)$ divide a $p$.  Un polinomio de grado $n$ tiene como mucho $n$ raices.
+
+\end{cor}
+
+\dem
+
+$f(a)$ es el resto y es nulo si y solo si $(x-a)$ divide a $p$.
+
+Si $a$ es una raíz tenemos que $p=q(x-a)$ donde el grado de $q$ es uno menos que el grado de $p$.  Se termina aplicando inducción.  \fin
+
+\begin{teo}\label{teo:principal}
+
+$k(x)$ es un dominio de ideales principales.
+
+\end{teo}
+
+\dem
+
+Sea $I$ un ideal del anillo de polinomios.  Sea $q$ un polinomio no nulo y de grado mínimo entre todos los que pertenecen a $I$.  Si $p \in I$, entonces es de grado mayor o igual que $q$.  Aplicando el teorema de división euclídea $ p = qc+r$, lo que prueba que $r =p -qc \in I$.  Como $r$ es de grado menor que $q$, necesariamente $r=0$.  De este modo $p=qc$ y concluimos que $I$ es el ideal principal generado por $q$. \fin
+
+Una vez visto este teorema, todos los resultados correspondientes a la sección de divisibilidad son automaticamente válidos para los polinomios sobre un cuerpo.
+
+Sea ahora $p$ un polinomio que genere un ideal maximal (por lo tanto no puede tener raices).  El cociente de $k(x)$ módulo este ideal es un cuerpo.  El polinomio $p$ se puede entender como un polinomio con coeficientes en este nuevo cuerpo. Pero en este nuevo cuerpo, el polinomio $p$ tiene como raíz al elemento $\pi(x)$.  Hemos construido de este modo un cuerpo donde el polinomio irreducible $p$ tiene una raíz. 
+Resumiendo, hemos demostrado
+ 
+\begin{teo}[Kronecker]
+
+Para todo polinomio $p$ sobre un cuerpo $k$,  existe un cuerpo $K$, que contiene a $k$ como subcuerpo, donde el polinomio tiene una raíz.
+
+\end{teo}
+
+Considerando los factores primos de un polinomio y repitiendo un número finito de veces el argumento anterior,  llegamos al siguiente corolario
+
+\begin{cor}
+
+Para todo polinomio $p$ sobre un cuerpo $k$, existe un cuerpo $K$ que lo contiene, donde el polinomio tiene tantas raices como su grado.
+
+\end{cor}
+
+\centerline{\sc Problemas}
+
+
+
+
+\begin{pro}\index{fracciones algebraicas}
+
+Sea $k$ un cuerpo.  
+
+
+\begin{itemize}
+
+\item Toda fracción algebraica $p/q$ se puede escribir en la forma
+$$
+\frac{p}{q}= c + \frac{r}{q}
+$$
+donde $grado(r) <grado(q)$.
+
+\item Utilizando el lema de Bezout, demostrar que si $p$ y $q$ son primos entre sí entonces
+$$
+\frac{1}{pq}= \frac{a}{p}+\frac{b}{q}
+$$
+
+\item Utilizar inductivamente este argumento para demostrar que toda fracción propia sobre los complejos se puede escribir como suma de fracciones simples.
+
+\end{itemize}
+
+\end{pro}
+
+
+
+
+\begin{pro}\label{pro:euclideo}
+
+Un anillo es {\rm euclídeo} \index{anillo!euclídeo} si es íntegro y existe una función
+$$
+\delta : A \lto \N
+$$
+ que cumple:
+
+\begin{itemize}
+
+\item $\delta (x)=0 \Leftrightarrow  x=0$
+
+\item $\delta (xy) = \delta (x) \delta (y)$
+
+\item Si $x$, $y$ son no nulos, entonces existen $r$ y $c$ que cumplen $y = cx +r$
+ y $\delta (r) < \delta (y)$.
+
+\end{itemize}
+
+El elemento $c$ se denomina {\rm cociente} \index{cociente}  y $r$ 
+es el  {\rm resto}. \index{resto}  $\delta (x)$ el la {\rm norma} \index{norma} de $x$. El
+resto y el cociente pueden no ser únicos.
+
+\begin{itemize}
+
+\item  $\Z$ con $\delta (n) = \mid n\mid$ es euclídeo.
+
+\item  Si $k$ es un cuerpo, $k(x)$ con $\delta(p) = 2^{grado(p)}$ es euclídeo.
+
+\item  $\Z(i)$ con $\delta (a+ib) =a^2+b^2$ es euclídeo.  Para demostrarlo, considerar que el anillo está incluido en $\Q(i)$, que es un cuerpo.
+
+\item  Las unidades de un anillo euclídeo son los elementos de norma 1.
+
+\item Si $a$ es un divisor de $b$, entonces $\delta(a)\leq \delta (b)$.
+
+\item  Un anillo euclídeo es un dominio de ideales principales. Para la demostración, considérese
+los elementos de norma mínima del ideal.
+
+\item Probar inductivamente que todo elemento del anillo euclídeo se puede expresar
+ como producto de elementos irreducibles. Demostrar la unicidad de esta descomposición, 
+salvo producto por unidades.
+
+\end{itemize}
+
+\end{pro}
+
+
+
+
+\begin{pro} \index{racionalización}
+
+Sea $k \subset K$ dos cuerpos.  Sea $a \in K-k$ algebraico sobre $k$.  El morfismo
+$$
+\begin{array}{cccc}
+\varphi_a & : k(x)& \lto & K \\
+          & p & \lto & p(a)
+\end{array}
+$$
+valora en un cuerpo y por lo tanto el núcleo de $\varphi_a$ es un ideal primo.  Como $a$ es algebraico, dicho núcleo no es nulo.   El polinomio, cuyo coeficiente de mayor grado sea 1, que genera este ideal es {\rm polinomio anulador} \index{polinomio!anulador} de $a$.  El cociente $k(a) = k(x)/p$ es un cuerpo.  Si $q$ es  otro polinomio , entonces $q(a) \in K(a)$ es no nulo y por lo tanto invertible.  El problema de la racionalización consiste en encontrar otro polinomio $r$ que cumpla:
+$$
+1/q(a) = r(a)
+$$
+
+\begin{itemize}
+
+\item  Utilizar el lema de Bezout para resolver el problema de la racionalización.
+
+\item  Aplicarlo al caso $1/(2-\sqrt{3})$ y al caso $1/(3\sqrt[3]{2}+5\sqrt[3]{2}+2)$.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro} \index{algoritmo de Euclides}
+
+Sea $p$ y $q$ polinomios sobre un cuerpo y supongamos que $grado(p) \geq  grado(q)$.
+
+Aplicando la división euclídea obtenemos
+$$
+p = c_1 q +q_1
+$$
+\begin{itemize}
+
+\item Demostrar que $(p+q) = (q+q_1)$
+
+\end{itemize}
+
+Repetimos el proceso, pero ahora con los polinomios $q$ t $q_1$ y obtenemos 
+$$
+q = c_2 q_1 + q_2
+$$
+Seguimos el proceso con $q_1$ y $q_2$.  Como los grados de los polinomios  van bajando, en algún momento la división es exacta
+$$
+q_{m-1}=c_mq_m
+$$
+
+\begin{itemize}
+
+\item  Recordando que el máximo común divisor de dos polinomios es el generador de ideal $(p+q)$ demostrar que 
+$$
+\text{m.c.d} ((p,q) = q_m
+$$
+
+\item  Generalizar este resultado al anillo $\Z$ y a todo anillo euclídeo.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+El {\rm teorema  fundamental del álgebra} \index{teorema!fundamental del álgebra} afirma que todo
+polinomio con coeficientes complejos tiene al menos una raiz.  La demostración rigurosa de este
+teorema se debe a Gauss.  De las distintas demostraciones daremos la que se apoya en la teoría
+de funciones complejas.  El {\rm teorema de Liouville} \index{teorema!de Liouville} afirma que
+toda función holomorfa y acotada es constante.
+
+\begin{itemize}
+
+\item  Si un polinomio de grado mayor que cero $p(x)$ no tiene raices,
+ entonces $\mid p(x) \mid >\epsilon$ para algún
+valor de $\epsilon$, puesto que la función es continua.
+
+\item Si $p(x)$ no tiene raices la función $1/p(x)$ es holomorfa y por el argumento anterior está 
+acotada.  Luego es una constante.  Esto implica una contradicción y necesariamente el polinomio
+tiene al menos una raiz.
+
+\item Aplicando inducción, concluimos que todo polinomio tiene tantas raices como grado, contando
+las raices con su multiplicidad.  Todo polinomio complejo se factoriza en polinomio de grado $1$.
+
+\item Si $p(x)$ es un polinomio con coeficientes reales y $a$ es una solución compleja, entonces
+su conjugado, $\overline{a}$, también es solución.  Las raices complejas de polinomios reales
+aparecen por parejas conjugadas.  El polinomio real es divisible entre el polinomio $(x-a)(x-\overline{a})$
+que también tiene coeficientes reales.
+
+\item  Los polinomios reales irreducibles son los de grado $1$ o los de grado $2$ sin raices
+reales.
+
+\end{itemize}
+
+\end{pro}
+
+
+
+
+
+\begin{pro}
+
+Sea $k$ un cuerpo.  Por analogía con el análisis infinitesimal definimos la {\rm derivada de un polinomio} \index{derivada de un polinomio}
+$$
+p = a_nx^n + \dots + a_1x+a_0
+$$
+como el polinomio
+$$
+p'= na_nx^{n-1}+ \dots +a_1
+$$
+
+\begin{itemize}
+
+\item  Demostrar las fórmulas
+$$
+(p+q)'= p'+q' \quad \quad \quad (pq)'=p'q+pq'
+$$
+
+\item  Si la derivada de un polinomio es nula, ¿necesariamente el polinomio es constante?.  Analizar el caso de característica positiva y de característica nula por separado.
+
+\item  Definir las derivadas de orden superior y generalizar (si es posible) la fórmula de Taylor.
+
+\item  Considerar el anillo de polinomios en varias variables e introducir el concepto de derivada parcial.  Ver que las derivadas parciales conmutan.  Generalizar algún resultado del cálculo diferencial a esta nueva situación.
+
+
+\item Un elemento $a$ es raíz múltiple de un polinomio $p$ si $(x-a)^n$ divide
+al polinomio.  Demostrar que si $a$ es una raíz múltiple, entonces es también
+raíz del polinomio derivado $p'$.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}\label{pro:variasvariables}
+
+Sea $\varphi : A \lto B$ un morfismo  y $b_1,b_2 \in B$.  
+
+\begin{itemize}
+
+\item  Demostrar que existe un único morfismo
+$$
+\varphi_{b_1,b_2}: A(x,y) \lto B
+$$
+que cumple $\varphi_{b_1,b_2}(x) = b_1, \varphi_{b_1,b_2}(y) = b_2$ y $\varphi_{b_1,b_2}(a) = \varphi(a)$ para todo elemento $A \in A$.
+
+\item  Generalizar esta propiedad a un número finito de variables.
+
+\item  Demostrar que $\varphi_{b_1,b_2}(A(x,y))$ es el menor subanillo de $B$ que contiene a $\varphi(a)$ y a $b_1$ y $b_2$.  En general este anillo se denota $A(b_1,b_2)$.
+
+\item  Demostrar que existe un morfismo $\varphi^* :A(x,y) \lto B(x,y)$ que extiende a $\varphi$ y que conserva las variables.
+
+\end{itemize}
+
+Sea $A \subset B$ dos anillos.  Dos elementos $b_1,b_2$ son {\rm algebraicamente independientes} \index{algebraicamente!independientes} sobre $A$ si el morfismo $\varphi_{b_1,b_2}$ es inyectivo.
+
+\begin{itemize}
+
+\item  Si $b=A(x,y)$, demostrar que los polinomios $x$ e $y$ son algebraicamente independientes sobre $A$.
+
+\end{itemize}
+
+\end{pro}
+
+
+\begin{pro}
+
+Si en la definición de polinomios en una variable quitamos la restricción de que 
+las aplicaciones sean casi nulas, obtenemos un nuevo anillo, denotado $A[[x]]$ y 
+llamado {\rm anillo de series formales}. \index{anillo!de series formales}  
+
+\begin{itemize}
+
+\item Si $A$ es íntegro el anillo $A[[x]]$ también.
+
+\item Si $s$ es una serie sin término independiente, entonces $s$ no puede ser invertible.
+
+\item Demostrar que la serie formal $1-x$ tiene inversa.  Hallar dicho inverso.  Como polinomio
+$1-x$ no es invertible.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}\label{pro:raizdedos}
+
+Consideremos en $\Q(x)$ el polinomio primo $x^2-2$.  El cociente del anillo de polinomios, módulo el ideal $(x^2-2)$ es isomorfo al anillo $\Q(\sqrt{2})$.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $k$ un cuerpo y $p$ un polinomio irreducible de grado $n$. 
+
+\begin{itemize}
+
+\item  El cuerpo $k(x)/p$ es un espacio vectorial sobre $k$ de dimensión $n$.
+
+\item $\{1, \pi(x), \dots \pi(x^{n-1})\}$ es una base de este espacio vectorial.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Un anillo conmutativo es íntegro $\Leftrightarrow $ es un subanillo de un cuerpo.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $A$ un dominio de integridad.  Sean $p$ y $q$ dos polinomios con coeficientes en $A$.  Si el coeficiente de mayor grado de $q$ es invertible en $A$, probar que existen polinomios $c$ y $r$ que cumplen 
+$$
+p = cq+r \text{ y ádemas } grado(r) < grado(q)
+$$
+¿Son únicos esos polinomios?
+
+\end{pro}
+
+
+%%%%%%%%%%%%%% Capitulo 5
+%%%%%%%%%%%%%% divisibilidad
+
+
+\newpage
+
+\section{Divisibilidad}
+
+Realizaremos el estudio de la divisibilidad en el marco de los anillos de ideales principales, aunque muchas de las cuestiones estudiadas en este apartado son válidas en anillos más generales.  En este apartado cuando hablemos de un anillo supondremos implícitamente que este anilo es un dominio de ideales principales.
+
+Relacionados con la divisibilidad están varios conceptos.  Por una parte el estudio del máximo común divisor y del mínimo común múltiplo.  Otro tiene que ver con el Teorema fundamental de la Aritmética que afirma que todo número se puede escribir de modo único como multiplicación de números primos.
+
+\begin{defi}
+
+Un {\sf  dominio de ideales principales} \index{dominio de ideales principales} (DIP) es un anillo conmutativo, con unidad, íntegro y donde todo ideal es principal.
+
+\end{defi}
+
+\bigskip  
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item $\Z$ es un dominio de ideales principales.
+
+\item  Si $k$ es un cuerpo $k(x)$ es un DIP, como demostramos en el teorema \ref{teo:principal}.
+
+\item  Todo {\sf anillo euclídeo} \index{anillo!euclídeo} es un DIP.  Para la definición de anillo euclídeo y para el estudio de sus propiedades elementales nos remitimos al problema \ref{pro:euclideo}.
+
+
+\end{itemize}
+
+
+\begin{defi}
+
+Sean $a,b$ dos elementos de un anillo $A$.  Decimos que $a$ {\sf divide} \index{divisor} a $b$ y denotamos $a \mid b$ si existe $c \in A$ que cumple $ac=b$.  También se dice que $b$ es un {\sf múltiplo} \index{múltiplo} de $a$.
+
+\end{defi}
+
+Naturalmente la palabra divide en un anillo tiene siempre el sentido dado en la anterior definición, pues como sabemos la división es un concepto que no existe en los anillos, salvo para elementos invertibles.
+
+La divisibilidad tiene unas propiedades elementales que pasamos a enunciar.
+
+\begin{propo}
+
+En un anillo $A$ se cumple:
+
+\begin{enumerate}[\indent 1.- ]
+
+\item $a \mid 0$, $1 \mid a$ y $a \mid a$.
+
+\item $a \mid 1$ si y solo si $a$ es invertible.
+
+\item Si $a \mid b$, entonces $ac \mid bc$ para cualquier $c$.
+
+\item Si $a \mid b$ y $b \mid c$, entonces $a \mid c$.  Esta es la propiedad transitiva.
+
+\item $a \mid b$ si y solo si $(b) \subset (a)$.
+
+\end{enumerate}
+
+\end{propo}
+
+\dem
+
+Las cuatro primeras propiedades se derivan directamente de la definición.  Probemos la propiedad $5$.
+
+Si $a \mid b$, entonces $ac = b$ para cierto $c$.  Entonces $b \subset (a)$, lo que implica que $(b)\subset (a)$.
+
+Recíprocamente, si $(b) \subset (a)$, $b= ac$ para cierto $c$, lo que prueba que $a \mid b$ y concluye la demostración.  \fin
+
+La propiedad $5$ nos informa que el estudio de la divisibilidad es equivalente al estudio de la estructura de orden del retículo de ideales.  Aprovecharemos nuestros conocimientos sobre este retículo para demostrar cuestiones relacionadas con la divisibilidad.
+
+Sin embargo la analogía no es completa pues  puede ocurrir que dos elementos generen el mismo ideal.
+
+\begin{defi}
+
+Dos elementos $a,b$ de $A$ son {\sf asociados} \index{elementos!asociados} si $a=bu$ donde $u$ es una unidad.
+
+\end{defi}
+
+Esta relación es de equivalencia.  La utilidad del concepto de elementos asociados se pone de manifiesto en la siguiente proposición, que a la vez sirve para dar una nueva definición de este concepto.
+
+\begin{propo}
+
+Dos elementos son asociados si y solo si generan el mismo ideal.
+
+\end{propo}
+
+\dem
+
+Si $a$ y $b$ son asociados $a = bu$.  Luego todo múltiplo de $a$ es múltiplo de $b$.  Pero también tenemos que $au^{-1}=b$.  Así todo múltiplo de $b$ es múltiplo de $a$.  Concluimos que $(a) = (b)$.
+
+Si $(a)=(b)$, tenenos que $a=bc$ y $b=ad$.  Sustituyendo $b$ en la primera expresión $ a=adc$.  Podemos cancelar $a$ al estar en un anillo íntegro y obtenemos que $1=dc$. Esto prueba que $c$ es invertible.  \fin
+
+
+\bigskip 
+
+ \noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item  En $\Z$ los números $n$ y $-n$ generan el mismo ideal.  Es costumbre tomar como generador al positivo.
+
+\item  En $\Z(i)$, las unidades son $\{1,-1,i,-i\}$.  Por lo tanto existen cuatro generadores para cualquier ideal.  Para la demostración de que en efecto $\Z(i)$ es un DIP nos remitimos al problema \ref{pro:euclideo}.
+
+\item Si $k$ es un cuerpo, los polinomios de grado cero (o sea los elementos de $k$) son los invertibles.  Así que un polinomio $p$ y todos los que se obtienen multiplicando $p$ por un elemento de $k$ generan el mismo ideal.  Sin embargo si hablamos de generador de un ideal en un anillo de polinomios siempre estaremos suponiendo que el coeficiente de mayor grado es $1$.  Estos polinomios se denominan {\sf unitarios} \index{polinomio!unitario} o {\sf mónicos}. \index{polinomio!mónico}
+
+\end{itemize}
+
+El estudio del máximo común divisor y del mínimo común múltiplo se puede realizar para conjuntos formados por más de dos elementos.  Como el introducir más elementos no aporta nada nuevo y solamente complica la notación, nos centraremos en el caso de dos elementos.
+
+
+\begin{defi}
+
+Sean $a_1, a_2 \in A$.  Un elemento $d$ es un {\sf máximo común divisor}\index{máximo común divisor} si cumple:
+
+\begin{itemize}
+
+\item $d \mid a_1$ y $d \mid a_2$.
+
+\item Si $c$ divide a $a_1$ y a $a_2$, entonces $c \mid d$.
+
+\end{itemize}
+
+\end{defi}
+
+Naturalmente si un elemento es un máximo común divisor, todo elemento asociado con el también.  El máximo común divisor es un elemento que divide tanto a $a_1$ como a $a_2$.  De hay proviene el apelativo ``común''.  También es múltiplo de cualquier otro divisor común.  Resulta que en el caso de $\Z$, es el que tiene mayor valor absoluto (de ahí lo de ``máximo'').  Sin embargo en un anillo que carezca de un orden no tiene sentido hablar de ``máximo''.
+
+
+
+\begin{propo}
+
+El máximo comun divisor de $a_1$ y $a_2$ es el generador del ideal suma $(a_1)+(a_2)$.
+
+\end{propo}
+
+
+\dem
+
+Sea $(d)= (a_1)+(a_2)$. Tenemos que $(a_i) \subset (d)$ lo que implica que $d\mid a_i$.
+
+Si $c$ es un elemento que divide tanto a $a_i$ tendremos  que $(a_i) \subset (c)$.  Como la suma es el menor ideal que contiene a los ideales, $(d) \subset (c)$.  Deducimos que   $ c\mid d$.  \fin 
+
+\begin{cor}[Lema de Bezout] \index{lema!de Bezout}
+
+Dados dos elementos $a_1,a_2 \in A$, el máximo común divisor $d$ se puede expresar en la forma
+$$
+d= a_1x+a_2y \text{ para ciertos } x, y \in A
+$$
+
+\end{cor}
+
+
+\begin{defi}
+
+Dos elementos $a_1$ y $a_2$ son {\sf primos entre si} \index{primos!entre si} o {\sf primos relativos} \index{primos!relativos} si su máximo común divisor es la unidad.  Esto es equivalente a que 
+$$
+(a_1)+(a_2)= A
+$$
+
+\end{defi}
+
+
+Aplicando el lema de Bezout a un par de primos relativos tenemos la fórmula 
+$$
+1=a_1x+a_2y
+$$
+
+Como aplicación de esta fórmula (llamada {\sf fórmula de Bezout}) \index{fórmula!de Bezout} tenemos
+
+\begin{cor}
+
+Sean $a,b,c \in A$.  Si $c\mid ab$ y $a$ y $c$ son primos relativos, entonces $c\mid b$.
+
+\end{cor}
+
+\dem
+
+Utilizando el lema de Bezout
+$$
+1 = ax+cy
+$$
+Multiplicamos por $b$
+$$
+b= abx+cby
+$$
+Como $c$ divide a cada sumando del segundo miembro (pues divide a $ab$) entonces $c$ divide a su suma, que no es otra que $b$.  \fin
+
+\begin{defi}
+
+Dados dos elementos $a_1$ y $a_2$, decimos que un elemento $d \in A $ es un {\sf mínimo común múltiplo}\index{mínimo común múltiplo} si
+
+\begin{itemize}
+
+\item $a_1 \mid d$ y $a_2 \mid d$
+
+
+\item Si $a_1 \mid c$ y $a_2 \mid c$, entonces $d \mid c$
+
+
+\end{itemize}
+
+\end{defi}
+
+Si dos elementos son asociados y uno es un mínimo común múltiplo, entonces el otro también.  Salvo esa ambigüedad, el mínimo común múltiplo es único.
+
+
+\begin{propo}
+
+El mínimo común múltiplo de dos elementos es el generador del ideal intersección.
+
+\end{propo}
+
+
+\dem
+
+
+Sean $a_1$ y $a_2$ los elementos en cuestión y sea $(d)= (a_1) \cap (a_2)$.
+
+Tenemos que $(d) \subset (a_i)$, $\Rightarrow a_i \mid d$.
+
+Si $a_i \mid c$, entonces $(c) \subset (a_i)$.  Pero como la intersección es el mayor ideal contenido tanto en $(a_1)$ como en $(a_2)$, entonces $(c) \subset (d)$.  Concluimos que $d\mid c$.  \fin
+
+
+
+
+
+
+Para el estudio de la divisibilidad debemos introducir un concepto análogo al de número primo en la aritmética.
+
+\begin{defi}
+
+Un elemento $p \in A$ es {\sf primo} \index{elemento!primo} si no es invertible y si $p \mid ab$ $\Rightarrow $ o bien $p \mid a$ o bien $p \mid b$.
+
+Un elemento $m \in A$ es {\sf irreducible} \index{elemento!irreducible} (o {\sf no factorizable}) \index{elemento!no factorizable} si en toda factorización $m=ab$, alguno de los factores es una unidad.
+\end{defi}
+
+Vamos a caracterizar a estos elementos por las propiedades de los ideales que generan.
+
+\begin{teo}
+
+Sea A un anillo.  Se cumple:
+
+\begin{enumerate}[\indent 1.- ]
+
+\item $m$ es irreducible si y solo si $(m)$ es un ideal maximal.
+
+\item $p$ es primo si y solo si $(p)$ es un ideal primo.
+
+\end{enumerate}
+
+\end{teo}
+
+\dem
+
+\indent $1.- \quad$  Sea $m$  irreducible.  Si $(m) \subset (a)$ tenemos que $m=ab$.  Si $a$ es invertible, $(a) = A$.  Si el invertible es $b$ los elementos $m$ y $a$ son asociados y generan el mismo ideal.  Así $(a)$ coincide con $(m)$ o es el total.
+
+Si $(m)$ es maximal y $m$ pudiera factorizarse $m=ab$ donde ni $a$ ni $b$ fuesen invertibles, tendríamos que $(m) \subset (a)$ en sentido estricto y $(m)$ no sería maximal.  Como esta contradicción no es posible debe  ser imposible factorizar el elemento.
+\bigskip
+
+\indent $2.- \quad$  Sea $p$ un elemento primo.  Si $ab \in (p)$, entonces $p \mid ab$.  Por lo tanto $p \mid a$ o $p \mid b$, lo que indica que $a \in (p)$ o $b \in (p)$.  El ideal $(p)$ es entonces primo.
+
+Si $(p)$ es primo y $p\mid ab$ tenemos que $ab \in (p)$. Luego uno de los dos está en $(p)$ y por lo tanto alguno es divisible entre $p$.  \fin
+
+\begin{cor}
+
+Todo elemento irreducible es primo.
+
+\end{cor}
+
+\dem
+
+Todo ideal maximal es primo.  \fin
+
+\begin{cor}\label{cor:primodivide}
+
+Si $a$ no es invertible en un DIP, existe un primo $p$ que  lo divide.
+
+\end{cor}
+
+\dem
+
+$(a)$ está contenido en un ideal maximal $(m)$, que es primo. Tenemos entonces $m\mid a$.  \fin
+
+Los conceptos de irreducible y de primo son distintos en muchos anillos.  Sin embargo en los DIP estos conceptos coinciden.  Veamos el recíproco del corolario anterior.
+
+\begin{propo}
+
+Sea $A$ un DIP.  Todo ideal primo y no nulo es maximal.
+
+\end{propo}
+
+\dem
+
+Sea $(p)$ un ideal primo y $(a)$ un ideal que lo contenga, $(p) \subset (a)$.  Tenemos que $p=ac$ para algún elemento $c$ de $A$.  Así $ac \in (p)$.  Como $(p)$ es primo $a$ o $c$ deben estar en $(p)$.  Si $a$ está en el ideal se cumple que $(a)=(p)$.  Si es $c$ el que está tenemos que $p=ac=aad$. de donde se obtiene fácilmente que $a$ es una unidad y por lo tanto $(a)=A$.  \fin
+
+\begin{cor}
+
+En un DIP un elemento es primo si y solo si es irreducible.
+
+\end{cor}
+
+\begin{cor}
+
+Si $A$ es un DIP, todo cociente de $A$ que sea íntegro es un cuerpo.
+
+\end{cor}
+
+\bigskip  
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item Si $p$ es un número primo, también es irreducible, por lo que $\Z_p$ además de ser íntegro es un cuerpo.  Este resultado ya nos era conocido pero lo hemos demostrado con otros argumentos.
+
+\item  Consideremos en $\R(x)$ el polinomio $x^2+1$.  Como el polinomio carece de raices, es irreducible.  El cociente $\R(x)/(x^2+1)$ es un cuerpo.  Designemos por $\pi$ la proyección canónica.  El elemento $\pi(x)$ es solución del polinomio $x^2+1$ en el nuevo cuerpo.  Hemos encontrado un cuerpo donde el polinomio tiene solución y por lo tanto ya no es irreducible.  Es fácil ver que el cuerpo $\R(x)/(x^2+1)$ es isomorfo a $\C$.
+
+\item  Sea $k$ un cuerpo y $p$ un polinomio irreducible.  El anillo $k(x)/(p)$ es un cuerpo.  $\pi(x)$ es una raiz del polinomio en dicho cuerpo.  De este modo el polinomio $p$ ya es reducible sobre dicho cuerpo.  Tomando los factores de dicho polinomio y aplicando inducción vemos que siempre existe un cuerpo donde todo polinomio tiene todas las raices y por lo tanto se descompone en factores lineales.
+
+\end{itemize}
+
+
+
+
+El teorema fundamental de la aritmética nos dice que todo elemento de $\Z$ es producto de números primos.  Además esta descomposición, salvo el orden y el producto por unidades, es única.
+
+El proceso para encontrar la descomposición es el siguiente: tomamos un número $a \in \Z$.  Si es primo, hemos terminado.  Si no es primo, tiene un factor primo.  Entonces $a=p_1a_1$.  Si $a_1$ es primo, hemos terminado.  Si no lo es aplicamos el paso anterior al número $a_1$.  Este proceso se sigue indefinidamente, pero debemos demostrar que en algún momento se termina. En el caso de los números enteros, se demuestra que el proceso termina puesto que $a_{i+1}$ es menor que $a_{i}$.  El mismo razonamiento es válido también para anillos euclídeos.  Sin embargo en el caso general de un DPI arbitrario necesitamos el siguiente
+
+\begin{lema}
+
+Sea $A$ un DIP.  Dada una cadena creciente de ideales principales $I_1 \subset I_2 \subset \dots \subset I_i \subset \dots$, existe un entero $n$ tal que $I_m=I_n$ si $m>n$.
+
+\end{lema}
+
+\dem
+
+Consideramos el conjunto unión $I= \cup I_i$.  Este conjunto es un ideal del anillo.  Por lo tanto está generado por un elemento $(a)$.  Como dicho elemento pertenece a la unión, necesariamente estará en algún $I_i$.  Sea $I_n$ el primer ideal que contiene a dicho generador.  Entonces $I_m=I_n$ si $m>n$.  \fin
+
+
+\Observacion
+
+Los anillos que cumplen la propiedad enunciada en el lema anterior se denominan {\sf anillos noetherianos} \index{anillo!noetheriano}.  Existen anillos noetherianos que nos DIP.
+
+
+\begin{teo}
+
+Todo elemento de un DIP tiene una factorización como producto de elementos primos.  Dicha factorización es única, salvo el orden y el producto por unidades.
+
+\end{teo}
+
+\dem
+
+
+Veamos primero la existencia de la descomposición.  Sea $a \in A$.  Como el ideal $(a)$ está contenido en un maximal, existe un elemento primo (corolario \ref{cor:primodivide}) que divide a dicho elemento
+$$
+a= p_1 a_1
+$$
+Repetimos el proceso con $a_1$ y obtenemos
+$$
+a_1= p_2a_2 \qquad \Rightarrow \qquad a= p_1p_2a_2
+$$
+En general, aplicando inducción
+$$
+a_i= p_{i+1}a_{i+1} \qquad \Rightarrow \qquad a= p_1 p_2\dots p_{i+1}a_{i+1}
+$$
+Con los  elementos $a_i$ podemos formar una cadena puesto que $a_{i+1}\mid a_i$
+$$
+(a_1) \subset (a_2) \subset \dots (a_i) \subset \dots
+$$
+La cadena estaciona en un elemento $a_n$.  Pero dicho elemento debe ser primo, pues si no lo fuera, la cadena seguiría ascendiendo.
+
+Por lo tanto
+$$
+a= p_1p_2 \dots p_{i+1}
+$$
+es una descomposición posible del elemento $a$ como producto de elementos primos.
+
+\bigskip
+
+Veamos la unicidad de la descomposición.
+
+Sea $a= p_1 \dots p_n$ y $a=q_1 \dots q_m$.  Tenemos que $p_1$ divide a $a$ y por tanto divide al producto $q_1 \dots q_m$.  Como $p_1$ es primo necesariamente divide a algun elemento $q_i$.  Reordenando dichos elementos podemos suponer sin perder generalidad que divide a $q_1$.  Como ambos son primos, necesariamente generan el mismo ideal y los elementos están asociados.  Tenemos entonces la  ecuación
+$$
+p_1 \dots p_n= u_1p_1q_2 \dots q_m
+$$
+Como estamos en un anillo íntegro, podemos cancelar $p_1$ y mediante inducción probamos que $n=m$ y que los elementos $p_i$ y $q_i$ están asociados.  Luego, salvo el orden y el producto por unidades, tenemos la unicidad.  \fin
+
+
+
+
+\centerline{\sc Problemas}
+
+\begin{pro}
+
+Si $c \mid a$ y $c \mid b$, entonces $c \mid ax+by$ para todo $x,y$.
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Demostrar que dos elementos son asociados si y solo si se dividen mutuamente.
+
+\end{pro}
+
+\begin{pro}
+
+Los elementos asociados con $1$ son precisamente las unidades del anillo.
+
+\end{pro}
+
+\begin{pro}
+
+Demostrar que si un anillo es íntegro, aunque no necesariamente un DIP, todo elemento primo es irreducible.
+
+\end{pro}
+
+
+%%%%%%%%%%%%% Capitulo seis
+%%%%%%%%%%%%% fracciones
+
+\newpage
+
+\section{Localización}
+
+El propósito de este tema es construir anillos de fracciones.  Las fracciones se construirán con elementos de un anillo $A$.
+
+Estudiaremos en primer lugar un caso particular e importante: el cuerpo de fracciones de un anillo íntegro.  Como siempre $A^*$ denota $A-\{0\}$.
+
+\begin{lema}
+
+En el conjunto $A \times A^*$ la relación $(a,b) \sim (a',b') \Leftrightarrow ab'=a'b$ es de equivalencia.  La clase de equivalencia de $(a,b)$ se denota por la fracción $a/b$.
+
+\end{lema}
+
+\dem
+
+Claramente es reflexiva y simétrica debido a la conmutatividad del anillo.  Veamos que la transitividad
+$$
+(a,b) \sim (c,d) \Leftrightarrow ad=bc
+$$
+$$
+(c,d) \sim (e,f) \Leftrightarrow cf=de
+$$
+Tenemos que 
+$$
+adf=bcf=bde
+$$
+Como $A$ es íntegro y $d \neq 0$ obtenemos que $af=be$ que demuestra que $(a,b) \sim (e,f)$.  \fin
+
+\begin{defi}
+
+El conjunto cociente $A\times A^*/\sim$ se designa $Q_A$ y se llama cuerpo de fracciones del anillo $A$.
+
+\end{defi}
+
+Introducimos en $Q_A$ las operaciones:
+
+$$
+\frac{a}{b}+\frac{c}{d}=\frac{ad+cb}{db}
+$$
+$$
+\frac{a}{b} \cdot \frac{c}{d}= \frac{ac}{bd}
+$$
+
+El lector comprobará que en efecto dichas operaciones no dependen de los representantes que tomemos y que $Q_A$ es un cuerpo con dichas operaciones.  Vease problema \ref{pro:fracciones}.
+
+El elemento neutro para la suma es $0/1$, el neutro para el producto es $1/1$, el opuesto del elemento $a/b$ es $(-a)/b$ y el inverso $b/a$.
+
+
+\begin{propo}
+
+La función
+$$
+\begin{array}{cccc}
+\varphi : & A & \rightarrow& Q_A \\
+ & a & \rightarrow & a/1
+\end{array}
+$$
+es un morfismo de anillos inyectivo.  Via este morfismo, podemos considerar a $A$ como un subanillo del cuerpo $Q_A$.
+
+\end{propo}
+
+\dem
+
+$\varphi$ respeta la suma, el producto y el neutro gracias a la definición de las operaciones con fracciones.
+
+Si $\varphi(a)=0$ entonces $a/1=0$, lo que implica que $a=0$ y que $\varphi$ es inyectivo. \fin
+
+
+\begin{propo}
+
+Si $A$ se puede inyectar en un cuerpo $k$, entonces $Q_A$ también se puede inyectar en el cuerpo $k$.  $Q_A$ es el menor cuerpo que contiene a $A$.
+
+\end{propo}
+
+\dem
+
+Sea $\varphi : A \lto k $ un morfismo inyectivo.  Si queremos prolongar este morfismo a todo el cuerpo de fracciones, la única definición posible es asociarle a la fracción $a/b$ el elemento $\varphi(a) \varphi(b)^{-1}$.  Así definimos $\varphi^* :Q_A \lto k$ por la fórmula
+$$
+\varphi^*(\frac{a}{b}) = \varphi(a). \varphi(b)^{-1}= \frac{\varphi(a)}{\varphi(b)}
+$$
+
+Si $a/b= c/d$ tenemos que $ad=cb$ y aplicando que $\varphi$ respeta la multiplicación $\varphi(a)\varphi(d)=\varphi(c) \varphi(b)$, lo que implica que la función $\varphi^*$  no depende de los representantes que tomemos.
+
+Es rutinaria la comprobación de que en efecto $\varphi^*$ es morfismo de anillos, puesto que en el cuerpo $k$ las operaciones con fracciones son las habituales. (Problema \ref{pro:fracciones}).
+
+Además $\varphi^*$ es inyectivo pues si 
+$$
+\varphi^*(\frac{a}{b})=0 \Rightarrow \varphi(a)\varphi(b)^{-1}=0
+$$
+Como $\varphi(b)$ no es nulo, necesariamente $\varphi(a)=0$ y como $\varphi$ es inyectivo $a=0$ y la fracción $a/b$ es nula.
+
+Por lo tanto cualquier cuerpo $k$ que contenga a $A$, contiene también a $Q_A$, siendo este entonces el mínimo cuerpo que contiene a $A$.  \fin
+
+\begin{cor}
+
+Un anillo es íntegro si y solo si es un subanillo de un cuerpo.
+
+\end{cor}
+
+\bigskip  
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item  El cuerpo de fracciones de $\Z$ es $\Q$.
+
+\item  Si $A=\Z(i)$, el cuerpo de fracciones es precisamente $\Q(i)$.
+
+\item  Dado un anillo de polinomios, su cuerpo de fracciones está formado por todas las fracciones racionales.
+
+\item  Si $A$ es un cuerpo, su cuerpo de fracciones es isomorfo a $A$.
+
+\item  Todo cuerpo $k$ contiene un cuerpo isomorfo a $\Z_p$ o a $\Q$.  En efecto, si $k$ tiene característica positiva $p$, existe un morfismo inyectivo de $\Z_p$ en $k$.  Si $k$ tiene característica cero, $A$ es un subanillo de $k$ y por lo tanto $\Q$ también es subanillo de $k$.  $\Z_p$ y $\Q$ son los únicos cuerpos que no poseen subcuerpos.
+
+\end{itemize}
+
+\begin{defi}
+
+Sea $A$ un anillo.  Un subconjunto $S \subset A$es {\sf multiplicativo} \index{subconjunto multiplicativo} si:
+\begin{itemize}
+\item $1 \in S$
+\item $0 \not \in S$
+\item Si $a \in S$ y $b \in S$ entonces $ab \in S$
+\end{itemize}
+
+\end{defi}
+
+Un subconjunto multiplicativo también se llama un {\sf sistema de denominadores} \index{sistema de denominadores} de $A$.
+
+Sea $S$ un subconjunto multiplicativo.  En $A \times S$ introducimos la relación
+$$
+(a,s) \sim (a',s') \text{ si existe } s''\in S \text{ tal que } s''(as'-a's)=0
+$$
+
+\begin{lema}
+
+La anterior relación es de equivalencia.
+
+\end{lema}
+
+\dem
+
+Veamos la propiedad transitiva.
+$$
+(a,s) \sim (b,t) \Leftrightarrow \text{ existe } s_1 , \quad s_1(at-bs)=0
+$$
+$$
+(b,t) \sim (c,u) \Leftrightarrow \text{ existe } s_2, \quad s_2(bu-ct)=0
+$$
+Multiplicamos la primera igualdad por $s_2u$ y la segunda por $s_1s$.  Así conseguimos eliminar la $b$ y nos queda
+$$
+ats_1s_2u - cts_2s_1s=0
+$$
+Sacando factor común $ts_1s_2 \in S$ obtenemos que $(a,s) \sim (c,u)$. \fin
+
+El conjunto cociente de esta relación de equivalencia la denotamos $A_S$.  La clase de equivalencia de $(a,s)$ se suele denotar por $a/s$ y debemos pensar en ella como en una fracción, donde los posibles denominadores son los elementos de $S$.
+
+En $A_S$ y con nuestra notación, introducimos las operaciones
+$$
+\frac{a}{s}+\frac{a'}{s'} = \frac{as'+a's}{ss'}
+$$
+
+
+$$
+\frac{a}{s}\cdot \frac{a'}{s'}= \frac{aa'}{ss'}
+$$
+
+\begin{propo}
+
+El conjunto $A_s$ junto con las operaciones inducidas es un anillo unitario.  El neutro para la suma es $0/1$, el opuesto de $a/s$ es $-a/s$, el neutro para el producto $1/1$.  Si $a \in S$, entonces la fracción $a/s$ es invertible y su inverso es $s/a$.
+
+\end{propo}
+
+\dem
+
+La única dificultad es demostrar que las operaciones no dependen de los representantes .  Todas las propiedades de esta estructura de anillo son entonces evidentes.  \fin
+
+\begin{defi}
+
+El anillo $A_S$ se dice que es el {\sf anillo de fracciones} \index{anillo!de fracciones} de $A$ con denominadores de $S$.
+
+\end{defi}
+
+Tenemos siempre una aplicación
+$$
+\begin{array}{cccc}
+ \varphi : & A & \lto & A_S \\
+         & a & \lto a/1
+\end{array}
+$$
+que es morfismo de anillos.  Debemos observar que, a diferencia de lo que ocurría en el cuerpo de fracciones, esta aplicación puede no ser inyectiva si el anillo $A$ no es íntegro.
+
+\begin{teo}[Propiedad universal]
+
+Sea $\varphi: A \lto B$ un morfismo de tal forma que $\varphi(s)$ sea invertible en $B$ para todo elemento de $S$.  Entonces existe un único morfismo
+$$
+\varphi^* :A_S \lto B
+$$
+que cumple $\varphi^*(a/1)=\varphi(a)$.
+
+\end{teo}
+
+\dem
+
+Si $\varphi^*$ debe ser morfismo, necesariamente se cumple
+$$
+\varphi^*(a/s)=\varphi(as^{-1})=\varphi(a)\varphi(s^{-1})= \varphi(a)\varphi(s)^{-1}
+$$
+Por lo tanto adoptaremos como definición de $\varphi^*$ la fórmula
+$$
+\varphi^*(a/s)=\varphi(a)\varphi(s)^{-1}
+$$
+Tenemos que ver que $\varphi^*$ no depende de los representantes.
+
+Si $a/s=a'/s'$ entonces $s''(as'-a's)=0$.  Aplicando $\varphi$ a esta expresión obtenemos
+$$
+\varphi(s'')(\varphi(a)\varphi(s')-\varphi(a')\varphi(s))=0
+$$
+y como $\varphi(s'')$ es unidad es cancelable y obtenemos que 
+$$
+\varphi(a)\varphi(s')= \varphi(a')\varphi(s)
+$$
+lo que demuestra que $\varphi^*(a/s)=\varphi(a'/s')$.
+
+Que conserva la suma, el producto y la unidad es de fácil comprobación. \fin
+
+\bigskip 
+
+ \noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item  Sea $a \in A$ no nilpotente.  $S = \{a_n\}_{n \geq 0} $ es un subconjunto multiplicativo.  Las fracciones tienen como denominadores potencias de $a$.  En este caso el anillo se suele denotar $A_a$ en vez de $A_S$.
+
+\item  Sea $\p$ un ideal primo. $S= A- \p$ es multiplcativo.  En este caso $A_S$ se denota $A_\p$.  Los denominadores en este caso no contienen elementos de $\p$.  El conjunto
+$$
+\m =\{a/s \text{ con } a \in \p\}
+$$
+es un ideal de $A_\p$.  Este ideal es maximal, pues todos los elementos que no están en $\m$ son invertibles.  Además este es único ideal maximal del anillo.
+
+\item  El cuerpo de fracciones de un anillo íntegro.
+
+
+
+\item Sea $S_0$ el conjunto de todos los elementos de $A$ que no son divisores de cero.   $S_0$ es un subconjunto multiplicativo y $A_{S_0}$ se denomina anillo total de fracciones de $A$.  En este caso la aplicación canónica $\varphi :A \lto A_{S_0}$ es inyectiva.
+\end{itemize}
+
+\begin{defi}
+
+Un anillo $A$ es {\sf local} \index{anillo!local} si tiene un único ideal maximal.
+
+\end{defi}
+
+Todos los anillos $A_\p$ son locales.  Decimos que $A_\p$ es el localizado de $A$ en el ``punto'' $\p$.
+
+El proceso que nos transforma $A$ en $A_\p$ se denomina {\sf localización}. \index{localización}
+
+\begin{propo}
+
+Sea $\varphi :A \lto A_S$ el morfismo natural.  Existe una correspondencia biunívoca entre los ideales primos de $A_S$ e ideales primos que no cortan a $S$, dada por la fórmula $\p \longleftrightarrow \varphi^{-1}(\p)$.
+
+\end{propo}
+
+\dem
+
+Al lector.  \fin
+
+
+
+\centerline{\sc Problemas}
+
+
+
+
+
+\begin{pro}
+
+Sea $A$ un anillo íntegro y $k$ su cuerpo de fracciones.
+
+\begin{itemize}
+
+\item Si a una fracción $a/b$ se le multiplica denominador y numerador por un  mismo elemento no nulo de $A$, la fracción no cambia.
+
+\item  Generalizar el resultado anterior a los anillo $A_S$.
+
+\item  Utilizar los resultados anteriores para simplificar fracciones.
+
+\end{itemize}
+
+\end{pro}
+
+
+%%%%%%%%%%%%% Capitulo siete
+%%%%%%%%%%%%% espectro
+\newpage
+
+\section{Espectro}
+
+En teoría de anillos se introduce la noción de espectro para intentar conseguir que todos los anillos se puedan entender como anillos de funciones.
+
+\begin{defi}
+
+Sea $A$ un anillo conmutativo.  El espectro de $A$ es el conjunto de los ideales primos de $A$.  Lo denotaremos por $\Spec(A)$.  El conjunto total no lo consideraremos ideal primo.
+
+\end{defi}
+
+Para nosotros, de ahora en adelante, un ideal primo lo podemos entender como un subconjunto de $A$ o como un punto del espacio $\Spec(A)$.
+Si pensamos en el ideal primo como un punto de $\Spec(A)$, lo denotaremos por una letra, por ejemplo $x$.  Si lo entendemos como un subconjunto de $A$ lo denotaremos $\p_x$.
+
+\begin{lema}
+
+Si $x \in \Spec(A)$, entonces $A/\p_x$ es un anillo íntegro.  El cuerpo de fracciones de este anillo se denota $k(x)$ y se dice que es el  {\sf cuerpo residual} \index{cuerpo residual} del punto $x$.
+
+\end{lema}
+
+\dem
+
+Sabemos que $\p_x$ es un ideal primo que no es el total.   Así $A/\p_x$ es un anillo íntegro y no nulo.  Su cuerpo de fracciones tampoco será nulo.  \fin
+
+Dado un elemento  $f \in A$ y un punto $x$ del espectro, consideramos la clase de equivalencia de $f$ módulo $\p_x$.  Dicha clase de equivalencia se denota $f(x)$ y se dice que es el valor que toma la ``función'' $f$ en el punto $x$.  Por lo tanto tenemos que $f(x) \in A/\p_x$.  Con ello vemos que  todo elemento de $A$ se puede entender como una función con dominio $\Spec(A)$, pero con el problema de que el conjunto imagen cambia con el punto $x$.
+
+\begin{defi}
+
+Llamamos {\sf puntos} \index{punto} a los elementos de $\Spec(A)$. 
+Llamamos {\sf funciones} \index{funciones} a los elementos de $A$.
+Una función $f \in A$ se anula en un punto $x$ si $f(x)=0$.
+
+\end{defi}
+
+\bigskip  
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item La función $0$ se anula en todos los puntos.
+
+\item  Dado $x \in \Spec(A)$, el conjunto de funciones que se anulan en $x$ es precisamente $\p_x$.
+
+\item  Si dos funciones se anulan en $x$, su suma y su producto también se anulan en dicho punto.
+
+\item  Si un producto de dos funciones se anula en un punto, alguno de los factores se anula en el punto.  Esta propiedad es consecuencia de la integridad de los anillos $A/\p_x$.
+
+\item  Las funciones invertibles son precisamente aquellas que no se anulan nunca, pues todo elemento no invertible está contenido en un ideal maximal.
+
+\item  Decimos que un punto del espectro es {\sf real}\index{punto!real} cuando su cuerpo residual sea el de los números reales.  Análogamente con cualquier otro cuerpo.
+
+\item  Si una función se anula en todos los puntos, dicha función es nilpotente.  Recordemos que la intersección de  todos los ideales primos es el radical del anillo y que está formado por los elementos nilpotentes.
+
+\end{itemize}
+
+Si $A$ es un anillo y $\mathfrak{r}$ su radical, los ideales primos de $A$ y de $A/\mathfrak{r}$ están en correspondencia biunívoca, pues todo ideal primo de $A$ contiene a $\mathfrak{r}$.  Entonces el espectro de $A$ y de $A/\mathfrak{r}$ son canónicamente isomorfos.
+
+\begin{defi}
+
+Dado un anillo $A$ se llama anillo reducido al cociente $A/\mathfrak{r}$.
+
+\end{defi}
+
+Un anillo y su anillo reducido tienen el mismo espectro, pero como el anillo reducido no tiene radical, no existen funciones no nulas que se anulen en todos los puntos.
+
+
+
+\bigskip 
+
+ \noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item  El espectro de un cuerpo tiene un único punto.
+
+\item  El espectro de todos los anillos íntegros tiene un punto correspondiente al ideal nulo.  Dicho punto es denso puesto que el cero está contenido en todo ideal primo.  Ese punto se denomina {\sf punto genérico} \index{punto!genérico}.  
+
+\item Si $k$ es un cuerpo, el espectro de $k^n$ tiene $n$ puntos.  Todos esos puntos tienen de cuerpo residual $k$.
+
+\item  Espectro de $\Z$.  Está formado por todos los números primos positivos y por el cero.  El $1$ no pertenece puesto que el ideal que genera es el total.
+
+\item  Espectro de $\C(X)$.  Si un polinomio $p$ es primo, $p$ es de la forma $(x-a)$ donde $a \in \C$.  Así para cada punto de $\C$, $\Spec (\C(X))$ tiene un punto complejo.  Como es íntegro tiene un punto genérico.  El  mismo esquema  es válido para cualquier cuerpo algebraicamente cerrado.
+
+\item  Espectro de $\R(X)$.  Los polinomios irreducibles sobre $\R$ pueden ser de dos tipos.  El primer tipo es $(x-a)$ donde $a \in \R$.  Los otros polinomios irreducibles son los de segundo grado con raices complejas conjugadas.  Son  de la  forma $(x-z)(x-\bar z)$ donde $z \in \C$.  Para cada número real $a$ el espectro tiene un punto real, $(x-a)$.  Para cada número complejo $z$ situado en el semiplano superior el espectro tiene un punto complejo, $(x-z)(x-\bar z)$.  Tiene también un punto genérico.
+
+\item Sea $A=C(\R^n,\R )$.  A cada punto  $x \in\R^n$ le podemos asociar el ideal $\m_x$ formado por las funciones que se anulan en $x$.  El ideal $\m_x$ es maximal.  De este modo podemos considerar a $\R^n$ como un subconjunto del espectro de su anillo de funciones.  El estudio de esta construcción para espacios topólogicos más generales tiene gran importancia en topología, pues es la base de la llamada {\sf compactificación de Stone-Cech}.  \index{compactificación de Stone-Cech}
+
+
+\item Si $k$ es un cuerpo a cada polinomio mónico e irreducible le corresponde un punto del
+espectro.  Como el anillo de polinomios es principal esta correspondencia es biunívoca. Además de
+estos tiene un punto genérico.
+
+\item Si $k$ es un cuerpo y $p$ es un polinomio, el espectro del anillo $k(x)/p$ tiene un
+punto cerrado por cada factor irreducible del polinomio $p$. 
+
+\item Sea $A$ es un dominio de ideales principales.  Dos elementos están asociados si 
+se obtienen uno del otro mediante la multiplicación por una unidad. A cada
+ clase de equivalencia de elementos irreducibles le corresponde un punto del 
+espectro y recíprocamente.  El espectro está formado
+por los puntos $(a)_0$ donde $a$ recorre el conjunto de clases de elementos irreducibles.
+
+
+\item  Consideremos el anillos $k(x_1, \dots , x_n)$ de los polinomios en $n$ variables.  Dados $n$ elementos $a_i$ de $k$, consideramos la función del anillo de polinomios en $k$ definida por las relaciones $f(x_i)=a_i$.  El núcleo de esta función es el ideal maximal generado por los monomios $(x_i-a_i)$.  De esta forma $k^n$ puede considerarse inyectado en el espectro del anillo de polinomios de $n$ variables.  Es claro que todos estos puntos tienen como cuerpo residual $k$.
+
+\item  Si en el ejemplo anterior tomamos elementos de una extensión $K$ del cuerpo $k$, tendremos morfismos del anillo de polinomios $k(x_1, \dots,x_n)$ en $K$.  Ahora los morfismos no tienen porque ser epiyectivos, pero aun así el núcleo si será un ideal primo debido a la integridad de $K$.  En este caso el cuerpo residual no será $k$.
+
+\end{itemize}
+
+
+El espectro de un anillo, además de ser un simple conjunto, puede ser dotado de una estructura de espacio topológico.  Vamos a definir la topología dando los cerrados del espacio.
+
+\begin{defi}
+
+Sea $S$ un subconjunto de $A$.  Los {\sf ceros} \index{ceros de un conjunto}de $S$ son los puntos  $x \in \Spec(A)$ donde se anulan todas las funciones de $S$.  Se denota $(S)_0$.  Tenemos entonces
+$$
+(S)_0=\{x \in \Spec(A) \text{ tales que } f(x)=0 \text{ para todo } f \in S\}
+$$
+
+\end{defi}
+
+
+
+
+
+\begin{lema}
+
+Dado un conjunto $S$ sea $I$ el ideal que generan $I=<S>$.  Entonces $(S)_0 = (I)_0$.
+
+\end{lema}
+
+\dem
+
+Como $S \subset I$ obtenemos que $(I)_0 \subset (S)_0$.  Todo elemento de $I$ se puede escribir como una combinación lineal de elementos de $S$.  Si $\sum a_is_i$ es un elemento de $I$ y $x \in (S)_0$ tenemos que $(\sum a_is_i)(x) = \sum a_i(x)s_i(x)$ aplicando que la proyección canónica es morfismo de anillos.  Pero este último resultado es nulo por lo que $x \in (I)_0$.  Concluimos que $(S)_0 \subset (I)_0$.  \fin
+
+Gracias a este resultado podremos siempre suponer que el subconjuto $S$ es un ideal, lo que nos ahorrará bastante trabajo en las demostraciones.
+
+En particular si $f \in A$, $(f)_0$ es el conjunto de los puntos donde se anula la función $f$.
+También lo podemos entender como el conjunto de ideales que contienen a $f$.
+
+\begin{propo}\label{propo:zariski}
+
+Se cumple:
+
+\begin{enumerate}[1.- ]
+
+\item $(0)_0= \Spec (A)$ donde $0$ denota el ideal nulo.
+
+\item $(A)_0=\emptyset$.
+
+\item $(\sum I_j)_0= \cap (I_j)_0$ para toda familia de ideales.
+
+\item $(I \cap J)_0=(I)_0 \cup (J)_0$
+
+\end{enumerate}
+
+\end{propo}
+
+\dem
+
+\begin{enumerate}[1.- ]
+
+\item  La función cero se anula en todos los puntos.
+
+\item  La función $1$ no se anula nunca.
+
+\item Si $x \in \cap (I_j)_0$ entonces $f_j(x)=0$ para todo elemento $f_j \in I_j$.  Por lo tanto $(\sum f_j)(x)=0$ y como todo elemento de $\sum I_j$ es de esta forma, $x \in (\sum I_j)_0$.
+
+$I_j \subset \sum I_j$.  Entonces $(\sum I_j)_0 \subset (I_j)_0$ para todo $j$.  Tenemos entonces que $(\sum I_j)_0 \subset \cap (I_j)_0)$ lo que prueba la inclusión que nos faltaba.  
+
+\item  Sabemos por la proposición \ref{propo:primo} que si un ideal primo $\p$ contiene a $I \cap J$, entonces contiene a uno de los dos ideales.  \fin
+
+\end{enumerate}
+
+
+
+Estas propiedades nos permiten dar la siguiente definición:
+
+\begin{defi}
+
+Llamamos cerrados de $\Spec (A)$ a los subconjuntos de la forma $(I)_0$, donde $I$ es un ideal.  Estos cerrados forman la {\sf topología de Zariski}. \index{topología de Zariski}
+
+\end{defi}
+
+Siempre  que nos refiramos a la topología del espectro, supondremos que es la de Zariski.
+
+
+\begin{cor}
+
+
+Se cumple  la fórmula
+$$
+(S)_0= \bigcap_{f \in S} (f)_0
+$$
+
+\end{cor}
+
+
+Este corolario  prueba que los conjuntos $(f)_0$ forman una base de cerrados de la topología.
+
+
+
+
+El complementario del subconjunto $(f)_0$ se denota $U_f$.
+$$
+U_f= \Spec(A) - (f)_0 = \{x \in \Spec(A) \text{ tales que } f(x) \neq 0\}
+$$
+
+Todo abierto de la topología es unión de este tipo de abiertos, que forman entonces una base
+de la topología de Zariski.
+
+\begin{propo}
+
+El cierre de un punto $x \in \Spec(A)$ es precisamente $(\p_x)_0$.
+
+\end{propo}
+
+\dem
+
+Un cerrado $(I)_0$ contiene a $x$ si  $x \in (I)_0$.  Esto es equivalente a que 
+$I \subset \p_x$.
+Tomando ceros en esta expresión obtenemos que $(\p_x)_0 \subset (I)_0$ y $(\p_x)_0$ está contenido
+en todos los cerrados que contienen a $x$.  \fin
+
+
+\begin{cor}
+
+Un punto es cerrado si su ideal asociado es maximal.
+
+\end{cor}
+
+\dem
+
+Si $\p_x$ es maximal el conjunto $(\p_x)_0$ tiene solo un punto, que es precisamente $x$.  El cierre
+del punto $x$ coincide con $x$, lo que implica que es cerrado.  \fin
+
+
+
+
+
+\begin{teo}
+
+El espectro  es un espacio topólogico compacto.
+
+\end{teo}
+
+\dem
+
+Sea $(I_j)_0$ una familia de cerrados de intersección vacía. En virtud de la proposición \ref{propo:zariski} 
+$$
+\textstyle \bigcap(I_j)_0=\emptyset = (\sum I_j)_0
+$$  Entonces $\sum I_j=A$ puesto que $A$ es el único ideal que no está contenido en ningún ideal primo.
+
+Como $1 \in A$ y $A= \sum I_j$, existe un número finito de funciones tales que
+$$
+f_1+ \dots +f_n=1
+$$
+Si $f_i \in I_{j_i}$ la misma proposición nos asegura que
+$$
+(I_{j_1})_0 \cap \dots \cap (I_{j_n})_0 = (I_{j_1}+ \dots + I_{j_n})_0=\emptyset
+$$
+y una subfamilia finita de cerrados tiene intersección vacía.  Esto demuestra que el espectro es compacto.  \fin
+
+
+
+
+Dado un morfismo de anillos 
+$$
+\varphi : A \lto B
+$$
+y un ideal primo $\p$ de $B$, sabemos que $\varphi^{-1}(\p)$ es un ideal primo de $A$.  Esto nos permite definir una aplicación 
+$$
+\begin{array}{cccc}
+\varphi^* : & \Spec (B)& \lto & \Spec (A) \\
+            & \p & \lto & \varphi^{-1}(\p)
+\end{array}
+$$
+
+Si $\phi$ es otro morfismo, $(\varphi \phi)^*= \phi^*\varphi^*$ lo que pone de manifiesto que esta construcción es un funtor contravariante.
+
+\begin{teo}
+
+$\varphi^*$ es una aplicación continua.
+
+\end{teo}
+
+\dem
+
+Sea $C=(I)_0$ un cerrado de $\Spec (A)$.  Veamos que $(\varphi^*)^{-1}$ es cerrado
+$$
+(\varphi^*)^{-1}(I)= \{x \in \Spec (B) \text{ tales que } I \subset \varphi^{-1}(\p_x)\}
+$$
+Aplicando el morfismo $\varphi$ tenemos que este conjunto coincide con
+$$
+\{x \in \Spec (B) \text{ tales que } \varphi(I) \subset \p_x\}= (\varphi(I))_0
+$$
+que es un cerrado de $\Spec (B)$, pues coincide con el conjunto de ceros del ideal generado por $\varphi(I)$.  \fin
+
+Veamos ahora como se comporta el espectro al realizar cocientes y productos de anillos
+
+\begin{cor}
+
+Si $I$ es un ideal de $A$ y $\pi : A \lto A/I$ la proyección canónica, $\pi^* :\Spec (A/I) \lto \Spec (A)$ establece un homeomorfismo de $\Spec (A/I)$ con el cerrado $(I)_0$.
+
+\end{cor}
+
+\dem
+
+Aplicando el teorema de correspondencia, los ideales primos de $A/I$ se identifican con los ideales primos de $A$ que contienen a $I$.  Pero este conjunto es precisamente $(I)_0$.  Dejamos al lector la comprobación de que en efecto es un homeomorfismo.  \fin
+
+
+\begin{lema}
+
+Dado un producto de anillos $A_1 \times A_2$, los ideales de este anillo son de la forma $I_1 \times I_2$ donde $I_i \subset A_i$ es un ideal.
+
+\end{lema}
+
+\dem
+
+Sea $I \subset A_i \times A_2$.  Denotemos por $I_i$ la proyección de $I$ en el $i$-ésimo factor.  $I_i$ es un ideal puesto que la proyección canónica es epiyectiva.
+
+Dado un elemento $(a_1,a_2)$, tenemos que tanto $(a_1,0)$ como $(0,a_2)$ son múltiplos de dicho elemento.  Por lo tanto $(a_1,a_2) \in I$ si y solo $a_1 \in I_1$ y $a_2 \in I_2$, lo que prueba que $I= I_1 \times I_2$.  \fin
+
+\begin{cor}
+
+Los ideales primos de $A_1 \times A_2$ son de la forma $\p_1 \times A_2$ o de la forma $A_1 \times \p_2$ donde $\p_i \subset A_i$ es primo.
+
+\end{cor}
+
+\dem
+
+Si hacemos el cociente de $A_1 \times A_2$ módulo el ideal $I_1 \times I_2$ obtenemos
+
+$$
+(A_1 \times A_2) /(I_1 \times I_2) = A_1 /I_1 \times A_2 /I_2
+$$
+Para que este producto sea íntegro debe ocurrir que un factor sea nulo y el otro factor sea íntegro.  Pero esto equivale a decir que un ideal es el total y el otro un ideal primo.  \fin
+
+\begin{teo}
+
+El espectro del producto $A_1 \times A_2$ es la unión disjunta de los espectros de los anillos $A_1$ y $A_2$.
+
+\end{teo}
+
+\dem
+
+Los resultados anteriores prueban que como conjuntos
+$$
+\Spec(A_1 \times A_2)= \Spec (A_1) \oplus \Spec(A_2)
+$$
+(La suma directa en la categoría de espacios topológicos es la unión disjunta)
+
+Sea $\pi_i : A_1 \times A_2 \lto A_i$ la proyección canónica.  Tenemos entonces que
+$$
+{\pi_1}^* : \Spec (A_1) \lto \Spec (A_1 \times A_2)
+$$
+es un homeomorfismo con su imagen, lo que prueba que la igualdad también es cierta como espacios topológicos.  \fin
+
+
+
+
+\centerline{\sc Problemas}
+
+\begin{pro}
+
+Demostrar que se cumple las fórmulas
+
+\begin{itemize}
+
+\item  $U_f \cap U_g = U_{fg}$
+
+\item $U_f = \Spec (A)$ si y solo si $f$ es una unidad.
+
+\item $U_f= \emptyset $ si y solo si $f$ es nilpotente.
+
+\end{itemize}
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Sea $S \subset A$ un sistema de denominadores y $\varphi: A \lto A_S$ la aplicación natural de $A$ en su localizado. 
+
+ Demostrar que $\varphi^* : \Spec (A_S) \lto \Spec (A)$ es inyectiva y que su imagen está formada por los ideales primos que tienen intersección vacía con $S$.
+
+\end{pro}
+
+\begin{pro}
+
+
+Además de la estructura topológica, aunque asociada a ella, se puede definir un relación de 
+orden en el espectro de un anillo.
+
+
+
+Decimos que $x \leq x'$ si $\p_x \subset \p_{x'}$.
+
+
+
+\begin{itemize}
+
+\item Un punto es más ``pequeño'' cuanto más ``grande'' sea el ideal asociado.
+
+\item  Esta relación de orden tiene elementos minimales.  Un punto es minimal si no existen puntos menores. Los elementos minimales son los asociados a los ideales maximales del anillo.
+
+\item ¿Cuáles son los elementos maximales?
+
+\end{itemize}
+\end{pro}
+
+
+\newpage
+
+\section{Extensiones enteras}
+
+
+
+\begin{defi}
+
+Sea $B$ un anillo y  $A \subset B$ un subanillo  con unidad.  Un elemento $b \in B$ es {\sf entero}\index{entero} sobre $A$ si existe un polinomio unitario\footnote{Decimos que un polinomio es {\sf  unitario} \index{polinomio!unitario} si el coeficiente de mayor grado es 1.  También se dice que el polinomio es \index{polinomio!mónico} {\sf mónico}.}, con coeficientes en $A$, que anula a dicho elemento.
+
+\end{defi}
+
+Si el polinomio es 
+$$
+p= x^n+a_{n-1}x^{n-1}+ \dots + a_1x+a_0
+$$
+entonces $b$ cumple la ecuación polinomial
+$$
+ b^n+a_{n-1}b^{n-1}+ \dots + a_1b+a_0=0
+$$
+
+El elemento $b$ es entonces una raiz de un polinomio cuyo término de mayor grado es uno.
+
+\Observacion
+
+En general en teoría de anillos se denomina extensión de un anillo $A$ a todo morfismo de anillos con unidad $\varphi: A \rightarrow B$.  La imagen de $A$ mediante $\varphi$ es un subanillo de $B$.  En esta situación diremos que un elemento de $B$ es entero sobre $A$, si entero sobre el subanillo imagen $\varphi(A)$.
+
+
+\begin{propo}\label{propo:finitogenerado}
+
+Sea $B$ una extensión entera de  un anillo $A$. El subanillo $A(b) \subset B$, generado por el anillo $A$ y el elemento $b$, es un módulo de generación finita sobre el anillo $A$.
+
+\end{propo}
+
+
+\dem
+
+Tenemos que 
+$$
+b^n = -(a_0+a_1 b+ \dots + a_{n-1}b^{n-1})
+$$
+y en general
+$$
+b^{n+r} = -(a_0 b^r+a_1 b^{r+1}+ \dots + a_{n-1}b^{n+r-1})
+$$
+por lo que los elementos $1, b, \dots, b^{n-1}$ generan dicho módulo.  \fin
+
+
+
+\begin{propo}
+
+Sea $A \subset B$ un subanillo.  Si $b \in B$ es entero sobre $A$, entonces el morfismo 
+$\varphi:A(x)\rightarrow B$ que transforma $x$ en $b$ no es inyectivo.
+
+\end{propo}
+
+\dem
+
+Si $b$ es entero sobre $A$, existe un polinomio $p \in A(x)$ que anula al elemento~$b$.   Pero como $\varphi(p)=p(b)$ dicho elemento está en el núcleo de $\varphi$, que no puede entonces ser inyectivo.  \fin
+
+
+
+\bigskip  
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item Todo elemento de $A$ es entero sobre $A$ puesto que $x-a$ anula a dicho elemento.
+
+\item  El número real $\sqrt[3]{2}$ es entero sobre $\Z$.  Un polinomio que lo anula es precisamente $x^3-2$.
+
+\item El número complejo $i$ es entero sobre $\Z$.  Encontrar un polinomio que lo anule.  En general, todo elemento de la forma $a+bi$ con $a$ y $b$ enteros, es entero sobre $\Z$.
+
+\item Consideramos el número real $1/\sqrt{2}$.  Un polinomio que anula a dicho elemento es $2x^2-1$.  Sin embargo dicho elemento no es entero sobre $\Z$, pues no existe ningún polinomio unitario que lo anule. 
+
+
+\item  Si un número racional es entero sobre $\Z$ entonces necesariamente es un elemento de $\Z$.  Demostremos este hecho.
+
+Sea $r/s$ la fracción irreducible del número racional.  Entonces dicho número cumple una ecuación del tipo
+$$
+\left( \frac{r}{s}\right)^n+ a_{n-1} \left( \frac{r}{s}\right)^{n-1}+ \dots + a_1 \left( \frac{r}{s}\right)+a_0=0
+$$
+
+Multiplicamos por $s^n$ para quitar denominadores
+$$
+r^n+a_{n-1}sr^{n-1}+ \dots +a_1rs^{n-1} +a_0s^n=0
+$$
+Sacando factor común $s$  deducimos
+$$
+r^n= s(-a_{n-1}r^{n-1}- \dots- a_1rs^{n-2}-a_0s^{n-1})
+$$
+Entonces $s$ divide a $r^n$ y por lo tanto divide a $r$.  Como la fracción es irreducible, necesariamente $s=\pm 1$ y el número es entero.
+
+\item  En el caso de los cuerpos, el estudio de la dependencia entera se simplifica utilizando conceptos elementales de la teoría de espacios vectoriales.  Veamos un ejemplo.
+
+Sea $k$ un cuerpo, $k \subset B$ y $B$ un anillo que como espacio vectorial sea de dimensión finita $n$ sobre el cuerpo $k$.  Los elementos $1, b, \dots, b^n$ no pueden ser linealmente independientes.  Luego existe una combinación lineal no nula
+$$
+a_01 +a_1b + \dots + a_nb^n=0
+$$
+Construimos de este modo un polinomio, de grado menor o igual a $n$ que anula al elemento $b$. Pero en principio este polinomio no es unitario. Si $i$ es el grado del polinomio, entonces podemos dividir entre $a_i$ y obtenemos un polinomio cuyo término de mayor grado es uno.  Como conclusión, tenemos que si $B$ es de dimensión finita sobre $k$, entonces todo elemento de $B$ es entero sobre $k$.
+
+
+
+\end{itemize}
+
+
+
+Llamamos {\sf extensión}\index{extensión} de un anillo $A$ a cualquier anillo $B$ que lo contenga.  Estamos especialmente interesados en aquellos anillos $B$ tales que todos sus elementos sean enteros sobre $A$.
+
+\begin{defi}
+
+Una extensión $A \subset B$ es {\sf entera} \index{extensión!entera} si todo elemento de $B$ es entero sobre $A$.  En el caso de que $A$ sea un cuerpo, las extensiones enteras se denominan extensiones {\sf algebraicas}.
+
+\end{defi}
+
+\bigskip  
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item El cuerpo $\C$ es una extensión entera de $\R$.  En general toda extensión $k \subset B$ de un cuerpo, que sea de dimensión finita, es una extensión entera. El recíproco sin embargo no es cierto.  Existen extensiones de dimensión infinita que son enteras.
+
+\item $\Z \subset \Z(i)$ es una extensión entera.
+
+\item $\Z \subset \Q$ no es entera, puesto que existen elementos en $Q$ que no son enteros sobre $\Z$.
+
+\item $\R$ tampoco es entero sobre $\Q$.  En general, los números reales (o complejos) que son enteros sobre $\Q$ se denominan {\sf números algebraicos} \index{número!algebraico}.  Aquellos que no son enteros se \index{número!transcendente}denominan {\sf transcendentes}.  
+
+Es un ejercicio fácil demostrar que el conjunto de números algebraicos es numerable.  Esto implica la existencia de números transcendentes.  Sin embargo encontrar ejemplos explícitos de números transcendentes no es tarea fácil.  Se sabe, no obstante, que $e$ y $\pi$ son números transcendentes.
+
+\end{itemize}
+
+Hemos dado una definición de elemento entero sobre $A$.  Daremos ahora un criterio, o definición equivalente, que nos será útil en multitud de cálculos.
+
+\begin{propo}
+
+Sea $A  \subset B$ una extensión.  Son equivalentes las siguientes condiciones:
+
+\begin{enumerate}[\indent i)]
+
+\item El elemento $b$ es entero sobre $A$.
+
+\item El módulo $A(b)$ es de generación finita sobre el anillo $A$.
+
+\item El elemento $b$ está incluido en un anillo $C$ que es un $A$-módulo de generación finita.
+
+\end{enumerate}
+
+\end{propo}
+
+\dem
+
+La implicación $i) \Rightarrow ii)$ es justamente la proposición \ref{propo:finitogenerado}.  Para la implicación $ii) \Rightarrow iii)$ basta tomar $C=A(b)$.  Veamos entonces la implicación $iii) \Rightarrow i)$.
+
+Sea $C$ un módulo de generación finita que contenga al elemento $b$.  Denotaremos por $(m_1, \dots , m_n)$ un conjunto de generadores de $C$ como $A$-módulo.  Tenemos que $bm_i$ es un elemento de $C$ y por lo tanto se puede escribir, en principio de forma no única, como una combinación lineal de elementos del conjunto generador.
+$$
+bm_i = a_{i1}m_1+ \dots + a_{in}m_n
+$$
+
+Esto nos da un sistema de $n$ ecuaciones con $n$ incognitas.  Los elementos $a_{ij}$ forman una matriz cuadrada, donde los coeficientes pertenecen al anillo~$A$.
+
+Pasamos los elementos $bm_i$ al otro miembro y obtenemos un sistema equivalente y homogéneo.  La matriz de este sistema es precisamente $(a_{ij}-b\delta_{ij})$.  Calculamos el determinante de esta matriz. Dicho determinante es un elemento de $B$ que tiene la forma de un polinomio unitario\footnote{El término de mayor grado puede ser $\pm b^n$ dependiendo de si $n$ es par o impar} en $B$.  Si denotamos por $\Delta$ a dicho determinante, tenemos que $\Delta m_i=0$ para todo generador del módulo.  Como el anillo tiene unidad, en particular el $1$ es combinación de elementos $m_i$ y obtenemos que $\Delta1=0$.  Necesariamente $\Delta=0$ y hemos obtenido un polinomio unitario que anula a $b$.  \fin
+
+
+
+\begin{cor}
+
+Sea $A \subset B$ una extensión.  Si $B$ es  de generación finita como $A$-módulo, entonces $B$ es una extensión entera de $A$.
+
+\end{cor}
+
+\Observacion
+
+Si $A=k$ es un cuerpo, los anillos finito generados son precisamente aquellos que tienen dimensión finita y este resultado ya nos era conocido.
+
+
+\begin{lema}
+
+Sea $A \subset B \subset C$ una cadena de anillos. Si $B$ es de generación finita como $A$-módulo y $C$ es de generación finita como $B$-módulo, entonces $C$ es también de generación finita como $A$ módulo.
+
+\end{lema}
+
+\dem
+
+Sea $(c_1, \dots, c_n)$ un conjunto generador de $C$ como $B$ módulo. Denotamos por $(b_1, \dots, b_m)$ un conjunto generador de $B$ como $A$-módulo.  
+
+Dado un elemento arbitrario $c \in C$, tenemos que 
+$$
+c= \beta_1c_1+\dots +\beta_n c_n \text{ donde los  }\beta_i \in B
+$$
+Cada $\beta_i$ se puede expresar como una combinación lineal finita de los elementos~$b_i$
+$$
+\beta_i = a_{i1}b_1+ \dots +a_{im}b_m \text{ con } a_{ij} \in A
+$$
+Sustituyendo esto en la anterior expresión de $c$, obtenemos que los elementos $b_ic_j, i=1, \dots, m, j= 1, \dots, n$ generan $C$ como $A$-módulo.  \fin
+
+
+
+\begin{cor}
+
+Sea $A  \subset B$ una extensión.  Si los elementos $b_1, \dots, b_n$ son enteros sobre $A$, entonces el anillo $A(b_1, \dots, b_n)$ es de generación finita.
+
+\end{cor}
+
+\dem
+
+Consideramos la cadena de anillos
+$$
+ A \subset A(b_1) \subset A(b_1,b_2) \subset \dots \subset A(b_1, \dots,b_n)
+ $$
+ Cada extensión es de generación finita, pues si un elemento $b_i$ es entero sobre $A$, también es entero sobre $A(b_1, \dots, b_{i-1})$.  Aplicando inducción y el lema anterior concluimos.  \fin
+ 
+ \begin{cor}
+ 
+ Sea $A \subset B$ una extensión.  Si $b_1$ y $b_2$ son enteros sobre $A$, entonces $b_1+b_2$ y $b_1 b_2$ son enteros sobre $A$.
+ 
+ \end{cor}
+ 
+ \dem
+
+
+Si $b_1$ y $b_2$ son enteros, entonces $A(b_1,b_2)$ es de generación finita y todos sus elementos son enteros sobre $A$.  En particular $b_1+b_2$ y $b_1b_2$ , que son elementos de dicho anillo, son enteros sobre $A$. \fin
+
+Del corolario anterior se deduce que el conjunto de todos los elementos enteros de una extensión es un subanillo de $B$.
+
+\begin{defi}
+
+Sea $A \subset B$ una extensión.  Denotamos por $\widetilde {A}$ al conjunto de los elementos de $B$ que son enteros sobre $A$.  El conjunto $\widetilde A$ se denomina {\sf clausura íntegra}\index{clausura íntegra} del anillo $A$ en $B$.
+
+\end{defi}
+
+Como ya hemos anunciado, $\widetilde A$ es un subanilo de $B$.  Si en una extensión tenemos que $\widetilde A=A$, decimos que$A$ es integramente cerrado (en B).  Como ya sabemos, si $\widetilde A=B$ decimos que $B$ es entero sobre $A$.
+
+En el caso de un dominio de integridad, si decimos que es íntegramente cerrado estaremos suponiendo que dicho anillo es {\sf íntegramente cerrado} \index{anillo!íntegramente cerrado} en la extensión dada por su cuerpo de fracciones.
+
+En el caso de los cuerpos la cosa queda más o menos así.  En un cuerpo no se diferencian los polinomios unitarios y no unitarios, pues si nos dan un polinomio no unitario, simplemente lo dividimos entre el coeficiente de mayor grado y obtenemos un polinomio unitario.  Los elementos algebraicos sobre un cuerpo $k$ son los elementos de un cuerpo $K$ que son raices de los los polinomios con coeficientes en $k$.  Si todos los polinomios en $k$ tienen al menos una raiz en el cuerpo base, por inducción vemos que tienen tantas como su grado también en el cuerpo raiz.  De este modo, si todo polinomio tiene una raiz en el cuerpo base, no pueden existir extensiones algebraicas (enteras) del cuerpo.  Los cuerpos que no admiten extensiones algebraicas se denominan \index{algebraicamente!cerrados} {\sf algebraicamente cerrados}. 
+
+\begin{cor}
+
+Sea $A \subset B \subset C$.  Si $B$ es entero sobre $A$ y $C$ es entero sobre $B$, entonces $C$ es entero sobre $A$.
+
+\end{cor}
+
+\dem
+
+Sea $c \in C$.  Entonces $c$ cumple una ecuación polinomial
+$$
+c^n+b_{n-1}c_{n-1}+\dots+ b_1c+ b_0=0 \text{ con } b_i \in B
+$$
+El anillo $A(b_0,b_1,,\dots,b_{n-1},c)$ es de generación finita sobre $A$, puesto que $c$ es entero sobre el anillo $A(b_0,b_1,\dots,b_{n-1})$ y este último anillo es de generación finita pues todos los elementos de $B$ son enteros.  De este modo concluimos que $c$ es entero sobre $A$. \fin
+
+\begin{cor}
+
+Sea $A \subset B$ una extensión y $\widetilde A$ la clausura entera de $A$ en $B$.  Entonces $\widetilde A$ es integramente cerrado en $B$.
+
+\end{cor}
+
+\dem
+
+Consideramos la cadena $A  \subset \widetilde A \subset B$.  Si $b \in B$ es entero sobre $\widetilde A$, entonces también es entero sobre $A$.  De este modo $b \in \widetilde A$ y $\widetilde A$ es integramente cerrado en $B$.  \fin
+
+\bigskip  
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item $\Z$ es íntegramente cerrado en $\Q$.  Sin embargo este mismo anillo no es íntegramente cerrado, cuando consideramos a $\Z$ incluido en $\R$ o en $\C$. Por lo tanto al hablar de íntegramente cerrado debemos conocer con precisión la extensión a la que nos referimos.
+
+\item Dada la extensión $\Z\subset \Q(i)$, su clausura íntegra coincide con los enteros de Gauss.
+
+\item  Hemos visto que $\Q$ no es íntegramente cerrado en $\C$, pues existen números transcendentes.  De este modo existe un anillo $\widetilde \Q$ que contiene estrictamente a $\Q$ y contenido en $\C$.  Este anillo (que posteriormente veremos que es un cuerpo) no puede ser de dimensión finita sobre $\Q$, puesto que en los racionales existen polinomios irreducibles de grado arbitrariamente grande (consideresen los polinomios de la forma $x^n-2$).  Sea $a$ un elemento de la clausura algebraica y tal que el polinomio irreducible que lo anula sea de grado $n$.  Entonces el anillo $\Q(a)$ es de dimensión $n$ y debe estar contenido en $\widetilde \Q$.
+
+\end{itemize}
+
+
+Veamos ahora el comportamiento de las extensiones enteras bajo la operaciones de localización y toma de cocientes.
+
+\begin{propo}
+
+Sea $A\subset B$ una extensión entera  de anillos.  Dado un ideal $I$ de $B$, seguimos denotando por $I$ al ideal $I \cap A$ del anillo $A$.  En estas condiciones tenemos una extensión $A/I \hookrightarrow B/I$ que es entera.
+
+\end{propo}
+
+\dem
+
+Consideramos el morfismo natural de $A$ en $B/I$ resultado de la composición de la inclusión canónica y del paso al cociente.  Resulta que el ideal $I$ de $A$ está contenido en el núcleo de dicho morfismo y por el teorema de factorización canónica se induce una aplicación $i_*$ que hace conmutativo el siguiente diagrama.
+
+$$
+\xymatrix{
+A\ar[r]^i \ar[d]_\pi& B \ar[d]^\pi\\
+A/I \ar[r]^{i_*}& B/I
+}
+$$
+
+\noindent La aplicación $i_*$ es inyectiva y consideraremos a $A/I$ incluido en $B/I$ via esta aplicación.  Hemos visto entonces que es una extensión. 
+
+Sea $\pi(b)$ un elemento del cociente $B/I$.  El elemento $b$ es entero sobre $A$.  Entonces cumple una ecuación polinomial  con coeficientes de $A$
+$$
+b^n+a_{n-1}b^{n-1}+ \dots + a_1b+a_0=0
+$$
+Tomando clases módulo $I$ en esta ecuación obtenemos una ecuación  polinomial unitaria para el elemento $\pi(b)$
+$$
+\pi(b)^n + \pi(a_{n-1})\pi(b)^{n-1}+ \dots + \pi(a_1)\pi(b)+ \pi(a_0)=0
+$$
+Luego el elemento $\pi(b)$ es entero sobre $A/I$.  \fin
+
+\begin{propo}\label{propo:localizacionentera}
+
+Sea $A \subset B$ una extensión entera y $S \subset A$ un subconjunto multiplicativo.  Entonces $A_S \subset B_S$ es una extensión entera.
+
+\end{propo}
+
+
+\dem
+
+Podemos inyectar $A_S $ en $B_S$ haciendo corresponder al elemento $a/s$ de $A_S$ el mismo elemento de $B_S$.  Esta correspondencia es claramente inyectiva.
+
+
+Sea $b/s$ un elemento de $B_S$.  Como $b$ es entero sobre $A$.  Se cumple
+$$
+b^n+a_{n-1}b^{n-1}+ \dots +a_1b+a_0=0
+$$
+
+Multiplicando esta expresión por el inverso de $s^n$ obtenemos
+$$
+\left(\frac{b}{s}\right)^n+ \left(\frac{a_{n-1}}{s}\right)\left(\frac{b}{s}\right)^{n-1}+ \dots + \left(\frac{a_1}{s^{n-1}}\right)+ \frac{a_n}{s^n}=0
+$$
+Todo elemento de $B_S$ es solución de una ecuación polinomial unitaria con coeficientes en $A_S$. \fin
+
+\begin{propo}
+
+Sea $A \subset B$ una extensión y $S\subset A$ un conjunto multiplicativo. La clausura algebraica de $A_S $ en $B_S$ es precisamente $(\widetilde {A})_S$ (anillo de fracciones de la clausura algebraica).
+
+\end{propo}
+
+\dem
+
+
+Debemos demostrar que $(\widetilde A)_S= \widetilde {A_S}$. Para ello probaremos  que cada conjunto es subconjunto del otro.
+
+Como $\widetilde A$ es entero sobre $A$, tenemos que $(\widetilde A)_S $ es entero sobre $A_S$.  Esto demuestra que $(\widetilde {A})_S \subset \widetilde {A_S}$
+
+  Tomamos ahora un elemento $b/s$ de $B_S$ que sea entero sobre $A_S$.  Entonces dicho elemento cumple una ecuación polinomial
+$$
+\left(\frac{b}{s}\right)^n+ \left(\frac{a_{n-1}}{s_1}\right)\left(\frac{b}{s}\right)^{n-1}+ \dots + \left(\frac{a_1}{s_{n-1}}\right)+ \frac{a_n}{s_n}=0
+$$
+Denotemos por $t$ al producto de todos los denominadores.  Multiplicamos esta ecuación por $(st)^n$ y conseguimos quitar denominadores.  Nos queda una ecuación polinomial para el elemento $bt$ donde los coeficientes pertenecen al anillo $A$.  De este modo $bt$ está en $\widetilde A$.  Pero $b/s= bt/st$ que está contenido en la clausura algebraica. Hemos probado la otra inclusión \fin
+
+
+\begin{cor}
+
+Si $A$ es integramente cerrado en $B$, entonces $A_S$ es integramente cerrado en $B_S$.
+
+\end{cor}
+
+Haremos ahora un estudio de la correspondencia que existe entre el retículo de ideales de una extensión entera $B$ y el retículo de ideales del anillo $A$.  Principalmente estudiaremos ideales primos, por lo que será interesante recordar los siguientes hechos, que utilizaremos continuamente.
+
+\begin{itemize}
+
+\item El espectro de $A/I$ se identifica con los puntos del espectro de $A$ que contienen al ideal $I$.
+
+\item  El espectro del localizado $A_S$ lo podemos entender como el conjunto de ideales primos de $A$ que tienen intersección vacía con el conjunto $S$.
+
+\end{itemize}
+
+
+\begin{defi}
+
+Sea $A \subset B$ una extensión.  Decimos que un ideal $J \subset B$ está situado sobre un ideal $I \subset A$ si $J\cap A=I$
+
+\end{defi}
+
+En particular estaremos interesados en este concepto cuando ambos ideales sean primos.  Resulta que un ideal primo $\mathfrak{q} \subset B$ está sobre un ideal primo $\p \subset A$ si $i^*(\mathfrak{q})= \p$, donde $i$ denota la inyección canónica de $A$ en $B$.
+
+Visualicemos este hecho.  Consideramos la inclusión
+$$
+\xymatrix{
+A \ar[r]^i& B
+}
+$$
+ Pasando a los espectros obtenemos una aplicación
+$$
+\xymatrix{
+\Spec(B)\ar[r]^{i^*}& \Spec(A)
+}
+$$
+entre los espectros.  Un ideal $\mathfrak{q}$ está sobre $\p$ si al proyectarlo mediante $i^*$ obtenemos el ideal $\p$.
+
+Este concepto se puede entonces generalizar a cualquier morfismo de anillos $\varphi: A \rightarrow B$, no necesariamente inyectivo.
+
+Un problema fundamental de la teoría es conocer cuando la aplicación entre los espectros es epiyectiva.  Naturalmente en multitud de casos la aplicación no puede ser epiyectiva.
+
+
+
+
+\bigskip 
+
+ \noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item Consideramos la extensión $\Z \subset \R$.  El espectro de $\R$ consta de un solo punto y el de $\Z$ de infinitos.  Es imposible que la aplicación sea epiyectiva.
+
+
+\item $\R(x) \subset \C(x)$.  El espectro de $\C(x)$ es el conjunto de los polinomios de la forma $(x-a)$ con $a \in \C$.  Los primos de $\R(x)$ son de dos tipos: $(x-a)$ con $a \in \R$ y $(x-a)(x-\overline{a})$ con $a \in \C$.  La aplicación entre espectros en este caso es epiyectiva.
+
+\item Sea $\varphi : A \rightarrow A_S$ el morfismo canónico en el localizado.  Sabemos que el espectro de $A_S$ está formado por los ideales primos de $A$ que no cortan a $S$.  Dado un conjunto $S$ arbitrario, la aplicación entre espectros no será epiyectiva.
+
+\item  Sea $\pi : A \rightarrow A/I$ la proyección canónica.  El espectro de $A/I$ se identifica con los puntos del espectro de $A$ que contienen al ideal $I$.  Al hacer cociente perdemos puntos del espectro, por lo que en general, la aplicación no será epiyectiva.  Como ejercicio se puede ver que condición debe cumplir $I$ para que la aplicación si sea epiyectiva.
+
+
+
+\end{itemize}
+
+
+En el caso caso de las extensiones enteras la aplicación si es epiyectiva.  Esto es lo que afirma el {\sf teorema de Cohen-Seidenberg} \index{teorema!Cohen-Seindenberg}, llamado también \index{teorema!del ascenso}{\sf teorema del ascenso}.
+
+\begin{propo}
+
+Sea $A\subset B$ una extensión entera, donde $B$ es un dominio de integridad.  Entonces $A$ es cuerpo si y solo si lo es $B$.
+
+\end{propo}
+
+\dem
+
+
+Supongamos que $A$ es cuerpo.  Tenemos que ver que todo elemento de $B$ es invertible.
+
+Sea $b \in B$ no nulo.  Como $b$ es entero, cumple una ecuación polinomial unitaria
+$$
+b^n+a_{n-1}b^{n-1}+\dots + a_1b+a_0=0
+$$
+Podemos suponer que $a_0$ es no nulo , pues en caso de que no lo fuera podemos sacar factor común a $b$ y obtener un polinomio unitario con el término independiente no nulo.  Como $B$ es íntegro, este nuevo polinomio tiene que anular al alemento $b$.
+
+Ahora que tenemos el término independiente no nulo, sacamos factor común a $b$ en la expresión anterior.
+$$
+b(b^{n-1}+a_{n-1}b^{n-2}+ \dots+ a_1)=-a_0
+$$
+Multiplicando  por $-a_0^{-1}$ vemos que $b$ es invertible y que su inverso es precisamente
+$$
+-a_0^{-1}(b^{n-1}+a_{n-1}b^{n-2}+ \dots+ a_1)
+$$
+
+Supongamos ahora que $B$ es cuerpo y sea $\alpha\in A$ un elemento no nulo.  Naturalmente existe $\alpha^{-1}$, pero está contenido en $B$.  Debemos demostrar que también está en $A$.
+
+Como $\alpha^{-1} \in B$, es íntegro y satisface una ecuación polinomial.
+
+$$
+(\alpha^{-1})^n+a_{n-1}(\alpha^{-1})^{n-1}+ \dots + a_1 (\alpha^{-1}) + a_0=0
+$$
+Multiplicamos esta ecuación por $\alpha^{n-1}$ y obtenemos
+$$
+\alpha^{-1}= -(a_{n-1}+ \dots + a_1\alpha^{n-1}+a_0\alpha^n)
+$$
+Como la parte derecha está en $A$, pues es un subanillo, entonces $\alpha^{-1}$ también pertenece al anillo $A$.  \fin
+
+
+\begin{cor}
+
+Sea $A \subset B$ una extensión entera.  Un punto $\mathfrak{q}\in \Spec(B)$ es maximal si y solo si $\p = \mathfrak{q}\cap A = i^*(\mathfrak{q}\in \Spec(A)$ es maximal.
+
+\end{cor}
+
+\dem
+
+
+Tenemos que la extensión $A_\p\subset B_{\mathfrak{q}}$ es también entera.  Uno es cuerpo si y solo si lo es el otro.  De este modo $\mathfrak{q}$ es maximal si y solo si lo es $\p$.  \fin
+
+En otras palabras, esto significa que la aplicación 
+$$
+i^*:\Spec(B) \rightarrow \Spec(A)
+$$
+ manda el espectro maximal dentro del espectro maximal.
+
+
+Naturalmente la aplicación no será en general inyectiva.  Pero si podemos afirmar que los primos $\mathfrak{q}$ que se proyectan en $\p$ no pueden estar contenidos unos en otros.
+
+\begin{cor}
+
+Sea $\mathfrak{q}_1$ y $\mathfrak{q}_2$ dos primos de $B$ que se proyectan en un primo~$\p$.  Si $\mathfrak{q}_1 \subset \mathfrak{q}_2$ entonces necesariamente $\mathfrak{q}_1=\mathfrak{q}_2$.
+
+\end{cor}
+
+\dem
+
+Localizaremos en el conjunto $S=A-\p$.  Abusando de la notación utilizaremos $B_\p$ para designar el localizado de $B$ en $S$.  
+
+La extensión $A_\p \rightarrow B_\p$ es entera en virtud de la proposición \ref{propo:localizacionentera}.  El ideal maximal de $A_\p$, que es un anillo local, se identifica con el ideal $\p$.  Los ideales $\mathfrak{q}_1$ y $\mathfrak{q}_2$, considerandolos dentro del localizado, se proyectan en $\p$.  Como la antiimagen es maximal, los dos ideales $\mathfrak{q}_1$ y $\mathfrak{q}_2$ deben ser maximales.  Como uno está contenido dentro del otro, necesariamente coinciden.
+
+
+\begin{teo}
+
+Sea $A \subset B$ una extensión entera.  Dado un ideal  primo $\p$ existe un ideal primo $\mathfrak{q}$ en $B$ que cumple $\mathfrak{q}\cap A=\p$.
+
+\end{teo}
+
+\dem
+
+Consideramos el conjunto multiplicativo $S= A-\p$.  Utilizando la notación del corolario anterior tenemos que la extensión $A_\p \rightarrow B_\p$ es entera.  Tomamos un ideal maximal $\mathfrak{q}$ del anillo $B_\p$.  Su antiimagen debe ser un ideal maximal del anillo local $A_\p$.  Pero el ideal maximal del localizado es precisamente $\p$ por lo que ideal $\mathfrak{q}$ está situado sobre $\p$.  \fin
+
+
+\begin{cor}[Teorema del ascenso]\index{teorema!del ascenso}
+
+Sea $A \subset B$ una extensión entera.  Dados dos ideales primos $\p_1\subset \p_2$, existen dos ideales primos $\mathfrak{q}_1 \subset \mathfrak{q}_2$ tales que $\mathfrak{q}_i$ está situado sobre $\p_i$.
+
+\end{cor}
+
+
+\dem
+
+Tenemos que $A/\p_1 \rightarrow B/\mathfrak{q}_1$ es entera.  Le aplicamos el teorema anterior a esta extensión y obtenemos un ideal $\mathfrak{q}_2$ situado sobre $\p_2$.  Como siempre, debemos identificar los primos del cociente con los primos que contienen al ideal por el que se hace cociente.  \fin
+
+Este teorema se puede generalizar a cadenas de primos formadas por más de dos eslabones, sin más que aplicar inducción.
+
+
+\centerline{\sc Problemas}
+
+\begin{pro}
+
+Daremos ahora otra demostración de que el anillo $A(b)$ es finito generado si $b$ es íntegro sobre $A$.
+
+Como el polinomio anulador $p$ de $b$ es unitario, podemos utilizarlo como dividendo en una división euclídea.  Dado un polinomio arbitario $q$ existen polinomios $c$ y $r$ que cumplen $ q = c\cdot p + r$.  Tomando valores en $b$ demostrar que la extensión $A(b)$ es finita si $b$ es entero.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $A$ un dominio de integridad.  Si el cuerpo de cocientes $Q_A$ es íntegro sobre $A$, entonces $A$ es un cuerpo.
+
+\end{pro}
+
+\begin{pro}
+
+Si $B$ es una extensión entera de $A$, entonces $B(x)$ es una extensión entera de $A(x)$.
+
+\end{pro}
+
+\begin{pro}
+
+Los dominios de factorización única son integramente cerrados.
+
+\end{pro}
+
+
+\newpage
+
+\section{Complementos en forma de problemas}
+
+\centerline{\sc Cuerpos finitos} 
+
+
+
+Sea $k$ un cuerpo finito con $q$ elementos.
+
+\begin{itemize}
+
+\item El polinomio $x^q-x$ induce la función  nula.
+
+\item  Si $p$ es la característica de $k$, entonces $\Z_p$ es un subcuerpo de $k$.
+
+\item  $k$ es un espacio vectorial sobre $\Z_p$.  Demostrar que la dimensión de este espacio vectorial es finita, y por lo tanto $q=p^n$.
+
+\item Si $k$ tiene característica $p$ la aplicación
+$$
+\begin{array}{cccc}
+\varphi &: k & \lto & k \\
+        & a & \lto & a^p
+\end{array}$$
+es un morfismo de cuerpos, llamado {\sf automorfismo de Frobenius}.\index{automorfismo!de Frobenius}
+\end{itemize}
+
+Utilizando la {\sf Teoría de Galois} \index{teoría de Gaois} puede demostrarse el teorema fundamental de los cuerpos finitos,\index{teorema!de los cuerpos finitos} que afirma que para todo primo $p$ y para todo todo natural $n$, existe un único cuerpo con $p^n$ elementos.  Dicho cuerpo se acostumbra a denotar $\mathbb{F}_{p^n}$.  En particular $\Z_p = \mathbb{F}_p$.
+
+\bigskip
+
+\centerline{\sc Función $\phi$ de Euler} 
+
+La {\rm función $\phi $ de Euler} \index{función $\phi$ de Euler} tiene como dominio  el conjunto de los números naturales.  $\phi(1)=1$ por definición y para los números mayores  
+$$
+\phi(n)= cardinal(U(Z_n))
+$$
+
+\begin{itemize}
+
+\item  $\phi (n)$ es el número de naturales menores que $n$ y primos con $n$.  Está puede ser otra definición de la función.
+
+\item Si $p$ es primo, $\phi(p)=p-1$.
+
+\item Si $a$ y $n$ son primos entre si, entonces
+$$
+a^{\phi(n)} \equiv 1 \mod(n)
+$$
+Este resultado se conoce como {\sf teorema de Euler-Fermat}. \index{teorema!Euler-Fermat}
+
+\item Demostrar que si $n$ y $m$ son primos entre sí 
+$$
+\Z_{nm}\sim \Z_n \times \Z_m
+$$
+
+\item  Utilizar el resultado anterior para demostrar que $\phi(mn) = \phi(m)\phi(n)$ si los dos números son primos entre si.
+
+\item  Si $p$ es primo , entonces $\phi(p^n) = p^n-p^{n-1}=p^n(1-1/p)$.
+
+\item  Finalmente demostrar que si la $n= p_1^{k_1}\dots p_r^{k_r}$ es la descomposición en factores primos de $n$
+$$
+\phi (n) = n(1-\frac{1}{p_a}) (1- \frac{1}{p_2}) \dots (1- \frac{1}{p_r})
+$$
+
+\end{itemize}
+
+\bigskip
+
+\centerline{\sc Teoría de categorías} 
+
+Demostrar que los anillos conmutativos, junto con los morfismo de anillos forman una {\sf categoría}. \index{categoría}
+
+\begin{itemize}
+
+\item Las nociones categóricas de monomorfismo, epimorfismo, e isomorfismo coinciden con las introducidas en el texto.
+
+\item  El producto directo de anillos es la {\rm suma directa} \index{suma directa} en la categoría de anillos.  Demostrar este hecho probando su propiedad universal.
+
+\end{itemize}
+
+\bigskip
+
+\centerline{\sc Funciones holomorfas} \index{función!holomorfa} 
+
+Sea $\mathcal{O}_1$ el conjunto de gérmenes de funciones {\sf holomorfas} en el punto $0 \in \C$.
+
+\begin{itemize}
+
+\item  Dotar de estructura de anillo a este conjunto.
+
+\item   $\mathcal{O}_1$ es íntegro.
+
+\item  A cada elemento de $\mathcal{O}_1$ se le puede hacer corresponder una serie de potencias con radio de convergencia no nulo.
+
+\item $\mathcal{O}_1$ es un subanillo del anillo de las series formales con coeficientes en $\C$.
+
+\item El anillo de fracciones de $\mathcal{O}_1$ se puede identificar con el anillo de gérmenes de las  funciones {\sf meromorfas} \index{función!meromorfa} en el origen.
+
+\item  Generalizar estos resultados a una {\sf superficie de Riemann} \index{superficie de Riemann} arbitraria.
+
+\item  Construir el anillo $\mathcal{O}_n$ de los gérmenes de funciones holomorfas en $n$ dimensiones complejas y generalizar los resultados.
+
+\end{itemize}
+
+\bigskip
+
+\centerline{\sc Algebras grupales} \index{algebra@álgebra grupal} 
+
+Sea $G$ un grupo finito denotado multiplicativamente y $A$ un anillo conmutativo.  El conjunto de todas las funciones de $G$ en $A$ se denota $A(G)$.  
+
+Dado un elemento $g \in G$, le podemos asociar la función $\hat g : A \rightarrow A$ que se define como
+$$
+\hat g (x) = \left\{
+\begin{array}{c}
+1 \text{ si } x = g \\
+0 \text{ si } x \neq g
+\end{array}
+\right.
+$$
+
+Abusando de la notación, en general denotaremos  por $g$ a la función $\hat g$.
+
+Si $a \in A $, la función $a \cdot g$ es 
+
+$$
+a \cdot g (x) = \left\{
+\begin{array}{c}
+a \text{ si } x = g \\
+0 \text{ si } x \neq g
+\end{array}
+\right.
+$$
+
+En el conjunto $A(G)$ se define la  suma de funciones habitual
+$$
+(f+g) (x) = f(x) + g(x)
+$$
+
+\begin{itemize}
+
+\item  Si $f$ es una función 
+$$
+f = \sum_{g\in G}f(g)\cdot g
+$$
+\end{itemize}
+
+Por lo tanto toda función es combinación lineal de elementos de $G$ con coeficientes en $A$.
+
+\begin{itemize}
+
+\item  Probar que a toda combinación lineal de elementos de $G$ le corresponde una función, siendo esta correspondencia biunívoca.
+
+\end{itemize}
+
+En dicho conjunto se introduce una multiplicación,  llamada {\sf producto de convolución} \index{producto de convolución} y denotado $*$.  Si $f,g \in A(G)$ su producto de convolución es la función
+$$
+f * g\:(z) = \sum_{xy=z} f(x) g(y)
+$$
+donde la suma es finita debido a que el grupo lo es.
+
+Utilizando la notación de las funciones como combinaciones lineales de elementos de $G$, este producto es 
+$$
+\bigg( \sum_i a_ig_i\bigg) * \bigg( \sum_j b_jg_j\bigg) =\sum_i \sum_j a_ib_j(g_ig_j)
+$$
+
+\begin{itemize}
+
+\item  El conjunto $A(G)$ con estas operaciones es un anillo.  Este anillo se llama {\sf álgebra grupal} de $G$ con coeficientes en $A$.
+
+\item  El anillo $A(G)$ es conmutativo si el grupo lo es. 
+
+\item  Si a cada $g \in G$ le hacemos corresponder la función $\hat g$, tenemos un morfismo de grupos de $G$ en las unidades de $A(G)$.  Este morfismo es inyectivo.
+
+\item  Si $e \in G$ es el elemento neutro, la función
+$$
+\begin{array}{ccc}
+A & \lto & A(G) \\
+a & \lto & a\cdot e
+\end{array}
+$$
+es un morfismo de anillos inyectivo.  $A$ puede considerarse un subanillo de $A(G)$ y $A(G)$ un álgebra sobre $A$.
+
+\item Si $\varphi : G \rightarrow G'$ es un morfismo de grupos, entonces existe un único morfismo de anillos $\varphi^* : G \lto G'$
+que cumple $\varphi^* (a) = a$  para todo $ a \in A $ y $ \varphi^*(g) = \varphi (g)$ para todo  $g \in G$.
+
+\item  Si $\varphi : A \rightarrow B $ es un morfismo de anillos, entonces existe un único morfismo $\varphi^*: A(G) \lto B(G)$
+que cumple $\varphi^*(g) = g$ y $\varphi^*(a) = \varphi(a)$
+
+\end{itemize}
+
+Esta construcción puede generalizarse a grupos que no sean finitos.  En este caso las funciones deben ser casi nulas y las combinaciones lineales de elementos de $G$ finitas.
+
+En vez de un grupo podríamos haber considerado un monoide.  Los polinomios en 1 variable son el álgebra asociado al monoide $\N$.
+Los polinomios en $n$ variables son los asociados al monoide $\N^n$.
+
+
+\bigskip
+
+\centerline{\sc Anillos de Boole y espectro} \index{anillo!de Boole}
+
+ Sea $A$ un anillo de Boole.  Si $\varphi: A \lto \Z_2$ es un morfismo de anillos, denotamos su núcleo por $\p_\varphi$.
+
+\begin{itemize}
+
+\item  Cada ideal primo de $A$ es un ideal maximal.
+
+\item  Si $\p$ es primo, $A/\p$ es un cuerpo con dos elementos isomorfo a $\Z_2$.
+
+\item  Si $a \in A$ es no nulo, existe un morfismo $\varphi :A \lto \Z_2$ que cumple $\varphi(a)=1$.
+
+\item  La correspondencia
+$$
+\begin{array}{ccc}
+\Hom (A,\Z_2) &\lto & \Spec(A) \\
+\varphi &\lto & \p_\varphi
+\end{array}
+$$
+es una biyección entre los dos conjuntos.
+
+\end{itemize}
+
+\bigskip
+
+\centerline{\sc Anillos de Boole y retículos} \index{retículo} \index{anillo!de Boole}
+
+ Sea $A$ un anillo de Boole.  Definimos un orden \index{orden en un anillo de Boole} en el anillo mediante la fórmula
+$$
+a\leq b \Leftrightarrow a=ab
+$$
+
+\begin{itemize}
+
+\item  Si $A=\mathcal{P}(X)$ el concepto de orden conjuntista dado por la inclusión coincide con el orden que hemos definido.
+
+
+\item El elemento máximo de $A$ es $1$ y el elemento mínimo es $0$.
+
+\item El supremo \index{supremo!anillo de Boole} de dos elementos $a$ y $b$ se denota $a \vee b$ y es igual a $a+b+ab$.
+
+\item  El ínfimo \index{infimo@ínfimo!anillo de Boole} de dos elementos es $a \wedge b=ab$.
+
+\item El complementario de un elemento $a$ se denota $a^*$ y es $a^*=1-a$.
+
+\item  Las operaciones $\vee$ y $\wedge$ son distributivas, una con respecto a la otra
+$$
+\begin{array}{c}
+(a \wedge b)\vee c = (a \vee c) \wedge (b \vee c)\\
+(a \vee b) \wedge c = (a \wedge c) \vee (b \wedge c)
+\end{array}
+$$
+
+\end{itemize}
+
+Hemos obtenido que todo anillo de Boole es un retículo con elemento máximo y mínimo, distributivo y donde todo elemento tiene un suplementario.  Estos retículos son llamados {\rm reticulos de Boole}. \index{retículo!de Boole}
+
+Partiendo de un retículo de Boole y definiendo una  suma y un producto con las fórmulas
+$$
+\begin{array}{c}
+a+b=(a \wedge b^*) \vee (a^* \wedge b) \\
+ab = a\wedge b
+\end{array}
+$$
+se obtiene un anillo de Boole.
+
+
+\bigskip
+
+
+\centerline{\sc Anillo local} 
+
+Un {\rm anillo local} \index{anillo!local} es un anillo que posee un único ideal maximal $\m$.  El cociente $k=A/\m$ es el {\rm cuerpo residual}. \index{cuerpo!residual}
+
+\begin{itemize}
+
+\item $A_\p$ es un anillo local.  Describir su ideal maximal.
+
+\item  Sea $A$ un anillo y $\m$ un ideal que cumpla que todo elemento que no esté en $\m$ sea una unidad.  Entonces $A$ es local y $\m$ es su ideal maximal.
+
+\item  Sea $A$ una anillo y $\m$ un ideal maximal.  Si todo elemento de la forma $1+a$ con $a \in \m$ es una unidad, entonces $A$ es un anillo local y $\m$ es maximal.
+
+\item Sea $k$ un cuerpo y $k[[x]]$ el anillo de las series formales. El conjunto de todas las
+series formales sin término independiente es el ideal generado por $x$.  Dicho ideal es el 
+único ideal maximal y por lo tanto el anillo es local.
+
+\end{itemize}
+
+\bigskip
+
+\centerline{\sc Ampliaciones de cuerpos} 
+
+Sea $k \subset E$ dos cuerpos.  Decimos que $k$ es un {\rm subcuerpo} \index{subcuerpo} de $E$ o también que $E$ es una {\rm ampliación} \index{ampliación} de $k$.
+
+\begin{itemize}
+
+\item $\R$ es una extensión de $\Q$.
+
+\item  $\C$ es una extensión de $\Q$ y de $\R$.
+
+\item $\Q(\sqrt{2})$ es una extensión de $\Q$.
+
+\item  Si $k$ es un cuerpo y $p$ un polinomio irreducible, el cuerpo $k(x)/p$ es una extensión de $k$.
+
+\item Si $k$ es un cuerpo y $E$ el cuerpo de cocientes del anillo de polinomios.  $E$ es el cuerpo de fracciones algebraicas.  $E$ es una extensión de $k$.
+
+\item  Generalizar el ejemplo anterior a los anillos de polinomios en varias variables.
+
+\item  Sea $k \subset E$ una extensión y sea $L$ un anillo que contiene a $k$ y que esté contenido en $E$.  Si la dimensión de $L$ es finita, entonces necesariamente es un cuerpo.  Si esta dimensión es infinita, puede ocurrir que $L$ no sea un cuerpo (ejemplo de los polinomios contenidos en su cuerpo de fracciones).
+
+
+\item  Si $k \subset L$ y $L \subset E$ son dos extensiones, entonces la extensión $k \subset E$ es de grado finito si y solo si tanto $k \subset L$ como $L \subset E$ son de grado finito.  Además se cumple la fórmula
+$$
+[E:k]=[E:L][L:k]
+$$
+
+\item  Si $[E:k]$ es un número primo, entonces no existe ningún subcuerpo en $E$ que contenga a $k$.
+
+\item  Sea $[k \subset E]$ de grado finito y $\alpha \in E$.  El morfismo
+$$
+\begin{array}{ccc}
+k(x) & \lto & E \\
+p &   \lto   & p(\alpha)
+\end{array}
+$$
+no puede ser inyectivo y por lo tanto tiene núcleo.  El generador del núcleo de este morfismo se denota $p_\alpha$ y se llama {\rm polinomio mímimo} \index{polinomio!mínimo} de $\alpha$.   Resulta de la definición que $p_\alpha$ es el polinomio de menor grado que tiene como raiz a $\alpha$.  Las otras raices de $p_\alpha$ se llaman {\rm conjugadas} \index{raices!conjugadas} de $\alpha$.
+
+\item  Aplicar el ejemplo anterior a la extensión $\R \subset \C$ y al elemento $i \in \C$.  Hacer lo mismo con $\Q \subset \Q(\sqrt{2})$ y $\sqrt{2}$.
+
+
+\end{itemize}
+
+
+La intersección de subcuerpos es de nuevo un subcuerpo.  Si $k \subset E$ es una extensión y $S$ un subconjunto de $E$, el menor subcuerpo que contiene a $K$ y a $S$ se denota $K(S)$ y es una extensión de $k$.  Los elementos de $K(S)$ se pueden escribir como fracciones algebraicas, donde las variables han sido sustituidas por elementos de $S$.  Decimos que $k \subset E$ es {\rm finitamente generada} \index{extensión!finitamente generada} si existe un conjunto finito $S= \{a_1, \dots, a_n\}$ tal que $E=K(S)$..  Si conocemos el conjunto finito normalmente denotamos a $K(S)$ como $K(a_1,\dots,a_n)$.  Debemos de tener en cuenta que el conjunto $S$ en general no es único.
+
+Si el conjunto está formado por un solo elemento $\alpha$, el cuerpo se denota $K(\alpha)$ y decimos que es una {\rm extensión simple} \index{extensión!simple} de $k$.  $\alpha$ es el {\rm elemento primitivo} \index{elemento!primitivo} de la extensión y en general no será único.
+
+Un elemento $\alpha \in E$ es {\rm algebraico} \index{elemento!algebraico} si $K(\alpha)$ es una extensión de grado finito.  Si por el contrario la extensión es de grado infinito, el elemento se llama {\rm transcendente}. \index{elemento!transcendente}   Obsérvese que los elementos algegraicos tienen polinomio mínimo y sin embargo los transcendentes no lo tienen.
+
+\begin{itemize}
+
+\item Si $k \subset E$ es de grado finito, entonces es finitogenerada.
+
+\item  Si $\alpha \in E$ es algebraico, la imagen del anillo de polinomios por el morfismo de evaluación
+$$
+\begin{array}{ccc}
+k(x) & \lto & E \\
+p & \lto   & p(\alpha)
+\end{array}
+$$
+coincide con $k(\alpha)$.
+
+\item  El cuerpo de fracciones algebraicas en una variable sobre un cuerpo $k$ es finitogenerado.  En efecto, $x$ genera dicho cuerpo, de ahí la notación $k(x)$ comunmente empleada para denotar a dicho cuerpo.  Como dicha notación coincide con la empleada para el anillo de polinomios, debemos prestar atención y diferenciar por el contexto el conjunto al que nos referimos.
+
+\item  Utilizando argumentos sobre cardinalidad probar que $\Q Subset \R$ no puede ser finitamente generada.
+
+\item  Si $S'$ es otro subconjunto, entonces $k(S)(S')=K(S\cup S')$.
+
+\item  Utilizar inductivamente el resultado anterior para demostrar que si $a_1, \dots, a_n$ son algebraicos sobre $k$, entonces $k(a_1,\dots,a_n$ es una extensión de grado finito sobre $k$.
+
+\item  Sea $k \subset E$ una extensión y $A$ el conjunto de todos los elementos algebraicos de $E$ sobre $k$.  $A$ es un cuerpo que contiene a $k$.
+
+\item  Una ampliación $k \subset E$ se dice que es {\rm algebraica} \index{extensión!algebraica} si todo elemento de $E$ es algebraico sobre $k$.  Si $k \subset E$ es de grado finito, entonces es algebraica, sin embargo el recíproco no es cierto.
+
+\item  Sea $\Q \subset \C$.  Sea $A$ el conjunto de números algebraicos sobr $\Q$.  $A$ está contenido estrictamente en $\C$ y no puede ser de grado finito la extensión $\Q \subset A$.
+
+
+
+\end{itemize}
+
+Veamos ahora algunos resultados referentes a las raices de polinomios,
+
+En general, sabemos que dado un polinomio $p$ con coeficientes en $k$, alguna de las raices de $p$ no están en $k$, sino en una extensión de $k$.  Recordemos a este respecto el teorema de Kronecker: \index{teorema!de Kronecker}
+
+Dado un polinomio $p$ sobre un cuerpo $k$, existe una extensión $E$, de grado finito, donde $p$ tiene al menos una raiz.
+
+\begin{itemize}
+
+
+\item  Aplicando inductivamente el  teorema de Kronecker se demuestra que existe una extensión $E$ de grado finito, donde $p$ se descompone en factores lineales.
+
+\item  Si $k \subset E$ es una extensión de $k$ donde $p$ se descompone en factores lineales, al mínimo cuerpo $L \subset E$ donde $p$ se descompone en factores lineales se le llama {\rm cuerpo de descomposición} \index{cuerpo!de descomposición} de $p$.  En virtud del teorema de Kronecker, todo polinomio tiene al menos un cuerpo de descomposición.
+
+\item  Demostrar que si $L$ y $L'$ son dos cuerpos de descomposición (en principio obtenidos de diferentes extensiones) entonces $L$ y $L'$ son isomorfos como cuerpos.  En este sentido, el cuerpo de descomposición es único.
+
+\item  Sea $p$ un número primo y $n$ un  número natural.  Consideramos el polinomio $x^{p^n}-x$ sobre el cuerpo $\Z_p$.  El cuerpo de descomposición de este polinomio se denota $\F_{p^n}$ y es un cuerpo con $p^n$ elementos.
+
+\item  Si $E$ es un cuerpo con $p^n$ elementos, entonces es una extensión de $\Z_p$.  Aplicando teoría de grupos finitos, todos los elementos de $E$ son raices del polinomio $x^{p^n}-x$ y este polinoimio descompone en factores lineales.  En ningún subcuerpo de $E$ este polinomio descompone en factores lineales.  Así $E$ es el cuerpo de descomposición de un polinomio e isomorfo entonces a $\F_{p^n}$.  Concluimos que para cada número primo $p$ y cada número natural $n$, existe un único cuerpo con $p^n$ elementos.
+
+
+\end{itemize}
+
+\bigskip
+
+\centerline{\sc Polinomios enteros y racionales}
+
+
+Dado un polinomio $p$ con coeficientes racionales, multiplicando por los divisores de los coeficientes, obtenemos un múltiplo del polinomio $p$ que tiene todos los coeficientes enteros.  Las raices de ambos polinomios son las mismas.  Para el estudio de las raices podemos suponer que los polinomios tienen coeficientes enteros.  De ahora en adelante $p$ designará un polinomio con coeficientes enteros.
+
+\begin{itemize}
+
+\item  Si $\alpha$ es una raiz entera de $p$, entonces $\alpha$ es un divisor del término independiente.
+
+\item  Si $\alpha$ es una raiz de $p$, entonces los números $p(1)/(\alpha-1)$ y $p(1)/(\alpha+1)$ son enteros.
+
+\item  Sea $p$ es un polinomio cuyo término de mayor grado es $1$.  Si $a/b$ es una raiz de $p$, entonces necesariamente $a/b$ es un número entero.
+
+\item  Sea $p= a_0+a_1x+ \dots + a_nx^n$ un polinomio con coeficientes enteros.  Sea $a/b$ una raiz irreducible.  Entonces $a$ es un divisor del  término independiente ($a_0$) y $b$ es un divisor del término de mayor grado ($a_n$).
+
+\item Sea $p= a_0+a_1x+ \dots + a_nx^n$.  Multiplicando dicho polinomio por $(a_n)^{n-1}$ obtenemos un nuevo polinomio con coeficientes enteros.  Si hacemos el cambio de variable $y=a_nx$ se tiene un polinomio en la variable $y$ con coeficientes enteros y cuyo coeficiente de mayor grado es $1$.
+
+\end{itemize}
+
+Un polinomio $p$ con coeficientes enteros es {\rm primitivo} \index{polinomio!primitivo} si el máximo común divisor de todos sus coeficientes es $1$.  Esto es  lo mismo que decir que no se puede sacar factor común de los coeficientes del polinomio.
+
+Si nos dan un polinomio con coeficientes racionales, lo multiplicamos por los divisores de los coeficientes.  El resultado es un polinomio con coeficientes enteros.  A dicho polinomio le sacamos factor común el mayor número que podamos.  Hemos obtenido un polinomio primitivo.
+
+\begin{itemize}
+
+\item  Si $p$ es un polinomio con coeficientes racionales, existe un polinomio primitivo $\phi$ que cumple
+$$
+p= \frac{a}{b}\phi
+$$
+Dicho polinomio es único salvo el signo.
+
+\item {\sf Lema de Gauss.}  El producto de dos polinomios primitivos es un polinomio primitivo.
+
+\item Un polinomio con coeficientes enteros que sea irreducible sobre el anillo de los enteros, es también irreducible sobre el cuerpo de los racionales.  Por lo tanto para estudiar la irreducibilidad podemos suponer que los coeficientes son enteros.
+
+\item {\sf Criterio de Einsentein.} \index{criterio de Einsentein} Dado un polinomio $a_0+a_1x+ \dots a_nx^n$ con coeficientes
+enteros, si existe un número primo $p$ que cumpla:
+\begin{enumerate}[a) ]
+
+\item El término de mayor grado $a_n$ no es divisible entre $p$.
+
+\item  Todos los demás términos son divisibles entre $p$.
+
+\item El término independiente es divisible por $p$ pero no lo es entre $p^2$.
+
+\end{enumerate}
+Entonces $p$ es irreducible sobre el anillo de los enteros.  El criterio de Eisenstein es una condición
+suficiente pero no necesaria.
+
+
+
+\end{itemize}
+
+
+\bigskip
+
+\centerline{\sc Simplicidad de los anillos de matrices} 
+
+Un anillo no conmutativo es {\rm simple} \index{anillo!simple} si carece de ideales biláteros
+no triviales.  Dado un cuerpo $k$ consideramos el anillo $A$ de las matrices cuadradas
+de orden $n$.  Probaremos que este anillo es simple.
+
+Sea $C_k$ el subconjunto de matrices que tienen nulos todos los coeficientes que no 
+se encuentran en la columna $k$.  Análogamente $F_k$ es el subconjunto de las matrices 
+que tienen nulos todos los elementos, salvo, posiblemente, los de la fila $k$.
+
+\begin{itemize}
+
+\item $C_k$ es un ideal por la izquierda. De este modo $A \cdot C_k
+\subset C_k$.
+
+\item $F_k$ es un ideal por la derecha.
+
+\item Sea $E_{ij}$ la matriz de coeficientes $e_{ij}=\delta_{ij}$.  Dada una matriz $A$ el producto
+$E_{ij}\cdot A$ tiene como fila $i$ la fila $j$ de la matriz $A$, siendo nulos todos los demás términos.
+
+\item Si $A \in C_k$ entonces $E_{ij}\cdot A$ tiene en la posición $ik$ el elemento $a_{jk}$ de
+la matriz $A$, y todos los demás elementos son nulos.
+
+\item Si $A$ es una matriz no nula de $C_k$ y que además cumpla $a_{jk} \neq 0$, y $C \in C_k$
+es una matriz arbitraria, entonces
+$$
+\sum_{i=1}^n c_{ik}{a_{jk}}^{-1} E_{ij} A =C
+$$
+
+\item Si una matriz no nula $A \in C_k$ pertenece a un ideal por la izquierda $I$, entonces
+$C_k \subset I$.
+
+\item Del mismo modo si $A \in F_k$ pertenece a un ideal por la derecha, todo el conjunto $F_k$
+pertenece a ese ideal.
+
+\item Concluir que el anillo de matrices es simple.
+
+
+\end{itemize}
+
+
+
+\end{document}
+
+
